@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.moy.spring.test.example.repository.UserRepository">
+    <resultMap id="BaseResultMap" type="org.moy.spring.test.example.domain.UserEntity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, code
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user
+    </select>
+
+    <insert id="insert" parameterType="org.moy.spring.test.example.domain.UserEntity">
+        INSERT INTO t_user ( id, name, code)
+        VALUES (#{entity.id},#{entity.name},#{entity.code})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM t_user WHERE id= #{id}
+    </delete>
+</mapper>
