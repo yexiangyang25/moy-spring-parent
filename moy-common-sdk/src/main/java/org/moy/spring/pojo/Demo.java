@@ -1,7 +1,14 @@
 package org.moy.spring.pojo;
 
 import java.io.Serializable;
-
+/**
+ * <p>Description: [测试 参数对象]</p>
+ * Created on 2018/12/02
+ *
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
+ * @version 1.0
+ * Copyright (c) 2018 墨阳
+ */
 public class Demo implements Serializable {
     private static final long serialVersionUID = -3930058990427525203L;
     private String username;
