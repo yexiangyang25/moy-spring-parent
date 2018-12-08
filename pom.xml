@@ -12,6 +12,7 @@
         <module>moy-common-sdk</module>
         <module>moy-ribbon-consumer</module>
         <module>moy-feign-consumer</module>
+        <module>moy-zuul-gateway</module>
     </modules>
     <packaging>pom</packaging>
 

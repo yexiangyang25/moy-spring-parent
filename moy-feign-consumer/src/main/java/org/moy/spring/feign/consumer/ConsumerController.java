@@ -28,6 +28,7 @@ public class ConsumerController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
+        LOG.info("FeignClient ...");
         return helloService.index();
     }
 
