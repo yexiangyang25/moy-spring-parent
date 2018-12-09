@@ -15,6 +15,7 @@
         <module>moy-zuul-gateway</module>
         <module>moy-config-server</module>
         <module>moy-config-client</module>
+        <module>moy-bus-amqp</module>
     </modules>
     <packaging>pom</packaging>
 
