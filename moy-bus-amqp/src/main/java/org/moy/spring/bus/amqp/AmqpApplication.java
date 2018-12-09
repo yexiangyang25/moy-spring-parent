@@ -1,4 +1,4 @@
-package org.moy.spring.config.client;
+package org.moy.spring.bus.amqp;
 
 
 import org.springframework.boot.SpringApplication;
@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * <p>Description: [配置中心客户端集成 应用入口]</p>
+ * <p>Description: [amqp消息 应用入口]</p>
  * Created on 2018/12/09
  *
  * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
@@ -15,10 +15,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class ConfigClientApplication {
+public class AmqpApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConfigClientApplication.class, args);
+        SpringApplication.run(AmqpApplication.class, args);
     }
-
 }
