@@ -24,7 +24,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <springBootVersion>2.0.1.RELEASE</springBootVersion>
+        <springBootVersion>2.0.5.RELEASE</springBootVersion>
         <springCloudVersion>Finchley.SR2</springCloudVersion>
         <projectVersion>1.0-SNAPSHOT</projectVersion>
         <lang3Version>3.6</lang3Version>
