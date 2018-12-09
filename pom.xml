@@ -13,6 +13,8 @@
         <module>moy-ribbon-consumer</module>
         <module>moy-feign-consumer</module>
         <module>moy-zuul-gateway</module>
+        <module>moy-config-server</module>
+        <module>moy-config-client</module>
     </modules>
     <packaging>pom</packaging>
 
