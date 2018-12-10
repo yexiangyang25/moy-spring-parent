@@ -40,8 +40,11 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
             baseField.setAccessible(true);
             baseField.set(this, bean);
         } catch (Exception e) {
-            String errorMsg = String.format("初始化业务操作类模板失败,[业务操作类%s]必须申明三个泛型参数,第一个泛型形参为数据库实体操作类,第二个泛型形参为数据库实体类,第二个泛型形参为数据库实体名主键字段对应类型!",
-                    subClass.getSimpleName());
+            String errorMsg = String.format("初始化业务操作类模板失败,[%s]必须申明三个泛型参数,1.%s,2.%s,3.%s",
+                    subClass.getSimpleName(),
+                    "第一个泛型形参为数据库实体操作类,",
+                    "第二个泛型形参为数据库实体类,",
+                    "第二个泛型形参为数据库实体名主键字段对应类型!");
             throw new RuntimeException(errorMsg, e);
         }
     }
