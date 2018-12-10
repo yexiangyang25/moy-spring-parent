@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author 叶向阳
  * @since 1.0
  */
-@SpringBootTest
+@SpringBootTest(classes={ExampleApplication.class})
 @RunWith(SpringRunner.class)
 public abstract class BaseTest {
 

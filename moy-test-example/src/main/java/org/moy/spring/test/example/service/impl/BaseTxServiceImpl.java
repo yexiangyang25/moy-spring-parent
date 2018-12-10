@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
+@Deprecated
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 36000, rollbackFor = Exception.class)
 public abstract class BaseTxServiceImpl {
 }

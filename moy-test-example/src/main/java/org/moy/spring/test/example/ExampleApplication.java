@@ -3,6 +3,7 @@ package org.moy.spring.test.example;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * <p>Description: [程序入口]</p>
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Copyright (c) 2018 墨阳
  */
 @SpringBootApplication
+@ImportResource("classpath:/spring/spring-import.xml")
 @MapperScan("org.moy.spring.test.example.repository")
 public class ExampleApplication {
 

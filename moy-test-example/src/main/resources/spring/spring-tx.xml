@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd
+         http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- *** transactionManager start *** -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- === transactionManager end === -->
+
+    <!-- *** 配置事务增强处理Bean,指定事务管理器 start *** -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="load*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="list*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="count*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="query*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="execute*" propagation="REQUIRED"/>
+            <tx:method name="copy*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="lock*" propagation="REQUIRED"/>
+            <tx:method name="unlock*" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- === 配置事务增强处理Bean,指定事务管理器 end === -->
+
+    <!-- *** 配置一个切入点 start *** -->
+    <aop:config>
+        <aop:pointcut id="defaultPointcut"
+                      expression="
+                            execution(* org.moy.spring.test.example.service.impl.*ServiceImpl.*(..)) "/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="defaultPointcut"/>
+    </aop:config>
+    <!-- === 配置一个切入点 end === -->
+
+    <!-- *** 开启事务控制的注解支持 start *** -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- === 开启事务控制的注解支持 end === -->
+</beans>

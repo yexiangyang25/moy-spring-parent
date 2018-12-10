@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public abstract class BaseTemplateServiceImpl<T, PK extends Serializable> extends BaseTxServiceImpl implements BaseTemplateService<T, PK> {
+public abstract class BaseTemplateServiceImpl<T, PK extends Serializable> implements BaseTemplateService<T, PK> {
 
     public static final String ENTITY_SUFFIX = "Entity";
     public static final String REPOSITORY_SUFFIX = "Repository";
