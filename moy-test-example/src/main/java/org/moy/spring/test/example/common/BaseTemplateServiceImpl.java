@@ -1,7 +1,5 @@
 package org.moy.spring.test.example.common;
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -37,7 +35,7 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
             // 获取子类第一个泛型参数 即数据库实体操作类
             Class<T> entityClazz = (Class<T>) type.getActualTypeArguments()[0];
             T bean = SpringContextUtil.getBean(entityClazz);
-            // 将该实体操作类设置到baseRepository中
+            // 将该实体操作类实例对象设置到baseRepository中
             Field baseField = subClass.getSuperclass().getDeclaredField(BASE_REPOSITORY_NAME);
             baseField.setAccessible(true);
             baseField.set(this, bean);
