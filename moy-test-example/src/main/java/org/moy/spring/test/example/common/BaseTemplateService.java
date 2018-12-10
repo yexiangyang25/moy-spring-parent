@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public interface BaseTemplateService<T, PK extends Serializable> {
+public interface BaseTemplateService< T, PK extends Serializable> {
 
     Integer insert(T entity);
 
