@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.service;
+package org.moy.spring.test.example.common;
 
 import java.io.Serializable;
 import java.util.List;

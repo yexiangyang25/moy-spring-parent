@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.service.impl;
+package org.moy.spring.test.example.common;
 
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;

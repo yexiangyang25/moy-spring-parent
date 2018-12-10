@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.service;
 
+import org.moy.spring.test.example.common.BaseTemplateService;
 import org.moy.spring.test.example.domain.UserEntity;
 
 /**

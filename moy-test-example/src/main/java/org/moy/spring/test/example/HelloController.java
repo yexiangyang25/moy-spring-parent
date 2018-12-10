@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>Description: [欢迎接口]</p>
+ * <p>Description: [欢迎 接口]</p>
  * Created on 2018/10/10
  *
  * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>

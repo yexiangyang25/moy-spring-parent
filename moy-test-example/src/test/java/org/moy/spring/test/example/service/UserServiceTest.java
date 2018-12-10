@@ -36,6 +36,7 @@ public class UserServiceTest extends BaseTest {
         entity.setId(TEST_ID);
         entity.setCode(uid);
         entity.setName(uid);
+        LOG.info(entity.toString());
         Integer result = service.insert(entity);
         assertTrue(result == 1);
     }

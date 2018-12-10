@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.repository;
+package org.moy.spring.test.example.common;
 
 import org.apache.ibatis.annotations.Param;
 

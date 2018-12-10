@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.repository;
 
+import org.moy.spring.test.example.common.BaseRepository;
 import org.moy.spring.test.example.domain.UserEntity;
 
 

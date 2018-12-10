@@ -1,8 +1,6 @@
-package org.moy.spring.test.example.service.impl;
+package org.moy.spring.test.example.common;
 
 import org.apache.commons.lang3.StringUtils;
-import org.moy.spring.test.example.repository.BaseRepository;
-import org.moy.spring.test.example.service.BaseTemplateService;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
@@ -18,7 +16,7 @@ import java.util.List;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public abstract class BaseTemplateServiceImpl<T, PK extends Serializable> implements BaseTemplateService<T, PK> {
+public abstract class BaseTemplateServiceImpl<T, PK extends Serializable> extends BaseLog implements BaseTemplateService<T, PK> {
 
     public static final String ENTITY_SUFFIX = "Entity";
     public static final String REPOSITORY_SUFFIX = "Repository";
@@ -90,6 +88,7 @@ public abstract class BaseTemplateServiceImpl<T, PK extends Serializable> implem
 
     @Override
     public Integer insert(T entity) {
+        LOG.info(entity.toString());
         return baseRepository.insert(entity);
     }
 
