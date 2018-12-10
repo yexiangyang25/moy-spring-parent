@@ -51,7 +51,6 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
 
     @Override
     public Integer insert(T entity) {
-        LOG.info(entity.toString());
         return baseRepository.insert(entity);
     }
 
