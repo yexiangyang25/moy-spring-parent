@@ -5,6 +5,7 @@ import org.moy.spring.test.example.BaseTest;
 import org.moy.spring.test.example.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +37,12 @@ public class UserServiceTest extends BaseTest {
         entity.setId(TEST_ID);
         entity.setCode(uid);
         entity.setName(uid);
+        Date date = new Date();
+        entity.setCreateTime(date);
+        entity.setModifyTime(date);
+        entity.setOperateTime(date);
+        entity.setStatus(1);
+        entity.setTelephone("132");
         LOG.info(entity.toString());
         Integer result = service.insert(entity);
         assertTrue(result == 1);

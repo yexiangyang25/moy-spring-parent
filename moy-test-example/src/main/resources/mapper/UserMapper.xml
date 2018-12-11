@@ -5,10 +5,17 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP"/>
+        <result column="version" property="version"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, name, code
+        id, name, code,telephone,status,create_time,modify_time,operator,operate_time,version
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -18,8 +25,21 @@
     </select>
 
     <insert id="insert" parameterType="org.moy.spring.test.example.domain.UserEntity">
-        INSERT INTO t_user ( id, name, code)
-        VALUES (#{entity.id},#{entity.name},#{entity.code})
+        INSERT INTO t_user (
+        <include refid="Base_Column_List"/>
+        )
+        VALUES (
+        #{entity.id},
+        #{entity.name},
+        #{entity.code},
+        #{entity.telephone},
+        #{entity.status},
+        #{entity.createTime},
+        #{entity.modifyTime},
+        #{entity.operator},
+        #{entity.operateTime},
+        #{entity.version}
+        )
     </insert>
 
     <delete id="delete">
