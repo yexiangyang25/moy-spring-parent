@@ -1,8 +1,10 @@
 package org.moy.spring.test.example.controller;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
+import org.moy.spring.test.example.domain.UserEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * <p>Description: [Swagger2 测试]</p>
@@ -21,7 +23,8 @@ public interface Swagger2RestApi {
      * @return
      */
     @ApiOperation(value = "打招呼", notes = "打招呼")
-    @ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String")
+    @ApiImplicitParams(
+            {@ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String")})
     @GetMapping("/hi")
     String sayHi(String name);
 }
