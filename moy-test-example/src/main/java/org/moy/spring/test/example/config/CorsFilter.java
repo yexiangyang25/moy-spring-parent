@@ -17,7 +17,7 @@ import java.io.IOException;
  * Copyright (c) 2018 墨阳
  */
 @Component
-public class CORSFilter implements Filter {
+public class CorsFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

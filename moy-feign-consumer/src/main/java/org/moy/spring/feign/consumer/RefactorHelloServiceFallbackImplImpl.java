@@ -1,6 +1,6 @@
 package org.moy.spring.feign.consumer;
 
-import org.moy.spring.service.HelloServiceDefaultFallback;
+import org.moy.spring.service.HelloServiceDefaultFallbackImpl;
 import org.springframework.stereotype.Component;
 
 
@@ -13,5 +13,5 @@ import org.springframework.stereotype.Component;
  * Copyright (c) 2018 墨阳
  */
 @Component
-public class RefactorHelloServiceFallback extends HelloServiceDefaultFallback implements RefactorHelloService {
+public class RefactorHelloServiceFallbackImplImpl extends HelloServiceDefaultFallbackImpl implements RefactorHelloService {
 }

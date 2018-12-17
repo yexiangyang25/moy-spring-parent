@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public abstract class JsonUtil {
+public class JsonUtil {
+
+    private JsonUtil(){}
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 

@@ -20,9 +20,9 @@ import java.util.List;
  * Copyright (c) 2018 墨阳
  */
 @RestController
-public class HelloController implements HelloService {
+public class HelloControllerImpl implements HelloService {
 
-    private Logger LOG = LoggerFactory.getLogger(getClass());
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private DiscoveryClient discoveryClient;

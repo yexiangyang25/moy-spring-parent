@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public class HelloServiceDefaultFallback implements HelloService {
+public class HelloServiceDefaultFallbackImpl implements HelloService {
 
-    private static Logger LOG = LoggerFactory.getLogger(HelloServiceDefaultFallback.class);
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public String index() {

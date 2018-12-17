@@ -11,8 +11,10 @@ import java.util.Map;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public abstract class NullUtil {
+public class NullUtil {
 
+    private NullUtil(){}
+    
     /**
      * 对象是空，返回<tt>true<tt/>
      *
