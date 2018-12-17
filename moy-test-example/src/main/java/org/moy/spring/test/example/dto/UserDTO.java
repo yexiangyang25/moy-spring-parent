@@ -1,34 +1,23 @@
-package org.moy.spring.test.example.domain;
+package org.moy.spring.test.example.dto;
 
 import org.moy.spring.test.example.common.BaseEntity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>Description: [用户 实体]</p>
- * Created on 2018/10/10
+ * Created on 2018/12/17
  *
  * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public class UserEntity extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 270995155524859850L;
+public class UserDTO extends BaseEntity implements Serializable {
 
-    private Long id;
     private String code;
     private String name;
     private String telephone;
     private Integer status;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
@@ -64,9 +53,8 @@ public class UserEntity extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
+        return "UserDTO{" +
+                "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", status=" + status +

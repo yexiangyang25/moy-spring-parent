@@ -1,5 +1,7 @@
 package org.moy.spring.test.example.common;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -19,6 +21,11 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
     private static final String BASE_REPOSITORY_NAME = "baseRepository";
 
     protected BaseRepository<T, PK> baseRepository;
+    /**
+     * 避免SpringContextUtil未初始化
+     */
+    @Autowired
+    protected SpringContextUtil springContextUtil;
 
     /**
      * 借助spring初始化bean时 执行
@@ -30,6 +37,7 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
     private void initBind() {
         // 获取继承该类的类名 即子类
         Class<? extends BaseTemplateService> subClass = this.getClass();
+        LOG.warn("subClass = {}", subClass.getName());
         try {
             ParameterizedType type = (ParameterizedType) subClass.getGenericSuperclass();
             // 获取子类第一个泛型参数 即数据库实体操作类
