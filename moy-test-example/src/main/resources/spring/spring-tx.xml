@@ -46,7 +46,7 @@
     <!-- *** 配置一个切入点 start *** -->
     <aop:config>
         <aop:pointcut id="defaultPointcut"
-                      expression="${project.aop.expression}"/>
+                      expression="${project.aop.tx.expression}"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="defaultPointcut"/>
     </aop:config>
     <!-- === 配置一个切入点 end === -->

@@ -62,7 +62,11 @@ public class PageResultBean<T> extends ResultBean<T> implements Serializable {
     }
 
     public static <E> PageResultBean<E> fail() {
-        return fail(FAIL_CODE, FAIL_MESSAGE);
+        return fail(FAIL_MESSAGE);
+    }
+
+    public static <E> PageResultBean<E> fail(String message) {
+        return fail(FAIL_CODE, message);
     }
 
     public static <E> PageResultBean<E> fail(Integer code, String message) {
@@ -107,5 +111,19 @@ public class PageResultBean<T> extends ResultBean<T> implements Serializable {
 
     public void setTotal(Long total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "PageResultBean{" +
+                "pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", pages=" + pages +
+                ", total=" + total +
+                ", success=" + success +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

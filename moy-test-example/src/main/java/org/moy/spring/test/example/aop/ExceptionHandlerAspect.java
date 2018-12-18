@@ -1,11 +1,11 @@
 package org.moy.spring.test.example.aop;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.moy.spring.test.example.beans.PageResultBean;
+import org.moy.spring.test.example.beans.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -23,23 +23,34 @@ import org.springframework.stereotype.Component;
 public class ExceptionHandlerAspect {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("execution (* org.moy.spring.test.example.controller.*.*(..))")
-    private void aspectjMethod() {
+    @Pointcut("execution (public org.moy.spring.test.example.beans.ResultBean org.moy.spring.test.example.controller.*.*(..))")
+    private void aspectMethod() {
     }
 
-    @AfterThrowing(value = "aspectjMethod()", throwing = "e")
-    public void afterThrowing(JoinPoint joinPoint, Throwable e) {
-        LOG.error("异常拦截器拦截异常", e);
-    }
-
-    @Around(value = "aspectjMethod()")
+    @Around(value = "aspectMethod()")
     public Object around(ProceedingJoinPoint point) {
-        Object result = null;
+        ResultBean<?> result = null;
         try {
-            result = point.proceed();
+            result = (ResultBean<?>) point.proceed();
         } catch (Throwable ex) {
             LOG.error("统一结果拦截器拦截异常", ex);
-            return result;
+            return ResultBean.fail(ex.getMessage());
+        }
+        return result;
+    }
+
+    @Pointcut("execution (public org.moy.spring.test.example.beans.PageResultBean org.moy.spring.test.example.controller.*.*(..))")
+    private void aspectPageMethod() {
+    }
+
+    @Around(value = "aspectPageMethod()")
+    public Object pageAround(ProceedingJoinPoint point) {
+        PageResultBean<?> result = null;
+        try {
+            result = (PageResultBean<?>) point.proceed();
+        } catch (Throwable ex) {
+            LOG.error("统一结果拦截器拦截异常", ex);
+            return PageResultBean.fail(ex.getMessage());
         }
         return result;
     }
