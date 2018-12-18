@@ -1,6 +1,9 @@
 package org.moy.spring.test.example.adapter.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.moy.spring.test.example.adapter.service.UserAdapterService;
+import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.BaseService;
 import org.moy.spring.test.example.common.BeanHelper;
 import org.moy.spring.test.example.domain.UserEntity;
@@ -26,9 +29,10 @@ public class UserAdapterServiceImpl extends BaseService implements UserAdapterSe
     private UserService userService;
 
     @Override
-    public List<UserDTO> findAll() {
+    public PageResultBean<List<UserDTO>> findAll(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<UserEntity> entityList = userService.findAll();
-        List<UserDTO> dtoList = BeanHelper.copyList(entityList, UserDTO.class);
-        return dtoList;
+        PageResultBean<List<UserEntity>> pageResultBean = PageResultBean.build(PageInfo.of(entityList));
+        return BeanHelper.copyPageList(pageResultBean, UserDTO.class);
     }
 }

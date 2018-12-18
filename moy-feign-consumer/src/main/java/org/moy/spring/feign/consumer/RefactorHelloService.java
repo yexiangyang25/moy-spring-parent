@@ -12,6 +12,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-@FeignClient(value = "moy-eureka-client", fallback = RefactorHelloServiceFallbackImplImpl.class)
+@FeignClient(value = "moy-eureka-client", fallback = RefactorHelloServiceFallbackImpl.class)
 public interface RefactorHelloService extends HelloService {
 }

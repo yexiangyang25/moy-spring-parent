@@ -13,5 +13,5 @@ import org.springframework.stereotype.Component;
  * Copyright (c) 2018 墨阳
  */
 @Component
-public class RefactorHelloServiceFallbackImplImpl extends HelloServiceDefaultFallbackImpl implements RefactorHelloService {
+public class RefactorHelloServiceFallbackImpl extends HelloServiceDefaultFallbackImpl implements RefactorHelloService {
 }

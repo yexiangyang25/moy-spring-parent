@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.adapter.service;
 
+import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.dto.UserDTO;
 
 import java.util.List;
@@ -14,9 +15,13 @@ import java.util.List;
  */
 public interface UserAdapterService {
 
+
     /**
      * 查询所有
+     *
+     * @param pageNum
+     * @param pageSize
      * @return
      */
-    List<UserDTO> findAll();
+    PageResultBean<List<UserDTO>> findAll(Integer pageNum, Integer pageSize);
 }

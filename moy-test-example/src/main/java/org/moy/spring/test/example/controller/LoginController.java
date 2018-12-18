@@ -1,7 +1,9 @@
 package org.moy.spring.test.example.controller;
 
+import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController extends BaseController {
 
-    @RequestMapping("/login")
-    public String login(){
-        return "[]";
+    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResultBean<String> login() {
+        return ResultBean.success();
     }
 }

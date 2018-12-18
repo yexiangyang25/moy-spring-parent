@@ -16,7 +16,8 @@ import java.util.List;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository, T, PK extends Serializable> extends BaseService implements BaseTemplateService<T, PK> {
+public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository, T, PK extends Serializable>
+        extends BaseService implements BaseTemplateService<T, PK> {
 
     private static final String BASE_REPOSITORY_NAME = "baseRepository";
 
@@ -37,11 +38,11 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
     private void initBind() {
         // 获取继承该类的类名 即子类
         Class<? extends BaseTemplateService> subClass = this.getClass();
-        LOG.warn("subClass = {}", subClass.getName());
         try {
             ParameterizedType type = (ParameterizedType) subClass.getGenericSuperclass();
             // 获取子类第一个泛型参数 即数据库实体操作类
             Class<T> entityClazz = (Class<T>) type.getActualTypeArguments()[0];
+            LOG.info("初始化模板服务类为:{},数据访问类为:{}", subClass.getName(), entityClazz.getName());
             T bean = SpringContextUtil.getBean(entityClazz);
             // 将该实体操作类实例对象设置到baseRepository中
             Field baseField = subClass.getSuperclass().getDeclaredField(BASE_REPOSITORY_NAME);

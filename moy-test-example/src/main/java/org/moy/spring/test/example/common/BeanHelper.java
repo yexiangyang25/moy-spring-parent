@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.common;
 
+import org.moy.spring.test.example.beans.PageResultBean;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -36,5 +37,11 @@ public class BeanHelper {
             result.add(t);
         }
         return result;
+    }
+
+    public static <E, T> PageResultBean<List<T>> copyPageList(PageResultBean<List<E>> sourcePageResultBean, Class<T> clazz) {
+        List<E> data = sourcePageResultBean.getData();
+        List<T> copyList = copyList(data, clazz);
+        return PageResultBean.buildDTOPage(sourcePageResultBean, copyList);
     }
 }
