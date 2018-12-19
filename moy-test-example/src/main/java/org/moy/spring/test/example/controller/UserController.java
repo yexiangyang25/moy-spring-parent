@@ -23,18 +23,18 @@ import java.util.List;
  * Copyright (c) 2018 墨阳
  */
 @RestController
-public class UserController extends BaseController {
+public class UserController extends BaseController implements UserApi{
 
     @Autowired
     private UserAdapterService userAdapterService;
 
-    @RequestMapping(value = "/user/info", method = {RequestMethod.GET, RequestMethod.POST})
+    @Override
     public ResultBean<UserDTO> info() {
         return ResultBean.success();
     }
 
 
-    @RequestMapping(value = "/user/findAll", method = {RequestMethod.GET, RequestMethod.POST})
+    @Override
     public PageResultBean<List<UserDTO>> findAll(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         return userAdapterService.findAll(pageNum, pageSize);
     }

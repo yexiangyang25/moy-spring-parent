@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public interface Swagger2RestApi {
+public interface Swagger2Api {
 
     /**
      * 打招呼

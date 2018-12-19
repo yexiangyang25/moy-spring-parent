@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/login")
-public class LoginController extends BaseController {
+public class LoginController extends BaseController implements LoginApi {
 
-    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    @Override
     public ResultBean<String> login() {
         return ResultBean.success();
     }

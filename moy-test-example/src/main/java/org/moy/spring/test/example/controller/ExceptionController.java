@@ -2,6 +2,7 @@ package org.moy.spring.test.example.controller;
 
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.common.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,21 +18,23 @@ import java.util.List;
  * Copyright (c) 2018 墨阳
  */
 @RestController
-public class ExceptionController {
+public class ExceptionController extends BaseController implements ExceptionApi {
 
-    @RequestMapping(value = "/exception/result", method = {RequestMethod.GET, RequestMethod.POST})
+    @Override
     public ResultBean<String> exceptionResult() {
-        if (true) {
-            int i = 1 / 0;
-        }
+        createException();
         return ResultBean.success();
     }
 
-    @RequestMapping(value = "/exception/page", method = {RequestMethod.GET, RequestMethod.POST})
-    public PageResultBean<List<String>> exceptionPage() {
+    private void createException() {
         if (true) {
             int i = 1 / 0;
         }
+    }
+
+    @Override
+    public PageResultBean<List<String>> exceptionPage() {
+        createException();
         return new PageResultBean<>();
     }
 }
