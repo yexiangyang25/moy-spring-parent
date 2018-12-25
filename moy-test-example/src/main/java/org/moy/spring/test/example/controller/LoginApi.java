@@ -17,8 +17,13 @@ public interface LoginApi {
 
     /**
      * 登录
+     *
      * @return
      */
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
     ResultBean<String> login();
+
+
+    @RequestMapping(value = "/401", method = {RequestMethod.GET, RequestMethod.POST})
+    ResultBean<String> unAuth();
 }

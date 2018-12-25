@@ -35,6 +35,7 @@
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
         <codec.version>1.11</codec.version>
+        <shiro.version>1.4.0</shiro.version>
     </properties>
 
     <dependencyManagement>
@@ -46,11 +47,26 @@
             </dependency>
             <!-- https://mvnrepository.com/artifact/{groupId}/{artifactId} -->
             <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>3.4.0</version>
+            </dependency>
+            <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${codec.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>

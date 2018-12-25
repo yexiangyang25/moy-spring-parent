@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.controller;
 
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.dto.UserDTO;
@@ -24,6 +25,7 @@ public interface UserApi {
      * 用户信息
      * @return
      */
+    @RequiresAuthentication
     @RequestMapping(value = "/user/info", method = {RequestMethod.GET, RequestMethod.POST})
     ResultBean<UserDTO> info();
 
@@ -34,6 +36,7 @@ public interface UserApi {
      * @param pageSize
      * @return
      */
+    @RequiresAuthentication
     @RequestMapping(value = "/user/findAll", method = {RequestMethod.GET, RequestMethod.POST})
     PageResultBean<List<UserDTO>> findAll(@RequestParam("pageNum") Integer pageNum,
                                           @RequestParam("pageSize") Integer pageSize);
