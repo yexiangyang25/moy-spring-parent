@@ -2,6 +2,8 @@ package org.moy.spring.test.example.controller;
 
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.dto.UserDTO;
@@ -23,20 +25,38 @@ public interface UserApi {
 
     /**
      * 用户信息
+     *
      * @return
      */
     @RequiresAuthentication
     @RequestMapping(value = "/user/info", method = {RequestMethod.GET, RequestMethod.POST})
     ResultBean<UserDTO> info();
 
+    /**
+     * 测试权限
+     * @return
+     */
+    @RequiresPermissions("auth")
+    @RequestMapping(value = "/user/auth", method = {RequestMethod.GET, RequestMethod.POST})
+    ResultBean<UserDTO> infoAuth();
+
+    /**
+     * 测试角色
+     * @return
+     */
+    @RequiresRoles("role")
+    @RequestMapping(value = "/user/role", method = {RequestMethod.GET, RequestMethod.POST})
+    ResultBean<UserDTO> infoRole();
+
 
     /**
      * 查询所有用户
+     *
      * @param pageNum
      * @param pageSize
      * @return
      */
-    @RequiresAuthentication
+    @RequiresRoles("admin")
     @RequestMapping(value = "/user/findAll", method = {RequestMethod.GET, RequestMethod.POST})
     PageResultBean<List<UserDTO>> findAll(@RequestParam("pageNum") Integer pageNum,
                                           @RequestParam("pageSize") Integer pageSize);

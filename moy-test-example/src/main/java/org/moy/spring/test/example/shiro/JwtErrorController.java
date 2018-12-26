@@ -27,6 +27,12 @@ public class JwtErrorController implements ErrorController {
         return ResultBean.fail(statusCode, "SERVER ERROR");
     }
 
+    @ResponseBody
+    @RequestMapping(JwtConst.UN_AUTH_URI)
+    public ResultBean<String> unAuth() {
+        return ResultBean.fail("unAuth");
+    }
+
     @Override
     public String getErrorPath() {
         return "/error";

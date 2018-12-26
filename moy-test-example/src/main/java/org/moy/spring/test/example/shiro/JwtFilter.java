@@ -34,7 +34,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
-        String authorization = req.getHeader("Authorization");
+        String authorization = req.getHeader(JwtConst.TOKEN_HTTP_HEAD);
         return authorization != null;
     }
 
@@ -44,7 +44,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String authorization = httpServletRequest.getHeader("Authorization");
+        String authorization = httpServletRequest.getHeader(JwtConst.TOKEN_HTTP_HEAD);
         JwtToken token = JwtToken.newToken(authorization);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         getSubject(request, response).login(token);
@@ -67,7 +67,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             try {
                 executeLogin(request, response);
             } catch (Exception e) {
-                response401(request, response);
+                responseToUnAuth(request, response);
             }
         }
         return true;
@@ -94,10 +94,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     /**
      * 将非法请求跳转到
      */
-    private void response401(ServletRequest req, ServletResponse resp) {
+    private void responseToUnAuth(ServletRequest req, ServletResponse resp) {
         try {
             HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
-            httpServletResponse.sendRedirect("/401");
+            httpServletResponse.sendRedirect(JwtConst.UN_AUTH_URI);
         } catch (IOException e) {
             LOG.error("拦截非法请求到指定页面 : {}", e.getMessage());
         }

@@ -33,6 +33,16 @@ public class UserController extends BaseController implements UserApi{
         return ResultBean.success();
     }
 
+    @Override
+    public ResultBean<UserDTO> infoAuth() {
+        return ResultBean.success("infoAuth",null);
+    }
+
+    @Override
+    public ResultBean<UserDTO> infoRole() {
+        return ResultBean.success("infoRole",null);
+    }
+
 
     @Override
     public PageResultBean<List<UserDTO>> findAll(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {

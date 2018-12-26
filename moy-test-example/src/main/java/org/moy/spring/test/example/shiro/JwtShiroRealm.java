@@ -8,6 +8,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -20,6 +21,9 @@ import org.apache.shiro.subject.PrincipalCollection;
  * Copyright (c) 2018 墨阳
  */
 public class JwtShiroRealm extends AuthorizingRealm {
+
+    @Autowired
+    private JwtCacheManager jwtCacheManager;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -39,9 +43,9 @@ public class JwtShiroRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
-        authorizationInfo.addRole("admin");
+        authorizationInfo.addRole("role");
 
-        authorizationInfo.addStringPermission("root");
+        authorizationInfo.addStringPermission("auth");
 
         return authorizationInfo;
     }
@@ -59,9 +63,10 @@ public class JwtShiroRealm extends AuthorizingRealm {
         String token = (String) authenticationToken.getCredentials();
         // 解密获得username，用于和数据库进行对比
         String username = JwtUtil.getUsername(token);
-        if (username == null) {
+        if (username == null || JwtUtil.verifyIsNotOk(token, username)) {
             throw new AuthenticationException("token invalid");
         }
-        return new SimpleAuthenticationInfo(token, token, "my_realm");
+        jwtCacheManager.verifyToken(token);
+        return new SimpleAuthenticationInfo(token, token, "jwtRealm");
     }
 }

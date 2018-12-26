@@ -24,22 +24,28 @@ public class JwtUtil {
     private static Logger LOG = LoggerFactory.getLogger(JwtUtil.class);
 
     /**
-     * 过期时间
+     * 校验token是否正确,不正确返回true
+     *
+     * @param token
+     * @param username
+     * @return
      */
-    private static final long EXPIRE_TIME = 5 * 60 * 1000;
+    public static boolean verifyIsNotOk(String token, String username) {
+        return !verifyIsOk(token, username);
+    }
 
     /**
-     * 校验token是否正确
+     * 校验token是否正确,正确返回true
      *
-     * @param token  密钥
-     * @param secret 用户的密码
+     * @param token    密钥
+     * @param username 用户名
      * @return 是否正确
      */
-    public static boolean verify(String token, String username, String secret) {
+    public static boolean verifyIsOk(String token, String username) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(JwtConst.JWT_SECRET);
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withClaim("username", username)
+                    .withClaim(JwtConst.JWT_CLAIM_USERNAME, username)
                     .build();
             DecodedJWT jwt = verifier.verify(token);
             return true;
@@ -57,7 +63,7 @@ public class JwtUtil {
     public static String getUsername(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
-            return jwt.getClaim("username").asString();
+            return jwt.getClaim(JwtConst.JWT_CLAIM_USERNAME).asString();
         } catch (JWTDecodeException e) {
             LOG.error("verifyException : {}", e.getMessage());
             return null;
@@ -65,18 +71,17 @@ public class JwtUtil {
     }
 
     /**
-     * 生成签名,5min后过期
+     * 生成签名
      *
      * @param username 用户名
-     * @param secret   用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, String secret) {
-        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
-        Algorithm algorithm = Algorithm.HMAC256(secret);
+    public static String sign(String username) {
+        Date date = new Date(System.currentTimeMillis() + JwtConst.JWT_EXPIRE_TIME);
+        Algorithm algorithm = Algorithm.HMAC256(JwtConst.JWT_SECRET);
         // 附带username信息
         return JWT.create()
-                .withClaim("username", username)
+                .withClaim(JwtConst.JWT_CLAIM_USERNAME, username)
                 .withExpiresAt(date)
                 .sign(algorithm);
     }

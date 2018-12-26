@@ -42,7 +42,7 @@ public class JwtShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setUnauthorizedUrl("/401");
+        shiroFilterFactoryBean.setUnauthorizedUrl(JwtConst.UN_AUTH_URI);
         //验证码过滤器
         Map<String, Filter> filtersMap = shiroFilterFactoryBean.getFilters();
         filtersMap.put("jwt", new JwtFilter());
@@ -51,8 +51,7 @@ public class JwtShiroConfig {
         // 拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 访问401和404页面不通过我们的Filter
-        filterChainDefinitionMap.put("/401", "anon");
-        filterChainDefinitionMap.put("/404", "anon");
+        filterChainDefinitionMap.put(JwtConst.UN_AUTH_URI, "anon");
         // 其他的
         filterChainDefinitionMap.put("/**", "jwt");
 
