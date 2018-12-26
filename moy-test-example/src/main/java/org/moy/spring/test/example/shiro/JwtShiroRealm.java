@@ -9,6 +9,16 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
+
+/**
+ * <p>Description: [自定义 Shiro Realm 实现权限认证]
+ * </p>
+ * Created on 2018/12/26
+ *
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
+ * @version 1.0
+ * Copyright (c) 2018 墨阳
+ */
 public class JwtShiroRealm extends AuthorizingRealm {
 
     @Override

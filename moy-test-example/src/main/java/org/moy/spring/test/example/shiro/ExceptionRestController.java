@@ -13,12 +13,25 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * <p>Description: [Rest 统一异常拦截]</p>
+ * Created on 2018/12/20
+ *
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
+ * @version 1.0
+ * Copyright (c) 2018 墨阳
+ */
 @RestControllerAdvice
 public class ExceptionRestController {
 
     private static Logger LOG = LoggerFactory.getLogger(ExceptionRestController.class);
 
-    // 捕捉shiro的异常
+    /**
+     * 捕捉shiro的异常
+     *
+     * @param e
+     * @return
+     */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     public ResultBean handle401(ShiroException e) {
@@ -26,7 +39,12 @@ public class ExceptionRestController {
         return ResultBean.fail("shiroException");
     }
 
-    // 捕捉UnauthorizedException
+    /**
+     * 捕捉UnauthorizedException
+     *
+     * @param e
+     * @return
+     */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     public ResultBean handle401(UnauthorizedException e) {
@@ -35,7 +53,13 @@ public class ExceptionRestController {
 
     }
 
-    // 捕捉其他所有异常
+    /**
+     * 捕捉其他所有异常
+     *
+     * @param request
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResultBean globalException(HttpServletRequest request, Throwable ex) {

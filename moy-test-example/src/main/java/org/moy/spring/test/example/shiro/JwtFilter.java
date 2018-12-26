@@ -14,11 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * <p>Description: [Jwt Filter]
  * preHandle->isAccessAllowed->isLoginAttempt->executeLogin
+ * </p>
+ * Created on 2018/12/26
+ *
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
+ * @version 1.0
+ * Copyright (c) 2018 墨阳
  */
 public class JwtFilter extends BasicHttpAuthenticationFilter {
 
-    private Logger LOG = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 判断用户是否想要登入。
@@ -85,14 +92,14 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     }
 
     /**
-     * 将非法请求跳转到 /401
+     * 将非法请求跳转到
      */
     private void response401(ServletRequest req, ServletResponse resp) {
         try {
             HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
             httpServletResponse.sendRedirect("/401");
         } catch (IOException e) {
-            LOG.error(e.getMessage());
+            LOG.error("拦截非法请求到指定页面 : {}", e.getMessage());
         }
     }
 }

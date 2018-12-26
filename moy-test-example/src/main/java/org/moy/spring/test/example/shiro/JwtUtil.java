@@ -10,11 +10,22 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
+/**
+ * <p>Description: [自定义 Jwt 加密 解密 校验工具 ]
+ * </p>
+ * Created on 2018/12/26
+ *
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
+ * @version 1.0
+ * Copyright (c) 2018 墨阳
+ */
 public class JwtUtil {
 
     private static Logger LOG = LoggerFactory.getLogger(JwtUtil.class);
 
-    // 过期时间5分钟
+    /**
+     * 过期时间
+     */
     private static final long EXPIRE_TIME = 5 * 60 * 1000;
 
     /**

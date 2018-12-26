@@ -14,6 +14,16 @@ import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+
+/**
+ * <p>Description: [Shiro 配置]
+ * </p>
+ * Created on 2018/12/26
+ *
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
+ * @version 1.0
+ * Copyright (c) 2018 墨阳
+ */
 @Configuration
 @Order(1)
 public class JwtShiroConfig {
@@ -40,11 +50,11 @@ public class JwtShiroConfig {
 
         // 拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        // 其他的
-        filterChainDefinitionMap.put("/**", "jwt");
         // 访问401和404页面不通过我们的Filter
         filterChainDefinitionMap.put("/401", "anon");
         filterChainDefinitionMap.put("/404", "anon");
+        // 其他的
+        filterChainDefinitionMap.put("/**", "jwt");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

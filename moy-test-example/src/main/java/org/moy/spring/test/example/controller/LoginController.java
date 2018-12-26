@@ -23,8 +23,9 @@ public class LoginController extends BaseController implements LoginApi {
         String username = "admin";
         String sign = JwtUtil.sign(username, password);
         int round = Math.round(1);
+        int maxValue = 100;
         LOG.warn("round = {}", round);
-        if (round > 100) {
+        if (round > maxValue) {
             throw new UnauthorizedException();
         }
         return ResultBean.success(sign);

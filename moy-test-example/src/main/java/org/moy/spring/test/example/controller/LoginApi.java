@@ -24,6 +24,10 @@ public interface LoginApi {
     ResultBean<String> login();
 
 
+    /**
+     * 无权限跳转
+     * @return
+     */
     @RequestMapping(value = "/401", method = {RequestMethod.GET, RequestMethod.POST})
     ResultBean<String> unAuth();
 }
