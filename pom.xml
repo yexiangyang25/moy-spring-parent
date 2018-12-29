@@ -144,4 +144,50 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- 发布管理 需要在 maven settings.xml 文件添加
+    <servers>
+        <server>
+            <id>maven-releases</id>
+            <username>admin</username>
+            <password>admin123</password>
+        </server>
+        <server>
+            <id>maven-snapshots</id>
+            <username>admin</username>
+            <password>admin123</password>
+        </server>
+   </servers>-->
+
+    <!--发布管理-->
+    <!--<distributionManagement>-->
+        <!--<repository>-->
+            <!--<id>maven-releases</id>-->
+            <!--<name>Nexus ReleaseRepository</name>-->
+            <!--<url>http://localhost:8081/repository/maven-releases/</url>-->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>maven-snapshots</id>-->
+            <!--<name>Nexus SnapshotRepository</name>-->
+            <!--<url>http://localhost:8081/repository/maven-snapshots/</url>-->
+        <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
+
+    <!--使用仓库-->
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>maven-releases</id>-->
+            <!--<name>Nexus ReleaseRepository</name>-->
+            <!--<url>http://localhost:8081/repository/maven-releases/</url>-->
+            <!--<releases><enabled>true</enabled></releases>-->
+            <!--<snapshots><enabled>false</enabled></snapshots>-->
+        <!--</repository>-->
+        <!--<repository>-->
+            <!--<id>maven-snapshots</id>-->
+            <!--<name>Nexus SnapshotRepository</name>-->
+            <!--<url>http://localhost:8081/repository/maven-snapshots/</url>-->
+            <!--<releases><enabled>false</enabled></releases>-->
+            <!--<snapshots><enabled>true</enabled></snapshots>-->
+        <!--</repository>-->
+    <!--</repositories>-->
 </project>
