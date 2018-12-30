@@ -7,12 +7,15 @@
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
         <result column="status" property="status"/>
+        <!--公共属性-->
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
         <result column="operator" property="operator" jdbcType="VARCHAR"/>
         <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP"/>
-        <result column="version" property="version"/>
+        <result column="version" property="operateTime" jdbcType="BIGINT"/>
     </resultMap>
+
+    <sql id="TableName">t_user</sql>
 
     <sql id="Base_Column_List">
         id, name, code,telephone,status,create_time,modify_time,operator,operate_time,version
@@ -21,11 +24,12 @@
     <select id="findAll" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM t_user
+        FROM
+        <include refid="TableName"/>
     </select>
 
     <insert id="insert" parameterType="org.moy.spring.test.example.domain.UserEntity">
-        INSERT INTO t_user (
+        INSERT INTO<include refid="TableName"/>(
         <include refid="Base_Column_List"/>
         )
         VALUES (
@@ -43,6 +47,8 @@
     </insert>
 
     <delete id="delete">
-        DELETE FROM t_user WHERE id= #{id}
+        DELETE FROM
+        <include refid="TableName"/>
+        WHERE id= #{id}
     </delete>
 </mapper>

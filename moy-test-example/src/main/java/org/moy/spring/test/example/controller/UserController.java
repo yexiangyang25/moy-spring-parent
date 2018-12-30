@@ -5,10 +5,9 @@ import org.moy.spring.test.example.adapter.service.UserAdapterService;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
+import org.moy.spring.test.example.controller.api.UserApi;
 import org.moy.spring.test.example.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +22,7 @@ import java.util.List;
  * Copyright (c) 2018 墨阳
  */
 @RestController
-public class UserController extends BaseController implements UserApi{
+public class UserController extends BaseController implements UserApi {
 
     @Autowired
     private UserAdapterService userAdapterService;

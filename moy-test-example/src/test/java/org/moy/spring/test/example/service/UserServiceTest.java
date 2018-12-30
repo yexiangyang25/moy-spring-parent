@@ -49,6 +49,7 @@ public class UserServiceTest extends BaseTest {
         entity.setCreateTime(date);
         entity.setModifyTime(date);
         entity.setOperateTime(date);
+        entity.setOperator(TEST_ID.toString());
         entity.setStatus(1);
         entity.setTelephone("132");
         LOG.info(entity.toString());

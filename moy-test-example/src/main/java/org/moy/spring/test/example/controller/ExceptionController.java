@@ -3,8 +3,7 @@ package org.moy.spring.test.example.controller;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.moy.spring.test.example.controller.api.ExceptionApi;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

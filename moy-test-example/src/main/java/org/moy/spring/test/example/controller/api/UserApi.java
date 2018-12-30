@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.controller;
+package org.moy.spring.test.example.controller.api;
 
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

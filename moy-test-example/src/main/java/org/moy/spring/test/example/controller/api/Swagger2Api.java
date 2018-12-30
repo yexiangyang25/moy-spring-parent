@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.controller;
+package org.moy.spring.test.example.controller.api;
 
 import io.swagger.annotations.*;
 import org.moy.spring.test.example.domain.UserEntity;

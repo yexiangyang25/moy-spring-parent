@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.controller;
+package org.moy.spring.test.example.controller.api;
 
 import org.moy.spring.test.example.beans.ResultBean;
 import org.springframework.web.bind.annotation.RequestMapping;
