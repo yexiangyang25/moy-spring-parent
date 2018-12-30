@@ -1,23 +1,24 @@
 package org.moy.spring.test.example.domain;
 
+
 import org.moy.spring.test.example.common.BaseEntity;
 
 import java.io.Serializable;
 
 /**
- * <p>Description: [权限 实体]</p>
+ * <p>Description: [角色权限 关系实体]</p>
  * Created on 2018/12/20
  *
  * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public class PermissionEntity extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = -8603687880469016503L;
+public class RolePermissionEntity extends BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 6263944383388169018L;
     private Long id;
-    private String code;
-    private String name;
+    private String roleCode;
+    private String permissionCode;
 
     public Long getId() {
         return id;
@@ -27,28 +28,28 @@ public class PermissionEntity extends BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
-    public String getName() {
-        return name;
+    public String getPermissionCode() {
+        return permissionCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode;
     }
 
     @Override
     public String toString() {
-        return "PermissionEntity{" +
+        return "RolePermissionEntity{" +
                 "id=" + id +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
+                ", roleCode='" + roleCode + '\'' +
+                ", permissionCode='" + permissionCode + '\'' +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +
                 ", operator='" + operator + '\'' +

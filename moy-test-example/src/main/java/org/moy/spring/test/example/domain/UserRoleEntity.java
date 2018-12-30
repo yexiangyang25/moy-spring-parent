@@ -1,23 +1,24 @@
 package org.moy.spring.test.example.domain;
 
+
 import org.moy.spring.test.example.common.BaseEntity;
 
 import java.io.Serializable;
 
 /**
- * <p>Description: [权限 实体]</p>
+ * <p>Description: [用户角色 关系实体]</p>
  * Created on 2018/12/20
  *
  * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public class PermissionEntity extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = -8603687880469016503L;
+public class UserRoleEntity extends BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 3600842107004537809L;
     private Long id;
-    private String code;
-    private String name;
+    private String userCode;
+    private String roleCode;
 
     public Long getId() {
         return id;
@@ -27,28 +28,28 @@ public class PermissionEntity extends BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getUserCode() {
+        return userCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
     @Override
     public String toString() {
-        return "PermissionEntity{" +
+        return "UserRoleEntity{" +
                 "id=" + id +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
+                ", userCode=" + userCode +
+                ", roleCode=" + roleCode +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +
                 ", operator='" + operator + '\'' +
