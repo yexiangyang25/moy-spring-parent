@@ -14,6 +14,7 @@ import java.io.Serializable;
  */
 public class UserDTO extends BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = -1203419136652783341L;
     private String code;
     private String name;
     private String telephone;

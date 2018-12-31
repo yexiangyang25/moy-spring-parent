@@ -13,4 +13,10 @@ import org.moy.spring.test.example.domain.UserEntity;
  */
 public interface UserService extends BaseTemplateService<UserEntity, Long> {
 
+    /**
+     * 根据用户名称查询
+     * @param username
+     * @return
+     */
+    UserEntity queryByUsername(String username);
 }

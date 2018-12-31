@@ -48,4 +48,19 @@
         <include refid="TableName"/>
         WHERE id= #{id}
     </delete>
+
+    <select id="query" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.roleCode != null">
+                AND role_code = #{entity.roleCode}
+            </if>
+            <if test="entity.permissionCode != null">
+                AND permission_code = #{entity.permissionCode}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -13,4 +13,11 @@ import org.moy.spring.test.example.domain.PasswordEntity;
  */
 public interface PasswordService extends BaseTemplateService<PasswordEntity, Long> {
 
+    /**
+     * 根据用户编码和密码校验
+     * @param userCode
+     * @param password
+     * @return
+     */
+    Boolean checkUserCodeAndPasswordIsOk(String userCode , String password);
 }

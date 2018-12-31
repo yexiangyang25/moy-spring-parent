@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.controller;
 
 import org.apache.shiro.authz.UnauthorizedException;
+import org.moy.spring.test.example.adapter.service.LoginAdapterService;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
 import org.moy.spring.test.example.controller.api.LoginApi;
@@ -21,20 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController extends BaseController implements LoginApi {
 
     @Autowired
-    JwtCacheManager jwtCacheManager;
+    private LoginAdapterService loginAdapterService;
+
     @Override
     public ResultBean<String> login() {
-        String password = "123";
-        String username = "admin";
-        String sign = JwtUtil.sign(username);
-        int round = Math.round(1);
-        int maxValue = 100;
-        LOG.warn("round = {}", round);
-        if (round > maxValue) {
-            throw new UnauthorizedException();
-        }
-        jwtCacheManager.saveToken(sign);
-        return ResultBean.success(sign);
+        return loginAdapterService.login("admin", "123");
     }
 
     @Override

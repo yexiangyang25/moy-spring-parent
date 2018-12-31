@@ -24,4 +24,6 @@ public interface UserAdapterService {
      * @return
      */
     PageResultBean<List<UserDTO>> findAll(Integer pageNum, Integer pageSize);
+
+    
 }

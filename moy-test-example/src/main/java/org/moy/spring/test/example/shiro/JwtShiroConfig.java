@@ -50,7 +50,7 @@ public class JwtShiroConfig {
 
         // 拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        // 访问401和404页面不通过我们的Filter
+        // 访问无权限页面
         filterChainDefinitionMap.put(JwtConst.UN_AUTH_URI, "anon");
         // 其他的
         filterChainDefinitionMap.put("/**", "jwt");

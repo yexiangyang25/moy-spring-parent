@@ -30,8 +30,8 @@ public class JwtUtil {
      * @param username
      * @return
      */
-    public static boolean verifyIsNotOk(String token, String username) {
-        return !verifyIsOk(token, username);
+    public static boolean verifyIsNotOk(String token, String username, String userCode) {
+        return !verifyIsOk(token, username, userCode);
     }
 
     /**
@@ -41,11 +41,12 @@ public class JwtUtil {
      * @param username 用户名
      * @return 是否正确
      */
-    public static boolean verifyIsOk(String token, String username) {
+    public static boolean verifyIsOk(String token, String username, String userCode) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(JwtConst.JWT_SECRET);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withClaim(JwtConst.JWT_CLAIM_USERNAME, username)
+                    .withClaim(JwtConst.JWT_CLAIM_USER_CODE, userCode)
                     .build();
             DecodedJWT jwt = verifier.verify(token);
             return true;
@@ -65,7 +66,22 @@ public class JwtUtil {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim(JwtConst.JWT_CLAIM_USERNAME).asString();
         } catch (JWTDecodeException e) {
-            LOG.error("verifyException : {}", e.getMessage());
+            LOG.error("JWTDecodeException : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 获得token中的信息无需secret解密也能获得
+     *
+     * @return token中包含的用户编码
+     */
+    public static String getUserCode(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim(JwtConst.JWT_CLAIM_USER_CODE).asString();
+        } catch (JWTDecodeException e) {
+            LOG.error("JWTDecodeException : {}", e.getMessage());
             return null;
         }
     }
@@ -76,12 +92,13 @@ public class JwtUtil {
      * @param username 用户名
      * @return 加密的token
      */
-    public static String sign(String username) {
+    public static String sign(String username, String userCode) {
         Date date = new Date(System.currentTimeMillis() + JwtConst.JWT_EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(JwtConst.JWT_SECRET);
         // 附带username信息
         return JWT.create()
                 .withClaim(JwtConst.JWT_CLAIM_USERNAME, username)
+                .withClaim(JwtConst.JWT_CLAIM_USER_CODE, userCode)
                 .withExpiresAt(date)
                 .sign(algorithm);
     }

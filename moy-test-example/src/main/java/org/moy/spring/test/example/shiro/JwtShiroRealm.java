@@ -8,6 +8,9 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.moy.spring.test.example.adapter.service.UserAuthInfoAdapterService;
+import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.dto.UserAuthInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -24,6 +27,8 @@ public class JwtShiroRealm extends AuthorizingRealm {
 
     @Autowired
     private JwtCacheManager jwtCacheManager;
+    @Autowired
+    private UserAuthInfoAdapterService userAuthInfoAdapterService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -39,13 +44,15 @@ public class JwtShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        String username = JwtUtil.getUsername(principalCollection.toString());
+
+        ResultBean<UserAuthInfoDTO> currentUsernameInfo = userAuthInfoAdapterService.getCurrentUserInfo();
+        UserAuthInfoDTO data = currentUsernameInfo.getData();
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
-        authorizationInfo.addRole("role");
+        authorizationInfo.addRoles(data.getRoles());
 
-        authorizationInfo.addStringPermission("auth");
+        authorizationInfo.addStringPermissions(data.getPermissions());
 
         return authorizationInfo;
     }
@@ -63,7 +70,8 @@ public class JwtShiroRealm extends AuthorizingRealm {
         String token = (String) authenticationToken.getCredentials();
         // 解密获得username，用于和数据库进行对比
         String username = JwtUtil.getUsername(token);
-        if (username == null || JwtUtil.verifyIsNotOk(token, username)) {
+        String userCode = JwtUtil.getUserCode(token);
+        if (username == null || JwtUtil.verifyIsNotOk(token, username, userCode)) {
             throw new AuthenticationException("token invalid");
         }
         jwtCacheManager.verifyToken(token);
