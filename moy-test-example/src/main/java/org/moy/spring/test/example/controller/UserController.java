@@ -2,10 +2,12 @@ package org.moy.spring.test.example.controller;
 
 
 import org.moy.spring.test.example.adapter.service.UserAdapterService;
+import org.moy.spring.test.example.adapter.service.UserAuthInfoAdapterService;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
 import org.moy.spring.test.example.controller.api.UserApi;
+import org.moy.spring.test.example.dto.UserAuthInfoDTO;
 import org.moy.spring.test.example.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +28,12 @@ public class UserController extends BaseController implements UserApi {
 
     @Autowired
     private UserAdapterService userAdapterService;
+    @Autowired
+    private UserAuthInfoAdapterService userAuthInfoAdapterService;
 
     @Override
-    public ResultBean<UserDTO> info() {
-        return ResultBean.success();
+    public ResultBean<UserAuthInfoDTO> info() {
+        return userAuthInfoAdapterService.getCurrentUserInfo();
     }
 
     @Override

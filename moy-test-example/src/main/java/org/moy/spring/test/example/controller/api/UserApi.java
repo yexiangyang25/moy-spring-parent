@@ -6,6 +6,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.dto.UserAuthInfoDTO;
 import org.moy.spring.test.example.dto.UserDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +31,7 @@ public interface UserApi {
      */
     @RequiresAuthentication
     @RequestMapping(value = "/user/info", method = {RequestMethod.GET, RequestMethod.POST})
-    ResultBean<UserDTO> info();
+    ResultBean<UserAuthInfoDTO> info();
 
     /**
      * 测试权限

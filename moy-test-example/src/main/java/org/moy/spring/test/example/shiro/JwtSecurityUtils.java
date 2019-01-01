@@ -1,7 +1,6 @@
 package org.moy.spring.test.example.shiro;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 
 
 /**
