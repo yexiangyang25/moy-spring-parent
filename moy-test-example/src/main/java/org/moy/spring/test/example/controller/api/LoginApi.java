@@ -25,9 +25,10 @@ public interface LoginApi {
 
 
     /**
-     * 无权限跳转
+     * 登出
+     *
      * @return
      */
-    @RequestMapping(value = "/401", method = {RequestMethod.GET, RequestMethod.POST})
-    ResultBean<String> unAuth();
+    @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
+    ResultBean<Boolean> logout();
 }

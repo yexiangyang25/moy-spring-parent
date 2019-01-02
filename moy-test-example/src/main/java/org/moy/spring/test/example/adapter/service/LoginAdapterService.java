@@ -16,9 +16,16 @@ public interface LoginAdapterService {
 
     /**
      * 登录
+     *
      * @param username
      * @param password
      * @return
      */
-    ResultBean<String> login(String username , String password);
+    ResultBean<String> login(String username, String password);
+
+    /**
+     * 登出
+     * @return
+     */
+    ResultBean<Boolean> logout();
 }

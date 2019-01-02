@@ -30,8 +30,17 @@ public class JwtCacheRedisManager implements JwtCacheManager {
         opsForValue.set(tokenRedisKey, token, JwtConst.JWT_EXPIRE_TIME, TimeUnit.MILLISECONDS);
     }
 
+    @Override
+    public Boolean deleteToken(String token) {
+        if (null == token) {
+            return false;
+        }
+        String tokenRedisKey = getTokenRedisKey(token);
+        return stringRedisTemplate.delete(tokenRedisKey);
+    }
+
     private String getTokenRedisKey(String token) {
-        return JwtConst.JWT_CACHE_KEY_PREFIX + JwtUtil.getUsername(token);
+        return JwtConst.JWT_CACHE_KEY_PREFIX + JwtUtil.getUserCode(token);
     }
 
     @Override

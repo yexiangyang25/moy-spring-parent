@@ -30,7 +30,7 @@ public class LoginController extends BaseController implements LoginApi {
     }
 
     @Override
-    public ResultBean<String> unAuth() {
-        return ResultBean.fail("401");
+    public ResultBean<Boolean> logout() {
+        return loginAdapterService.logout();
     }
 }

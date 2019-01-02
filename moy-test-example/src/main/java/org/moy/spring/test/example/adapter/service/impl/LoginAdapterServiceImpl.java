@@ -9,6 +9,7 @@ import org.moy.spring.test.example.domain.UserEntity;
 import org.moy.spring.test.example.service.PasswordService;
 import org.moy.spring.test.example.service.UserService;
 import org.moy.spring.test.example.shiro.JwtCacheManager;
+import org.moy.spring.test.example.shiro.JwtSecurityUtils;
 import org.moy.spring.test.example.shiro.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,11 @@ public class LoginAdapterServiceImpl extends BaseService implements LoginAdapter
             }
         }
         return ResultBean.fail();
+    }
+
+    @Override
+    public ResultBean<Boolean> logout() {
+        Boolean deleteToken = jwtCacheManager.deleteToken(JwtSecurityUtils.getCurrentPrincipal());
+        return ResultBean.success(deleteToken);
     }
 }

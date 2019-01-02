@@ -20,11 +20,24 @@ public class JwtSecurityUtils {
      */
     public static String getCurrentUserName() {
         String username = JwtConst.JWT_NU_AUTH_USER;
-        Object principal = SecurityUtils.getSubject().getPrincipal();
+        Object principal = getCurrentPrincipal();
         if (null != principal) {
             username = JwtUtil.getUsername(principal.toString());
         }
         return username;
+    }
+
+    /**
+     * 获取token
+     *
+     * @return
+     */
+    public static String getCurrentPrincipal() {
+        Object principal = SecurityUtils.getSubject().getPrincipal();
+        if (null == principal) {
+            return null;
+        }
+        return principal.toString();
     }
 
     /**
@@ -34,7 +47,7 @@ public class JwtSecurityUtils {
      */
     public static String getCurrentUserCode() {
         String username = JwtConst.JWT_NU_AUTH_USER;
-        Object principal = SecurityUtils.getSubject().getPrincipal();
+        Object principal = getCurrentPrincipal();
         if (null != principal) {
             username = JwtUtil.getUserCode(principal.toString());
         }

@@ -19,6 +19,13 @@ public interface JwtCacheManager {
     void saveToken(String token);
 
     /**
+     * 删除JWT缓存
+     * @param token
+     * @return
+     */
+    Boolean deleteToken(String token);
+
+    /**
      * 获取JWT缓存
      * @param token
      * @return
