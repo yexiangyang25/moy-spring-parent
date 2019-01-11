@@ -1,8 +1,12 @@
+DROP database if EXISTS `spring-boot`;
+CREATE database `spring-boot`;
+USE `spring-boot`;
+
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50)  COMMENT '名称',
-  `code` varchar(50)  COMMENT '编码',
+  `code` varchar(50) UNIQUE COMMENT '编码' ,
   `telephone` varchar(20)  COMMENT '手机号码',
   `status` bit(1)  COMMENT '有效状态',
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
@@ -29,7 +33,7 @@ DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50)  COMMENT '名称',
-  `code` varchar(50)  COMMENT '编码',
+  `code` varchar(50) UNIQUE COMMENT '编码',
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
   `modify_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '修改时间',
   `operator` varchar(50) NOT NULL COMMENT '操作人',
@@ -42,7 +46,7 @@ DROP TABLE IF EXISTS `t_permission`;
 CREATE TABLE `t_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50)  COMMENT '名称',
-  `code` varchar(50)  COMMENT '编码',
+  `code` varchar(50) UNIQUE  COMMENT '编码',
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
   `modify_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '修改时间',
   `operator` varchar(50) NOT NULL COMMENT '操作人',

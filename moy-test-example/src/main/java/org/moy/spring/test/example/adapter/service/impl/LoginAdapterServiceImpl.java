@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.adapter.service.impl;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.moy.spring.test.example.adapter.service.LoginAdapterService;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseService;
@@ -35,12 +36,14 @@ public class LoginAdapterServiceImpl extends BaseService implements LoginAdapter
 
     @Override
     public ResultBean<String> login(String username, String password) {
-        UserEntity userEntity = userService.queryByUsername(username);
-        if (NullUtil.objectIsNotNull(userEntity)) {
-            if (passwordService.checkUserCodeAndPasswordIsOk(userEntity.getCode(), password)) {
-                String sign = JwtUtil.sign(username, userEntity.getCode());
-                jwtCacheManager.saveToken(sign);
-                return ResultBean.success(sign);
+        if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)) {
+            UserEntity userEntity = userService.queryByUsername(username);
+            if (NullUtil.objectIsNotNull(userEntity)) {
+                if (passwordService.checkUserCodeAndPasswordIsOk(userEntity.getCode(), password)) {
+                    String sign = JwtUtil.sign(username, userEntity.getCode());
+                    jwtCacheManager.saveToken(sign);
+                    return ResultBean.success(sign);
+                }
             }
         }
         return ResultBean.fail();

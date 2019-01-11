@@ -27,25 +27,25 @@ public class ExceptionRestController {
     private static Logger LOG = LoggerFactory.getLogger(ExceptionRestController.class);
 
     /**
-     * 捕捉shiro的异常
+     * 捕捉shiro的异常，定义http状态码为200
      *
      * @param e
      * @return
      */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(ShiroException.class)
-    public ResultBean handle401(ShiroException e) {
+    public ResultBean handle401(HttpServletRequest request, ShiroException e) {
         LOG.error("shiroException : {}", e.getMessage());
         return ResultBean.fail("shiroException");
     }
 
     /**
-     * 捕捉UnauthorizedException
+     * 捕捉UnauthorizedException，定义http状态码为200
      *
      * @param e
      * @return
      */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(UnauthorizedException.class)
     public ResultBean handle401(UnauthorizedException e) {
         LOG.error("UnauthorizedException : {}", e.getMessage());
@@ -54,14 +54,14 @@ public class ExceptionRestController {
     }
 
     /**
-     * 捕捉其他所有异常
+     * 捕捉其他所有异常，定义http状态码为200
      *
      * @param request
      * @param ex
      * @return
      */
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public ResultBean globalException(HttpServletRequest request, Throwable ex) {
         LOG.error("unknownException : {}", ex.getMessage());
         return ResultBean.fail("unknownException");

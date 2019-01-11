@@ -5,9 +5,12 @@ import org.moy.spring.test.example.adapter.service.LoginAdapterService;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
 import org.moy.spring.test.example.controller.api.LoginApi;
+import org.moy.spring.test.example.dto.LoginDTO;
+import org.moy.spring.test.example.dto.UserDTO;
 import org.moy.spring.test.example.shiro.JwtCacheManager;
 import org.moy.spring.test.example.shiro.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,8 +28,8 @@ public class LoginController extends BaseController implements LoginApi {
     private LoginAdapterService loginAdapterService;
 
     @Override
-    public ResultBean<String> login() {
-        return loginAdapterService.login("admin", "123");
+    public ResultBean<String> login(@RequestBody LoginDTO loginDTO) {
+        return loginAdapterService.login(loginDTO.getUsername(), loginDTO.getPassword());
     }
 
     @Override

@@ -1,8 +1,12 @@
 package org.moy.spring.test.example.controller.api;
 
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.dto.LoginDTO;
+import org.moy.spring.test.example.dto.UserDTO;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -18,10 +22,11 @@ public interface LoginApi {
     /**
      * 登录
      *
+     * @param loginDTO
      * @return
      */
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-    ResultBean<String> login();
+    ResultBean<String> login(@RequestBody LoginDTO loginDTO);
 
 
     /**
