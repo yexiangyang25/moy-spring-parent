@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>moy-config-server</artifactId>
-    <version>${projectVersion}</version>
+    <version>${project.version}</version>
 
     <dependencies>
         <dependency>

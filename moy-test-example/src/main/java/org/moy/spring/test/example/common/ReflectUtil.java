@@ -16,6 +16,7 @@ public class ReflectUtil {
     private ReflectUtil() {
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T newInstance(Class<?> clazz) {
         try {
             return (T) clazz.newInstance();

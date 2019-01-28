@@ -23,20 +23,24 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <!-- 项目 相关属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <springBootVersion>2.0.5.RELEASE</springBootVersion>
-        <springCloudVersion>Finchley.SR2</springCloudVersion>
-        <projectVersion>1.0-SNAPSHOT</projectVersion>
-        <lang3Version>3.6</lang3Version>
-        <collectionsVersion>4.1</collectionsVersion>
-        <mybatisBootVersion>1.3.2</mybatisBootVersion>
-        <pagehelperBootVersion>1.2.7</pagehelperBootVersion>
-        <druidBootVersion>1.1.10</druidBootVersion>
-        <java.version>1.8</java.version>
-        <swagger.version>2.9.2</swagger.version>
-        <codec.version>1.11</codec.version>
+        <project.java.version>1.8</project.java.version>
+        <project.version>1.0-SNAPSHOT</project.version>
+        <!-- spring 相关属性 -->
+        <spring.boot.version>2.0.5.RELEASE</spring.boot.version>
+        <spring.cloud.version>Finchley.SR2</spring.cloud.version>
+        <mybatis.boot.version>1.3.2</mybatis.boot.version>
+        <pagehelper.boot.version>1.2.7</pagehelper.boot.version>
+        <druid.boot.version>1.1.10</druid.boot.version>
+        <!-- 应用权限 相关属性 -->
         <shiro.version>1.4.0</shiro.version>
         <jwt.version>3.4.0</jwt.version>
+        <codec.version>1.11</codec.version>
+        <!-- 工具类 相关属性 -->
+        <swagger.version>2.9.2</swagger.version>
+        <lang3.version>3.6</lang3.version>
+        <collections.version>4.1</collections.version>
     </properties>
 
     <dependencyManagement>
@@ -44,7 +48,7 @@
             <dependency>
                 <groupId>org.moy.spring</groupId>
                 <artifactId>moy-common-sdk</artifactId>
-                <version>${projectVersion}</version>
+                <version>${project.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/{groupId}/{artifactId} -->
             <dependency>
@@ -81,41 +85,41 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${springBootVersion}</version>
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${springCloudVersion}</version>
+                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>${lang3Version}</version>
+                <version>${lang3.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
-                <version>${collectionsVersion}</version>
+                <version>${collections.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatisBootVersion}</version>
+                <version>${mybatis.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelperBootVersion}</version>
+                <version>${pagehelper.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druidBootVersion}</version>
+                <version>${druid.boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -138,8 +142,8 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <source>${project.java.version}</source>
+                        <target>${project.java.version}</target>
                     </configuration>
                 </plugin>
             </plugins>
@@ -168,33 +172,33 @@
 
     <!--发布管理-->
     <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>maven-releases</id>-->
-            <!--<name>Nexus ReleaseRepository</name>-->
-            <!--<url>http://localhost:8081/repository/maven-releases/</url>-->
-        <!--</repository>-->
-        <!--<snapshotRepository>-->
-            <!--<id>maven-snapshots</id>-->
-            <!--<name>Nexus SnapshotRepository</name>-->
-            <!--<url>http://localhost:8081/repository/maven-snapshots/</url>-->
-        <!--</snapshotRepository>-->
+    <!--<repository>-->
+    <!--<id>maven-releases</id>-->
+    <!--<name>Nexus ReleaseRepository</name>-->
+    <!--<url>http://localhost:8081/repository/maven-releases/</url>-->
+    <!--</repository>-->
+    <!--<snapshotRepository>-->
+    <!--<id>maven-snapshots</id>-->
+    <!--<name>Nexus SnapshotRepository</name>-->
+    <!--<url>http://localhost:8081/repository/maven-snapshots/</url>-->
+    <!--</snapshotRepository>-->
     <!--</distributionManagement>-->
 
     <!--使用仓库-->
     <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>maven-releases</id>-->
-            <!--<name>Nexus ReleaseRepository</name>-->
-            <!--<url>http://localhost:8081/repository/maven-releases/</url>-->
-            <!--<releases><enabled>true</enabled></releases>-->
-            <!--<snapshots><enabled>false</enabled></snapshots>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>maven-snapshots</id>-->
-            <!--<name>Nexus SnapshotRepository</name>-->
-            <!--<url>http://localhost:8081/repository/maven-snapshots/</url>-->
-            <!--<releases><enabled>false</enabled></releases>-->
-            <!--<snapshots><enabled>true</enabled></snapshots>-->
-        <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>maven-releases</id>-->
+    <!--<name>Nexus ReleaseRepository</name>-->
+    <!--<url>http://localhost:8081/repository/maven-releases/</url>-->
+    <!--<releases><enabled>true</enabled></releases>-->
+    <!--<snapshots><enabled>false</enabled></snapshots>-->
+    <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>maven-snapshots</id>-->
+    <!--<name>Nexus SnapshotRepository</name>-->
+    <!--<url>http://localhost:8081/repository/maven-snapshots/</url>-->
+    <!--<releases><enabled>false</enabled></releases>-->
+    <!--<snapshots><enabled>true</enabled></snapshots>-->
+    <!--</repository>-->
     <!--</repositories>-->
 </project>
