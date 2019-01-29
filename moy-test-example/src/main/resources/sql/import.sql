@@ -80,3 +80,22 @@ CREATE TABLE `t_role_permission` (
   `version` bigint(20) COMMENT '版本号',
   PRIMARY KEY (`id`)
 );
+
+DROP TABLE IF EXISTS `t_article`;
+CREATE TABLE `t_article` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code` varchar(50)  COMMENT '编码',
+  `title` varchar(50) UNIQUE COMMENT '文章题目' ,
+  `content` nvarchar(2500)  COMMENT '文章内容',
+  `content_short` varchar(50)  COMMENT '文章摘要',
+  `image_uri` varchar(50)  COMMENT '文章内容',
+  `display_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '发布时间',
+  `comment_disabled` varchar(20)  COMMENT '是否评论',
+  `importance` bit(1)  COMMENT '评价',
+  `create_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
+  `modify_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '修改时间',
+  `operator` varchar(50) NOT NULL COMMENT '操作人',
+  `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
+  `version` bigint(20) COMMENT '版本号',
+  PRIMARY KEY (`id`)
+);

@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.beans;
 
 import com.github.pagehelper.PageInfo;
+import org.moy.spring.test.example.common.BeanHelper;
 
 import java.io.Serializable;
 import java.util.List;
@@ -37,10 +38,23 @@ public class PageResultBean<T> extends ResultBean<T> implements Serializable {
         super();
     }
 
-    public static <E> PageResultBean<List<E>> build(PageInfo<E> sourcePageInfo) {
+    public static <E, T> PageResultBean<List<T>> copyPageResultToCustomPageResult(PageResultBean<List<E>> sourcePageResultBean, Class<T> clazz) {
+        List<E> data = sourcePageResultBean.getData();
+        List<T> copyList = BeanHelper.copyList(data, clazz);
+        return buildDTOPageResult(sourcePageResultBean, copyList);
+    }
+
+    public static <E, T> PageResultBean<List<T>> copyPageListToCustomPageResult(List<E> sourcePageList, Class<T> clazz) {
+        PageResultBean<List<E>> listPageResultBean = PageResultBean.buildPageListToPageResult(sourcePageList);
+        return copyPageResultToCustomPageResult(listPageResultBean, clazz);
+    }
+
+    public static <E> PageResultBean<List<E>> buildPageListToPageResult(List<E> sourcePageList) {
+        PageInfo<E> sourcePageInfo = PageInfo.of(sourcePageList);
         PageResultBean<List<E>> pageResultBean = new PageResultBean<>();
         pageResultBean.setCode(SUCCESS_CODE);
         pageResultBean.setMsg(SUCCESS_MESSAGE);
+        pageResultBean.setSuccess(true);
         pageResultBean.setPageNum(sourcePageInfo.getPageNum());
         pageResultBean.setPageSize(sourcePageInfo.getPageSize());
         pageResultBean.setPages(sourcePageInfo.getPages());
@@ -49,10 +63,11 @@ public class PageResultBean<T> extends ResultBean<T> implements Serializable {
         return pageResultBean;
     }
 
-    public static <E, T> PageResultBean<List<E>> buildDTOPage(PageResultBean<List<T>> sourcePage, List<E> list) {
+    private static <E, T> PageResultBean<List<E>> buildDTOPageResult(PageResultBean<List<T>> sourcePage, List<E> list) {
         PageResultBean<List<E>> pageResultBean = new PageResultBean<>();
         pageResultBean.setCode(SUCCESS_CODE);
         pageResultBean.setMsg(SUCCESS_MESSAGE);
+        pageResultBean.setSuccess(true);
         pageResultBean.setPageNum(sourcePage.getPageNum());
         pageResultBean.setPageSize(sourcePage.getPageSize());
         pageResultBean.setPages(sourcePage.getPages());

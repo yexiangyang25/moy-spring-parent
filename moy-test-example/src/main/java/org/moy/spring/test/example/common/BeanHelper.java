@@ -38,10 +38,4 @@ public class BeanHelper {
         }
         return result;
     }
-
-    public static <E, T> PageResultBean<List<T>> copyPageList(PageResultBean<List<E>> sourcePageResultBean, Class<T> clazz) {
-        List<E> data = sourcePageResultBean.getData();
-        List<T> copyList = copyList(data, clazz);
-        return PageResultBean.buildDTOPage(sourcePageResultBean, copyList);
-    }
 }

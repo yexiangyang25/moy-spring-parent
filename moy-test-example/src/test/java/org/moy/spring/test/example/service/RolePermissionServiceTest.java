@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.moy.spring.test.example.BaseTest;
+import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.JsonUtil;
 import org.moy.spring.test.example.domain.RolePermissionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,11 @@ public class RolePermissionServiceTest extends BaseTest {
 
     @Test
     public void findAll() {
-        PageHelper.startPage(2, 10);
-        List<RolePermissionEntity> result = service.findAll();
-        PageInfo<RolePermissionEntity> pageResult = PageInfo.of(result);
-        LOG.info(JsonUtil.toJsonString(pageResult));
-        assertTrue(result != null);
+        PageHelper.startPage(1, 10);
+        List<RolePermissionEntity> entityList = service.findAll();
+        PageResultBean<List<RolePermissionEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
+        LOG.info(JsonUtil.toJsonString(result));
+        assertTrue(result.getSuccess());
     }
 
     @Test

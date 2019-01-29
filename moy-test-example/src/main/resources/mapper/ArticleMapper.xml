@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.moy.spring.test.example.repository.ArticleRepository">
+    <resultMap id="BaseResultMap" type="org.moy.spring.test.example.domain.ArticleEntity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="content_short" property="contentShort"/>
+        <result column="image_uri" property="imageUri"/>
+        <result column="display_time" property="displayTime" jdbcType="TIMESTAMP"/>
+        <result column="comment_disabled" property="commentDisabled"/>
+        <result column="importance" property="importance"/>
+        <!--公共属性-->
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP"/>
+        <result column="version" property="operateTime" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="TableName">t_article</sql>
+
+    <sql id="Base_Column_List">
+        id, code, title,content,content_short,image_uri,display_time,comment_disabled,importance,
+        create_time,modify_time,operator,operate_time,version
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+    </select>
+
+    <insert id="insert" parameterType="org.moy.spring.test.example.domain.ArticleEntity">
+        INSERT INTO<include refid="TableName"/>(
+        <include refid="Base_Column_List"/>
+        )
+        VALUES (
+        #{entity.id},
+        #{entity.code},
+        #{entity.title},
+        #{entity.content},
+        #{entity.contentShort},
+        #{entity.imageUri},
+        #{entity.displayTime},
+        #{entity.commentDisabled},
+        #{entity.importance},
+        #{entity.createTime},
+        #{entity.modifyTime},
+        #{entity.operator},
+        #{entity.operateTime},
+        #{entity.version}
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+        <include refid="TableName"/>
+        WHERE id= #{id}
+    </delete>
+
+    <select id="query" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.code != null">
+                AND code = #{entity.code}
+            </if>
+        </where>
+    </select>
+</mapper>

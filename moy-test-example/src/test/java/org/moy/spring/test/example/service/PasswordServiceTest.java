@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.moy.spring.test.example.BaseTest;
+import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.JsonUtil;
 import org.moy.spring.test.example.domain.PasswordEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,11 @@ public class PasswordServiceTest extends BaseTest {
 
     @Test
     public void findAll() {
-        PageHelper.startPage(2, 10);
-        List<PasswordEntity> result = service.findAll();
-        PageInfo<PasswordEntity> pageResult = PageInfo.of(result);
-        LOG.info(JsonUtil.toJsonString(pageResult));
-        assertTrue(result != null);
+        PageHelper.startPage(1, 10);
+        List<PasswordEntity> entityList = service.findAll();
+        PageResultBean<List<PasswordEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
+        LOG.info(JsonUtil.toJsonString(result));
+        assertTrue(result.getSuccess());
     }
 
     @Test

@@ -1,12 +1,11 @@
 package org.moy.spring.test.example.service;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.moy.spring.test.example.BaseTest;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.JsonUtil;
-import org.moy.spring.test.example.domain.PermissionEntity;
+import org.moy.spring.test.example.domain.ArticleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -16,22 +15,22 @@ import java.util.UUID;
 import static org.junit.Assert.assertTrue;
 
 /**
- * <p> 权限 功能测试
+ * <p> 用户 功能测试
  * Created on 2018/9/10
  *
  * @author 叶向阳
  * @since 1.0
  */
-public class PermissionServiceTest extends BaseTest {
+public class ArticleServiceTest extends BaseTest {
 
     @Autowired
-    private PermissionService service;
+    private ArticleService service;
 
     @Test
     public void findAll() {
         PageHelper.startPage(1, 10);
-        List<PermissionEntity> entityList = service.findAll();
-        PageResultBean<List<PermissionEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
+        List<ArticleEntity> entityList = service.findAll();
+        PageResultBean<List<ArticleEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
         LOG.info(JsonUtil.toJsonString(result));
         assertTrue(result.getSuccess());
     }
@@ -41,7 +40,7 @@ public class PermissionServiceTest extends BaseTest {
         // 先删
         service.delete(TEST_ID);
         // 在保存
-        PermissionEntity entity = new PermissionEntity();
+        ArticleEntity entity = new ArticleEntity();
         String uid = UUID.randomUUID().toString();
         entity.setId(TEST_ID);
         entity.setCode(uid);

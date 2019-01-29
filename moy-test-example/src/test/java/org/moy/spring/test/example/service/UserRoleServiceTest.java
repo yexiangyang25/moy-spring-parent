@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.moy.spring.test.example.BaseTest;
+import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.JsonUtil;
 import org.moy.spring.test.example.domain.UserRoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,11 @@ public class UserRoleServiceTest extends BaseTest {
 
     @Test
     public void findAll() {
-        PageHelper.startPage(2, 10);
-        List<UserRoleEntity> result = service.findAll();
-        PageInfo<UserRoleEntity> pageResult = PageInfo.of(result);
-        LOG.info(JsonUtil.toJsonString(pageResult));
-        assertTrue(result != null);
+        PageHelper.startPage(1, 10);
+        List<UserRoleEntity> entityList = service.findAll();
+        PageResultBean<List<UserRoleEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
+        LOG.info(JsonUtil.toJsonString(result));
+        assertTrue(result.getSuccess());
     }
 
     @Test

@@ -1,11 +1,12 @@
 package org.moy.spring.test.example.service;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.moy.spring.test.example.BaseTest;
+import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.JsonUtil;
 import org.moy.spring.test.example.domain.UserEntity;
+import org.moy.spring.test.example.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -28,11 +29,11 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     public void findAll() {
-        PageHelper.startPage(2, 10);
-        List<UserEntity> result = service.findAll();
-        PageInfo<UserEntity> pageResult = PageInfo.of(result);
-        LOG.info(JsonUtil.toJsonString(pageResult));
-        assertTrue(result != null);
+        PageHelper.startPage(1, 10);
+        List<UserEntity> entityList = service.findAll();
+        PageResultBean<List<UserEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
+        LOG.info(JsonUtil.toJsonString(result));
+        assertTrue(result.getSuccess());
     }
 
     @Test
