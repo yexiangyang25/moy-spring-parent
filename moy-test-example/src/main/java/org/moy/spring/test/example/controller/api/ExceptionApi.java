@@ -22,13 +22,13 @@ public interface ExceptionApi {
      * 测试aop异常
      * @return
      */
-    @RequestMapping(value = "/exception/result", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/exception/result", method = {RequestMethod.POST})
     ResultBean<String> exceptionResult();
 
     /**
      * 测试aop异常
      * @return
      */
-    @RequestMapping(value = "/exception/page", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/exception/page", method = {RequestMethod.POST})
     PageResultBean<List<String>> exceptionPage();
 }

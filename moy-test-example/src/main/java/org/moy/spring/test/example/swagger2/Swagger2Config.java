@@ -35,7 +35,7 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot Swagger2 REST APIs")
+                .title("MOY REST APIs")
                 .description("http://www.whymoy.com/")
                 .termsOfServiceUrl("http://www.whymoy.com/")
                 .contact(new Contact("墨阳", "http://www.whymoy.com/", "moy25@foxmail.com"))

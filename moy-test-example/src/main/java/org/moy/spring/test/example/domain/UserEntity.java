@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.domain;
 
 import org.moy.spring.test.example.common.BaseEntity;
+import org.moy.spring.test.example.common.JsonUtil;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -64,17 +65,6 @@ public class UserEntity extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", modifyTime=" + modifyTime +
-                ", operator='" + operator + '\'' +
-                ", operateTime=" + operateTime +
-                ", version=" + version +
-                '}';
+        return JsonUtil.toJsonString(this);
     }
 }

@@ -7,6 +7,9 @@ import org.moy.spring.test.example.beans.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -50,7 +53,6 @@ public class ExceptionRestController {
     public ResultBean handle401(UnauthorizedException e) {
         LOG.error("UnauthorizedException : {}", e.getMessage());
         return ResultBean.fail("UnauthorizedException");
-
     }
 
     /**
@@ -63,7 +65,22 @@ public class ExceptionRestController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     public ResultBean globalException(HttpServletRequest request, Throwable ex) {
-        LOG.error("unknownException : {}", ex.getMessage());
-        return ResultBean.fail("unknownException");
+        if (ex instanceof MethodArgumentNotValidException) {
+            BindingResult bindingResult = ((MethodArgumentNotValidException) ex).getBindingResult();
+            StringBuilder errorMessage = new StringBuilder();
+            boolean firstFlag = true;
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                if (firstFlag) {
+                    firstFlag = false;
+                } else {
+                    errorMessage.append(", ");
+                }
+                errorMessage.append(fieldError.getDefaultMessage());
+            }
+            return ResultBean.fail(errorMessage.toString());
+        } else {
+            LOG.error("unknownException", ex);
+        }
+        return ResultBean.fail(String.format("unknownException : %s", ex.getMessage()));
     }
 }

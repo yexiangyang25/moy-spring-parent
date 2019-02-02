@@ -2,6 +2,7 @@ package org.moy.spring.test.example.domain;
 
 
 import org.moy.spring.test.example.common.BaseEntity;
+import org.moy.spring.test.example.common.JsonUtil;
 
 import java.io.Serializable;
 
@@ -46,15 +47,6 @@ public class RolePermissionEntity extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "RolePermissionEntity{" +
-                "id=" + id +
-                ", roleCode='" + roleCode + '\'' +
-                ", permissionCode='" + permissionCode + '\'' +
-                ", createTime=" + createTime +
-                ", modifyTime=" + modifyTime +
-                ", operator='" + operator + '\'' +
-                ", operateTime=" + operateTime +
-                ", version=" + version +
-                '}';
+        return JsonUtil.toJsonString(this);
     }
 }

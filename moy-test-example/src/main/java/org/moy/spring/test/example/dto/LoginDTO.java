@@ -1,5 +1,8 @@
 package org.moy.spring.test.example.dto;
 
+import org.moy.spring.test.example.common.JsonUtil;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -13,7 +16,9 @@ import java.io.Serializable;
 public class LoginDTO implements Serializable {
 
     private static final long serialVersionUID = -4405902263828345467L;
+    @NotBlank(message = "{message.login.username}")
     private String username;
+    @NotBlank(message = "{message.login.password}")
     private String password;
 
     public String getUsername() {
@@ -34,9 +39,6 @@ public class LoginDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "LoginDTO{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return JsonUtil.toJsonString(this);
     }
 }

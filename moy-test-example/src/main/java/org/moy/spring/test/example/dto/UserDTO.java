@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.dto;
 
 import org.moy.spring.test.example.common.BaseEntity;
+import org.moy.spring.test.example.common.JsonUtil;
 
 import java.io.Serializable;
 
@@ -54,16 +55,6 @@ public class UserDTO extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDTO{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", modifyTime=" + modifyTime +
-                ", operator='" + operator + '\'' +
-                ", operateTime=" + operateTime +
-                ", version=" + version +
-                '}';
+        return JsonUtil.toJsonString(this);
     }
 }

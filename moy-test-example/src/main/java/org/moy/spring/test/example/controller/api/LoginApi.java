@@ -1,8 +1,10 @@
 package org.moy.spring.test.example.controller.api;
 
+import org.moy.spring.test.example.beans.RequestBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.dto.LoginDTO;
 import org.moy.spring.test.example.dto.UserDTO;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,18 +24,18 @@ public interface LoginApi {
     /**
      * 登录
      *
-     * @param loginDTO
+     * @param requestBean
      * @return
      */
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-    ResultBean<String> login(@RequestBody LoginDTO loginDTO);
-
+    ResultBean<String> login(@RequestBody @Validated RequestBean<LoginDTO> requestBean);
 
     /**
      * 登出
      *
+     * @param requestBean
      * @return
      */
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
-    ResultBean<Boolean> logout();
+    ResultBean<Boolean> logout(@RequestBody @Validated RequestBean<Object> requestBean);
 }

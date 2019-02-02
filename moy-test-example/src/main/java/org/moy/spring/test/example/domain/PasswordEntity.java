@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.domain;
 
 import org.moy.spring.test.example.common.BaseEntity;
+import org.moy.spring.test.example.common.JsonUtil;
 
 import java.io.Serializable;
 
@@ -45,15 +46,6 @@ public class PasswordEntity extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "PasswordEntity{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", userCode='" + userCode + '\'' +
-                ", createTime=" + createTime +
-                ", modifyTime=" + modifyTime +
-                ", operator='" + operator + '\'' +
-                ", operateTime=" + operateTime +
-                ", version=" + version +
-                '}';
+        return JsonUtil.toJsonString(this);
     }
 }

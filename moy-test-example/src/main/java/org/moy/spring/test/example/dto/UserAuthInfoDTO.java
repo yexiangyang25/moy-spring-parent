@@ -1,6 +1,8 @@
 package org.moy.spring.test.example.dto;
 
 
+import org.moy.spring.test.example.common.JsonUtil;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -37,14 +39,6 @@ public class UserAuthInfoDTO extends UserDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "UserAuthInfoDTO{" +
-                "roles=" + roles +
-                ", permissions=" + permissions +
-                ", createTime=" + createTime +
-                ", modifyTime=" + modifyTime +
-                ", operator='" + operator + '\'' +
-                ", operateTime=" + operateTime +
-                ", version=" + version +
-                '}';
+        return JsonUtil.toJsonString(this);
     }
 }

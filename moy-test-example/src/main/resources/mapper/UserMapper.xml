@@ -9,7 +9,7 @@
         <result column="status" property="status"/>
         <!--公共属性-->
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
-        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="founder" property="founder" jdbcType="VARCHAR"/>
         <result column="operator" property="operator" jdbcType="VARCHAR"/>
         <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP"/>
         <result column="version" property="operateTime" jdbcType="BIGINT"/>
@@ -18,7 +18,7 @@
     <sql id="TableName">t_user</sql>
 
     <sql id="Base_Column_List">
-        id, name, code,telephone,status,create_time,modify_time,operator,operate_time,version
+        id, name, code,telephone,status,create_time,founder,operator,operate_time,version
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -39,7 +39,7 @@
         #{entity.telephone},
         #{entity.status},
         #{entity.createTime},
-        #{entity.modifyTime},
+        #{entity.founder},
         #{entity.operator},
         #{entity.operateTime},
         #{entity.version}

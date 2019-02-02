@@ -12,9 +12,21 @@ import java.util.Date;
  */
 public abstract class BaseEntity{
 
+    /**
+     * 创建时间
+     */
     protected Date createTime;
-    protected Date modifyTime;
+    /**
+     * 创建人
+     */
+    protected String founder;
+    /**
+     * 更新人
+     */
     protected String operator;
+    /**
+     * 更新时间
+     */
     protected Date operateTime;
 
     protected Long version;
@@ -25,14 +37,6 @@ public abstract class BaseEntity{
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
     }
 
     public String getOperator() {
@@ -59,14 +63,16 @@ public abstract class BaseEntity{
         this.version = version;
     }
 
+    public String getFounder() {
+        return founder;
+    }
+
+    public void setFounder(String founder) {
+        this.founder = founder;
+    }
+
     @Override
     public String toString() {
-        return "BaseEntity{" +
-                "createTime=" + createTime +
-                ", modifyTime=" + modifyTime +
-                ", operator='" + operator + '\'' +
-                ", operateTime=" + operateTime +
-                ", version=" + version +
-                '}';
+        return JsonUtil.toJsonString(this);
     }
 }

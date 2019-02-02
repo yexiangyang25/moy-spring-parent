@@ -30,23 +30,25 @@ public interface UserApi {
      * @return
      */
     @RequiresAuthentication
-    @RequestMapping(value = "/user/info", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/user/info", method = {RequestMethod.POST})
     ResultBean<UserAuthInfoDTO> info();
 
     /**
      * 测试权限
+     *
      * @return
      */
     @RequiresPermissions("auth")
-    @RequestMapping(value = "/user/auth", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/user/auth", method = {RequestMethod.POST})
     ResultBean<UserDTO> infoAuth();
 
     /**
      * 测试角色
+     *
      * @return
      */
     @RequiresRoles("role")
-    @RequestMapping(value = "/user/role", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/user/role", method = {RequestMethod.POST})
     ResultBean<UserDTO> infoRole();
 
 
@@ -58,7 +60,7 @@ public interface UserApi {
      * @return
      */
     @RequiresRoles("admin")
-    @RequestMapping(value = "/user/findAll", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/user/findAll", method = {RequestMethod.POST})
     PageResultBean<List<UserDTO>> findAll(@RequestParam("pageNum") Integer pageNum,
                                           @RequestParam("pageSize") Integer pageSize);
 }
