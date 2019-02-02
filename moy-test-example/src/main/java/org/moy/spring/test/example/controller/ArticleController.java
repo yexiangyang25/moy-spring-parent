@@ -35,7 +35,8 @@ public class ArticleController extends BaseController implements ArticleApi {
 
     @Override
     public ResultBean<ArticleDTO> detail(@RequestBody @Validated RequestBean<String> requestBean) {
-        return ResultBean.success();
+        String request = requestBean.getRequest();
+        return articleAdapterService.getDetailByCode(request);
     }
 
     @Override

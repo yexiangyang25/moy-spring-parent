@@ -1,5 +1,5 @@
 DROP database if EXISTS `spring-boot`;
-CREATE database `spring-boot`;
+CREATE database `spring-boot` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;;
 USE `spring-boot`;
 
 DROP TABLE IF EXISTS `t_user`;

@@ -72,4 +72,16 @@
             </if>
         </where>
     </select>
+
+    <select id="get" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.code != null">
+                AND code = #{entity.code}
+            </if>
+        </where>
+    </select>
 </mapper>

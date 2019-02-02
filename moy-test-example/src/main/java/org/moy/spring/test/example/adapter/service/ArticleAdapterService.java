@@ -23,11 +23,19 @@ public interface ArticleAdapterService {
      */
     PageResultBean<List<ArticleDTO>> listArticle();
 
-
     /**
      * 创建文章
+     *
      * @param dto
      * @return
      */
     ResultBean<Integer> create(ArticleDTO dto);
+
+    /**
+     * 根据code查询博客文章
+     *
+     * @param request
+     * @return
+     */
+    ResultBean<ArticleDTO> getDetailByCode(String request);
 }

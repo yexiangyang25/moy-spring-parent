@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import org.moy.spring.test.example.adapter.service.ArticleAdapterService;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.common.BaseEntityUtil;
 import org.moy.spring.test.example.common.BaseService;
 import org.moy.spring.test.example.common.BeanHelper;
+import org.moy.spring.test.example.common.UuidUtil;
 import org.moy.spring.test.example.domain.ArticleEntity;
 import org.moy.spring.test.example.dto.ArticleDTO;
 import org.moy.spring.test.example.service.ArticleService;
@@ -37,7 +39,18 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     @Override
     public ResultBean<Integer> create(ArticleDTO dto) {
         ArticleEntity entity = BeanHelper.copyProperties(dto, ArticleEntity.class);
+        entity.setCode(UuidUtil.newUuid());
+        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         Integer insert = articleService.insert(entity);
         return ResultBean.success(insert);
+    }
+
+    @Override
+    public ResultBean<ArticleDTO> getDetailByCode(String request) {
+        ArticleEntity queryParam = new ArticleEntity();
+        queryParam.setCode(request);
+        ArticleEntity entity = articleService.get(queryParam);
+        ArticleDTO dto = BeanHelper.copyProperties(entity, ArticleDTO.class);
+        return ResultBean.success(dto);
     }
 }
