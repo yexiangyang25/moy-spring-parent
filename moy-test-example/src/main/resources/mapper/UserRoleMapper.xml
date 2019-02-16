@@ -63,4 +63,17 @@
             </if>
         </where>
     </select>
+
+    <delete id="deleteByCondition">
+        DELETE FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.userCode != null">
+                AND user_code = #{entity.userCode}
+            </if>
+            <if test="entity.roleCode != null">
+                AND role_code = #{entity.roleCode}
+            </if>
+        </where>
+    </delete>
 </mapper>

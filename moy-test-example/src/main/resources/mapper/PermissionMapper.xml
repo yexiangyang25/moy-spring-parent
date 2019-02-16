@@ -48,4 +48,17 @@
         <include refid="TableName"/>
         WHERE id= #{id}
     </delete>
+
+    <delete id="deleteByCondition">
+        DELETE FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.code != null">
+                AND code = #{entity.code}
+            </if>
+            <if test="entity.name != null">
+                AND name = #{entity.name}
+            </if>
+        </where>
+    </delete>
 </mapper>

@@ -41,7 +41,7 @@ public interface BaseRepository<T, PK extends Serializable> {
      * @param entity
      * @return
      */
-    Integer delete(@Param("entity") T entity);
+    Integer deleteByCondition(@Param("entity") T entity);
 
     /**
      * 批量删除
@@ -82,7 +82,7 @@ public interface BaseRepository<T, PK extends Serializable> {
      * @param entity
      * @return
      */
-    T get(@Param("entity") T entity);
+    T getByCondition(@Param("entity") T entity);
 
     /**
      * 主键查询
@@ -109,5 +109,5 @@ public interface BaseRepository<T, PK extends Serializable> {
      * @param entity
      * @return
      */
-    Long count(@Param("entity") T entity);
+    Long countByCondition(@Param("entity") T entity);
 }

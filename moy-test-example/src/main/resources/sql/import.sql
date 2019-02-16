@@ -15,7 +15,7 @@ CREATE TABLE `t_user` (
   `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
   `version` bigint(20) COMMENT '版本号',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `t_password`;
 CREATE TABLE `t_password` (
@@ -27,7 +27,7 @@ CREATE TABLE `t_password` (
   `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
   `user_code` varchar(50)  COMMENT '用户编码',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
@@ -40,7 +40,7 @@ CREATE TABLE `t_role` (
   `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
   `version` bigint(20) COMMENT '版本号',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `t_permission`;
 CREATE TABLE `t_permission` (
@@ -53,7 +53,7 @@ CREATE TABLE `t_permission` (
   `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
   `version` bigint(20) COMMENT '版本号',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `t_user_role`;
 CREATE TABLE `t_user_role` (
@@ -66,7 +66,7 @@ CREATE TABLE `t_user_role` (
   `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
   `version` bigint(20) COMMENT '版本号',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `t_role_permission`;
 CREATE TABLE `t_role_permission` (
@@ -79,7 +79,7 @@ CREATE TABLE `t_role_permission` (
   `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
   `version` bigint(20) COMMENT '版本号',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `t_article`;
 CREATE TABLE `t_article` (
@@ -98,4 +98,4 @@ CREATE TABLE `t_article` (
   `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
   `version` bigint(20) COMMENT '版本号',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

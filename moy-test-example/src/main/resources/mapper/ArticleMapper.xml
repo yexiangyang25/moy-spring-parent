@@ -73,7 +73,7 @@
         </where>
     </select>
 
-    <select id="get" resultMap="BaseResultMap">
+    <select id="getByCondition" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM
