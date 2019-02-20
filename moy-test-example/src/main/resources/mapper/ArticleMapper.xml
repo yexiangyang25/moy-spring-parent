@@ -55,6 +55,23 @@
         )
     </insert>
 
+    <update id="update">
+        UPDATE <include refid="TableName"/>
+        <trim prefix="set" suffixOverrides=",">
+            <if test="true">title=#{entity.title},</if>
+            <if test="true">content=#{entity.content},</if>
+            <if test="true">content_short=#{entity.contentShort},</if>
+            <if test="true">image_uri=#{entity.imageUri},</if>
+            <if test="true">display_time=#{entity.displayTime},</if>
+            <if test="true">comment_disabled=#{entity.commentDisabled},</if>
+            <if test="true">importance=#{entity.importance},</if>
+            <if test="true">operator=#{entity.operator},</if>
+            <if test="true">operate_time=#{entity.operateTime},</if>
+            <if test="true">version=#{entity.version},</if>
+        </trim>
+        WHERE code=#{entity.code}
+    </update>
+
     <delete id="delete">
         DELETE FROM
         <include refid="TableName"/>

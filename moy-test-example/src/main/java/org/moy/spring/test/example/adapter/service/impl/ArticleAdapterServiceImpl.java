@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.adapter.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.moy.spring.test.example.adapter.service.ArticleAdapterService;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
@@ -39,10 +40,16 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     @Override
     public ResultBean<Integer> create(ArticleDTO dto) {
         ArticleEntity entity = BeanHelper.copyProperties(dto, ArticleEntity.class);
-        entity.setCode(UuidUtil.newUuid());
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
-        Integer insert = articleService.insert(entity);
-        return ResultBean.success(insert);
+        if (StringUtils.isNotEmpty(entity.getCode())) {
+            BaseEntityUtil.setUpdateNeedValue(entity);
+            Integer update = articleService.update(entity);
+            return ResultBean.success(update);
+        } else {
+            entity.setCode(UuidUtil.newUuid());
+            BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+            Integer insert = articleService.insert(entity);
+            return ResultBean.success(insert);
+        }
     }
 
     @Override

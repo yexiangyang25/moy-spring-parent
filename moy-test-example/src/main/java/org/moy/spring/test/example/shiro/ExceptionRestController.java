@@ -39,7 +39,7 @@ public class ExceptionRestController {
     @ExceptionHandler(ShiroException.class)
     public ResultBean handle401(HttpServletRequest request, ShiroException e) {
         LOG.error("shiroException : {}", e.getMessage());
-        return ResultBean.fail("shiroException");
+        return ResultBean.newNotLoginResult();
     }
 
     /**
@@ -52,7 +52,7 @@ public class ExceptionRestController {
     @ExceptionHandler(UnauthorizedException.class)
     public ResultBean handle401(UnauthorizedException e) {
         LOG.error("UnauthorizedException : {}", e.getMessage());
-        return ResultBean.fail("UnauthorizedException");
+        return ResultBean.newUnAuthResult();
     }
 
     /**

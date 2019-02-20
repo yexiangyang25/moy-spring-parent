@@ -30,7 +30,7 @@ public class JwtErrorController implements ErrorController {
     @ResponseBody
     @RequestMapping(JwtConst.UN_AUTH_URI)
     public ResultBean<String> unAuth() {
-        return ResultBean.fail("unAuth");
+        return ResultBean.newNotLoginResult();
     }
 
     @Override

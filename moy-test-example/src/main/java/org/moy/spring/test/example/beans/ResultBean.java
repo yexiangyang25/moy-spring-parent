@@ -50,6 +50,15 @@ public class ResultBean<T> implements Serializable {
         return new ResultBean<>(true, code, message, data);
     }
 
+    public static <E> ResultBean<E> newUnAuthResult() {
+        return new ResultBean<>(false, 404, "您没有该操作权限！", null);
+    }
+
+    public static <E> ResultBean<E> newNotLoginResult() {
+        return new ResultBean<>(false, 302, "本次登录失效，请重新登录", null);
+    }
+
+
     public static <E> ResultBean<E> fail() {
         return fail(FAIL_MESSAGE);
     }
