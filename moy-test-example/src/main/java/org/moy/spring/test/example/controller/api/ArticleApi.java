@@ -29,7 +29,6 @@ public interface ArticleApi {
      * @param requestBean
      * @return
      */
-    @RequiresAuthentication
     @RequestMapping(value = "/article/list", method = {RequestMethod.POST})
     PageResultBean<List<ArticleDTO>> list(@RequestBody @Validated RequestBean<String> requestBean);
 
@@ -40,7 +39,6 @@ public interface ArticleApi {
      * @param requestBean
      * @return
      */
-    @RequiresAuthentication
     @RequestMapping(value = "/article/detail", method = {RequestMethod.POST})
     ResultBean<ArticleDTO> detail(@RequestBody @Validated RequestBean<String> requestBean);
 
