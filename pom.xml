@@ -16,6 +16,7 @@
         <module>moy-config-server</module>
         <module>moy-config-client</module>
         <module>moy-bus-amqp</module>
+        <module>moy-file-server</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -41,6 +42,7 @@
         <swagger.version>2.9.2</swagger.version>
         <lang3.version>3.6</lang3.version>
         <collections.version>4.1</collections.version>
+        <commons-io.version>2.6</commons-io.version>
     </properties>
 
     <dependencyManagement>
@@ -101,6 +103,12 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${lang3.version}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>

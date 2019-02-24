@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 /**
- * <p>Description: [类功能描述]</p>
+ * <p>Description: [博客 rest接口]</p>
  * Created on 2019/1/31
  *
  * @author <a href="mailto: yexiangyang@cn.wilmar-intl.com">叶向阳</a>
