@@ -1,7 +1,5 @@
-package org.moy.spring.test.example.config;
+package org.moy.spring.config;
 
-
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +14,6 @@ import java.io.IOException;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-@Component
 public class CorsFilter implements Filter {
 
     @Override
