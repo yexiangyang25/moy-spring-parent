@@ -41,6 +41,7 @@ public class FileController implements FileApi {
             try {
                 File serverFile = new File(fileComponent.getUploadRootPath(), serverFilename);
                 FileUtils.copyToFile(file.getInputStream(), serverFile);
+                LOG.info("Upload File Absolute Path : {}", serverFile.getAbsolutePath());
                 sb.append(fileComponent.getViewRootPath()).append(serverFilename);
             } catch (IOException e) {
                 LOG.error("Upload File exception!", e);
