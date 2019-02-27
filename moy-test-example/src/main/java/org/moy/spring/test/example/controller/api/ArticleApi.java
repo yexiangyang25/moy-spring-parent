@@ -5,6 +5,7 @@ import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.RequestBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.dto.ArticleDTO;
+import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public interface ArticleApi {
      * @return
      */
     @RequestMapping(value = "/article/list", method = {RequestMethod.POST})
-    PageResultBean<List<ArticleDTO>> list(@RequestBody @Validated RequestBean<String> requestBean);
+    PageResultBean<List<ArticleDTO>> list(@RequestBody @Validated RequestBean<ArticleQueryDTO> requestBean);
 
 
     /**

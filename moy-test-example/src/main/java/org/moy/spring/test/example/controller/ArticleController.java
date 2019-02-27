@@ -7,6 +7,7 @@ import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
 import org.moy.spring.test.example.controller.api.ArticleApi;
 import org.moy.spring.test.example.dto.ArticleDTO;
+import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +30,9 @@ public class ArticleController extends BaseController implements ArticleApi {
     private ArticleAdapterService articleAdapterService;
 
     @Override
-    public PageResultBean<List<ArticleDTO>> list(@RequestBody @Validated RequestBean<String> requestBean) {
-        return articleAdapterService.listArticle();
+    public PageResultBean<List<ArticleDTO>> list(@RequestBody @Validated RequestBean<ArticleQueryDTO> requestBean) {
+        ArticleQueryDTO request = requestBean.getRequest();
+        return articleAdapterService.listArticle(request);
     }
 
     @Override

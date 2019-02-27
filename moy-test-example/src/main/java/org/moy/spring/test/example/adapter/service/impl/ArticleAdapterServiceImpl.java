@@ -11,6 +11,7 @@ import org.moy.spring.test.example.common.BeanHelper;
 import org.moy.spring.test.example.common.UuidUtil;
 import org.moy.spring.test.example.domain.ArticleEntity;
 import org.moy.spring.test.example.dto.ArticleDTO;
+import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.moy.spring.test.example.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     private ArticleService articleService;
 
     @Override
-    public PageResultBean<List<ArticleDTO>> listArticle() {
-        PageHelper.startPage(1, 10);
+    public PageResultBean<List<ArticleDTO>> listArticle(ArticleQueryDTO queryDTO) {
+        PageHelper.startPage(queryDTO.getPage(), queryDTO.getLimit());
         List<ArticleEntity> entityList = articleService.findAll();
         return PageResultBean.copyPageListToCustomPageResult(entityList, ArticleDTO.class);
     }

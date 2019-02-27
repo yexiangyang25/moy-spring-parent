@@ -3,6 +3,7 @@ package org.moy.spring.test.example.adapter.service;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.dto.ArticleDTO;
+import org.moy.spring.test.example.dto.ArticleQueryDTO;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface ArticleAdapterService {
      *
      * @return
      */
-    PageResultBean<List<ArticleDTO>> listArticle();
+    PageResultBean<List<ArticleDTO>> listArticle(ArticleQueryDTO queryDTO);
 
     /**
      * 创建文章
