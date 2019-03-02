@@ -1,7 +1,9 @@
 package org.moy.spring.test.example.dto;
 
+import org.hibernate.validator.constraints.Length;
 import org.moy.spring.test.example.common.JsonUtil;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -21,6 +23,7 @@ public class ArticleQueryDTO implements Serializable {
     @NotNull(message = "{message.request.page}")
     private Integer page;
     @NotNull(message = "{message.request.limit}")
+    @Max(30)
     private Integer limit;
 
     public Integer getPage() {

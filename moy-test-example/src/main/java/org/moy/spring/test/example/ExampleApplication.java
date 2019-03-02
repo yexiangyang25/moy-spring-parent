@@ -1,10 +1,13 @@
 package org.moy.spring.test.example;
 
+import org.moy.spring.config.CorsFilter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportResource;
+
 
 /**
  * <p>Description: [程序入口]</p>
@@ -22,5 +25,11 @@ public class ExampleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ExampleApplication.class, args);
+    }
+
+
+    @Bean
+    public CorsFilter corsFilter(){
+        return new CorsFilter();
     }
 }
