@@ -51,7 +51,7 @@ public interface ArticleApi {
      */
     @RequiresAuthentication
     @RequestMapping(value = "/article/create", method = {RequestMethod.POST})
-    ResultBean<Integer> create(@RequestBody @Validated RequestBean<ArticleDTO> requestBean);
+    ResultBean<String> create(@RequestBody @Validated RequestBean<ArticleDTO> requestBean);
 
     /**
      * 更新

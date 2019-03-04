@@ -30,7 +30,7 @@ public interface ArticleAdapterService {
      * @param dto
      * @return
      */
-    ResultBean<Integer> create(ArticleDTO dto);
+    ResultBean<String> create(ArticleDTO dto);
 
     /**
      * 根据code查询博客文章

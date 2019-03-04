@@ -39,17 +39,17 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     }
 
     @Override
-    public ResultBean<Integer> create(ArticleDTO dto) {
+    public ResultBean<String> create(ArticleDTO dto) {
         ArticleEntity entity = BeanHelper.copyProperties(dto, ArticleEntity.class);
         if (StringUtils.isNotEmpty(entity.getCode())) {
             BaseEntityUtil.setUpdateNeedValue(entity);
-            Integer update = articleService.update(entity);
-            return ResultBean.success(update);
+            articleService.update(entity);
+            return ResultBean.success(entity.getCode());
         } else {
             entity.setCode(UuidUtil.newUuid());
             BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
-            Integer insert = articleService.insert(entity);
-            return ResultBean.success(insert);
+            articleService.insert(entity);
+            return ResultBean.success(entity.getCode());
         }
     }
 

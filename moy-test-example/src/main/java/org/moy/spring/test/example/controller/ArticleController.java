@@ -42,7 +42,7 @@ public class ArticleController extends BaseController implements ArticleApi {
     }
 
     @Override
-    public ResultBean<Integer> create(@RequestBody @Validated RequestBean<ArticleDTO> requestBean) {
+    public ResultBean<String> create(@RequestBody @Validated RequestBean<ArticleDTO> requestBean) {
         ArticleDTO request = requestBean.getRequest();
         return articleAdapterService.create(request);
     }
