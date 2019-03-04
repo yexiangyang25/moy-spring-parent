@@ -7,6 +7,7 @@ import org.moy.spring.test.example.BaseTest;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.BaseEntityUtil;
 import org.moy.spring.test.example.common.JsonUtil;
+import org.moy.spring.test.example.common.UuidUtil;
 import org.moy.spring.test.example.domain.PasswordEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,7 +44,7 @@ public class PasswordServiceTest extends BaseTest {
         service.delete(TEST_ID);
         // 在保存
         PasswordEntity entity = new PasswordEntity();
-        String uid = UUID.randomUUID().toString();
+        String uid =  UuidUtil.newUuid();
         entity.setId(TEST_ID);
         entity.setCode(uid);
         entity.setUserCode(uid);

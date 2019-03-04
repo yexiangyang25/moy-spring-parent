@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.moy.spring.test.example.repository.ArticleTagRepository">
+    <resultMap id="BaseResultMap" type="org.moy.spring.test.example.domain.ArticleTagEntity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="tag_code" property="tagCode" jdbcType="VARCHAR"/>
+        <result column="article_code" property="articleCode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="TableName">t_article_tag</sql>
+
+    <sql id="Base_Column_List">
+        id, tag_code, article_code
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+    </select>
+
+    <insert id="insert" parameterType="org.moy.spring.test.example.domain.ArticleTagEntity">
+        INSERT INTO<include refid="TableName"/>(
+        <include refid="Base_Column_List"/>
+        )
+        VALUES (
+        #{entity.id},
+        #{entity.tagCode},
+        #{entity.articleCode}
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+        <include refid="TableName"/>
+        WHERE id= #{id}
+    </delete>
+
+    <select id="query" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.tagCode != null">
+                AND tag_code = #{entity.tagCode}
+            </if>
+            <if test="entity.articleCode != null">
+                AND article_code = #{entity.articleCode}
+            </if>
+        </where>
+    </select>
+
+</mapper>

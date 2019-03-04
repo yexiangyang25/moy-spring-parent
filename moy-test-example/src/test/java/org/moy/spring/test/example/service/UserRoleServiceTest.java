@@ -7,6 +7,7 @@ import org.moy.spring.test.example.BaseTest;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.BaseEntityUtil;
 import org.moy.spring.test.example.common.JsonUtil;
+import org.moy.spring.test.example.common.UuidUtil;
 import org.moy.spring.test.example.domain.UserRoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,8 +44,10 @@ public class UserRoleServiceTest extends BaseTest {
         service.delete(TEST_ID);
         // 在保存
         UserRoleEntity entity = new UserRoleEntity();
-        String uid = UUID.randomUUID().toString();
+        String uid = UuidUtil.newUuid();
         entity.setId(TEST_ID);
+        entity.setUserCode(uid);
+        entity.setRoleCode(uid);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         LOG.info(entity.toString());
         Integer result = service.insert(entity);

@@ -19,7 +19,7 @@ public interface ArticleAdapterService {
 
     /**
      * 查询文章
-     *
+     * @param queryDTO
      * @return
      */
     PageResultBean<List<ArticleDTO>> listArticle(ArticleQueryDTO queryDTO);

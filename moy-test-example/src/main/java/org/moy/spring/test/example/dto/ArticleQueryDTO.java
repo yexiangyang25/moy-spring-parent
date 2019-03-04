@@ -23,7 +23,7 @@ public class ArticleQueryDTO implements Serializable {
     @NotNull(message = "{message.request.page}")
     private Integer page;
     @NotNull(message = "{message.request.limit}")
-    @Max(30)
+    @Max(15)
     private Integer limit;
 
     public Integer getPage() {

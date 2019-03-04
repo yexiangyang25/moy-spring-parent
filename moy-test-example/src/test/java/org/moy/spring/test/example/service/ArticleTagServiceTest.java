@@ -7,15 +7,12 @@ import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.common.BaseEntityUtil;
 import org.moy.spring.test.example.common.JsonUtil;
 import org.moy.spring.test.example.common.UuidUtil;
-import org.moy.spring.test.example.domain.UserEntity;
-import org.moy.spring.test.example.dto.UserDTO;
+import org.moy.spring.test.example.domain.ArticleTagEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <p> 用户 功能测试
@@ -24,16 +21,16 @@ import static org.junit.Assert.*;
  * @author 叶向阳
  * @since 1.0
  */
-public class UserServiceTest extends BaseTest {
+public class ArticleTagServiceTest extends BaseTest {
 
     @Autowired
-    private UserService service;
+    private ArticleTagService service;
 
     @Test
     public void findAll() {
         PageHelper.startPage(1, 10);
-        List<UserEntity> entityList = service.findAll();
-        PageResultBean<List<UserEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
+        List<ArticleTagEntity> entityList = service.findAll();
+        PageResultBean<List<ArticleTagEntity>> result = PageResultBean.buildPageListToPageResult(entityList);
         LOG.info(JsonUtil.toJsonString(result));
         assertTrue(result.getSuccess());
     }
@@ -43,24 +40,14 @@ public class UserServiceTest extends BaseTest {
         // 先删
         service.delete(TEST_ID);
         // 在保存
-        UserEntity entity = new UserEntity();
-        String uid = UuidUtil.newUuid();
+        ArticleTagEntity entity = new ArticleTagEntity();
+        String uid =  UuidUtil.newUuid();
         entity.setId(TEST_ID);
-        entity.setCode(uid);
-        entity.setName(uid);
+        entity.setArticleCode(uid);
+        entity.setTagCode(uid);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
-        entity.setStatus(1);
-        entity.setTelephone("132");
         LOG.info(entity.toString());
         Integer result = service.insert(entity);
         assertTrue(result == 1);
-    }
-
-    @Test
-    public void insertAll() {
-        int i = 0;
-        while (i++ < 100) {
-            insert();
-        }
     }
 }
