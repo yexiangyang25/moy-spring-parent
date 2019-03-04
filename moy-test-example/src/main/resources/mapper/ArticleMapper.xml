@@ -101,4 +101,21 @@
             </if>
         </where>
     </select>
+
+    <select id="queryByKeywordAndTag" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                AND t_article.title like concat(#{keyword} , '%' )
+            </if>
+            <if test="tag!=null and tag!=''">
+                AND EXISTS (SELECT 1 FROM t_article_tag
+                WHERE t_article_tag.article_code= t_article.code
+                AND t_article_tag.tag_code=#{tag})
+            </if>
+        </where>
+    </select>
 </mapper>

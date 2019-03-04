@@ -2,9 +2,14 @@ package org.moy.spring.test.example.service.impl;
 
 import org.moy.spring.test.example.common.BaseTemplateServiceImpl;
 import org.moy.spring.test.example.domain.ArticleEntity;
+import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.moy.spring.test.example.repository.ArticleRepository;
 import org.moy.spring.test.example.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -18,4 +23,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ArticleServiceImpl extends BaseTemplateServiceImpl<ArticleRepository, ArticleEntity, Long> implements ArticleService {
 
+    @Resource
+    private ArticleRepository articleRepository;
+
+    @Override
+    public List<ArticleEntity> queryByKeywordAndTag(String keyword, String tag) {
+        return articleRepository.queryByKeywordAndTag(keyword , tag);
+    }
 }

@@ -25,6 +25,8 @@ public class ArticleQueryDTO implements Serializable {
     @NotNull(message = "{message.request.limit}")
     @Max(15)
     private Integer limit;
+    private String keyword;
+    private String tag;
 
     public Integer getPage() {
         return page;
@@ -40,6 +42,22 @@ public class ArticleQueryDTO implements Serializable {
 
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     @Override
     public PageResultBean<List<ArticleDTO>> listArticle(ArticleQueryDTO queryDTO) {
         PageHelper.startPage(queryDTO.getPage(), queryDTO.getLimit());
-        List<ArticleEntity> entityList = articleService.findAll();
+        List<ArticleEntity> entityList = articleService.queryByKeywordAndTag(queryDTO.getKeyword(), queryDTO.getTag());
         return PageResultBean.copyPageListToCustomPageResult(entityList, ArticleDTO.class);
     }
 

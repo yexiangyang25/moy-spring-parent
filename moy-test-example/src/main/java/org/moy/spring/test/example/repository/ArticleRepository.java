@@ -1,7 +1,10 @@
 package org.moy.spring.test.example.repository;
 
+import org.apache.ibatis.annotations.Param;
 import org.moy.spring.test.example.common.BaseRepository;
 import org.moy.spring.test.example.domain.ArticleEntity;
+
+import java.util.List;
 
 
 /**
@@ -14,4 +17,12 @@ import org.moy.spring.test.example.domain.ArticleEntity;
  */
 public interface ArticleRepository extends BaseRepository<ArticleEntity, Long> {
 
+    /**
+     * 根据关键字和标签查询
+     *
+     * @param keyword
+     * @param tag
+     * @return
+     */
+    List<ArticleEntity> queryByKeywordAndTag(@Param("keyword") String keyword, @Param("tag") String tag);
 }

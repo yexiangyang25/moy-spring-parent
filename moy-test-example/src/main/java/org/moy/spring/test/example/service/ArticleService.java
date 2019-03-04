@@ -2,6 +2,9 @@ package org.moy.spring.test.example.service;
 
 import org.moy.spring.test.example.common.BaseTemplateService;
 import org.moy.spring.test.example.domain.ArticleEntity;
+import org.moy.spring.test.example.dto.ArticleQueryDTO;
+
+import java.util.List;
 
 /**
  * <p>Description: [博客文章 接口]</p>
@@ -12,4 +15,13 @@ import org.moy.spring.test.example.domain.ArticleEntity;
  * Copyright (c) 2018 墨阳
  */
 public interface ArticleService extends BaseTemplateService<ArticleEntity, Long> {
+
+
+    /**
+     * 根据关键字和标签查询
+     * @param keyword
+     * @param tag
+     * @return
+     */
+    List<ArticleEntity> queryByKeywordAndTag(String keyword, String tag);
 }
