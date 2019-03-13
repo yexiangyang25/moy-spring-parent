@@ -39,7 +39,7 @@ public interface BaseTemplateService< T, PK extends Serializable> {
      * @param entity
      * @return
      */
-    Integer delete(T entity);
+    Integer deleteByCondition(T entity);
 
     /**
      * 批量删除
@@ -80,7 +80,7 @@ public interface BaseTemplateService< T, PK extends Serializable> {
      * @param entity
      * @return
      */
-    T get(T entity);
+    T getByCondition(T entity);
 
     /**
      * 主键查询
@@ -107,5 +107,5 @@ public interface BaseTemplateService< T, PK extends Serializable> {
      * @param entity
      * @return
      */
-    Long count(T entity);
+    Long countByCondition(T entity);
 }

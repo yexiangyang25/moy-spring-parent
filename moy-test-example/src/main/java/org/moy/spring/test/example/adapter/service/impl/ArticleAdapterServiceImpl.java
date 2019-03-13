@@ -57,7 +57,7 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     public ResultBean<ArticleDTO> getDetailByCode(String request) {
         ArticleEntity queryParam = new ArticleEntity();
         queryParam.setCode(request);
-        ArticleEntity entity = articleService.get(queryParam);
+        ArticleEntity entity = articleService.getByCondition(queryParam);
         ArticleDTO dto = BeanHelper.copyProperties(entity, ArticleDTO.class);
         return ResultBean.success(dto);
     }

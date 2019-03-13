@@ -46,7 +46,7 @@ public class InitServiceImpl implements InitService {
         UserRoleEntity entity = new UserRoleEntity();
         entity.setRoleCode(ADMIN_ACCOUNT);
         entity.setUserCode(ADMIN_ACCOUNT);
-        userRoleService.delete(entity);
+        userRoleService.deleteByCondition(entity);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         userRoleService.insert(entity);
     }
@@ -55,7 +55,7 @@ public class InitServiceImpl implements InitService {
         PasswordEntity entity = new PasswordEntity();
         entity.setCode(ADMIN_ACCOUNT_PASSWORD);
         entity.setUserCode(ADMIN_ACCOUNT);
-        passwordService.delete(entity);
+        passwordService.deleteByCondition(entity);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         passwordService.insert(entity);
     }
@@ -63,7 +63,7 @@ public class InitServiceImpl implements InitService {
     private void initAdminUser() {
         UserEntity entity = new UserEntity();
         entity.setCode(ADMIN_ACCOUNT);
-        userService.delete(entity);
+        userService.deleteByCondition(entity);
         entity.setName(ADMIN_ACCOUNT);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         userService.insert(entity);

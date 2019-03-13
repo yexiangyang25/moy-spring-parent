@@ -68,7 +68,7 @@
         <include refid="TableName"/>
         <where>
             <if test="entity.code != null">
-                AND code = #{entity.code}
+                AND code like concat(#{entity.code} , '%' )
             </if>
         </where>
     </select>

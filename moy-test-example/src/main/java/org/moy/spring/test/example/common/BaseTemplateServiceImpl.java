@@ -76,7 +76,7 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
     }
 
     @Override
-    public Integer delete(T entity) {
+    public Integer deleteByCondition(T entity) {
         return baseRepository.deleteByCondition(entity);
     }
 
@@ -106,7 +106,7 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
     }
 
     @Override
-    public T get(T entity) {
+    public T getByCondition(T entity) {
         return baseRepository.getByCondition(entity);
     }
 
@@ -126,7 +126,7 @@ public abstract class BaseTemplateServiceImpl<tRepository extends BaseRepository
     }
 
     @Override
-    public Long count(T entity) {
+    public Long countByCondition(T entity) {
         return baseRepository.countByCondition(entity);
     }
 }
