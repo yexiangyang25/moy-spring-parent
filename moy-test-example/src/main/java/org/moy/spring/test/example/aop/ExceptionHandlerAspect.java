@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.aop;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,6 +9,7 @@ import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,6 +23,9 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ExceptionHandlerAspect {
+    @Autowired
+    private I18nComponent i18nComponent;
+
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Pointcut("execution (public org.moy.spring.test.example.beans.ResultBean org.moy.spring.test.example.controller.*.*(..))")
@@ -31,7 +36,12 @@ public class ExceptionHandlerAspect {
     public Object around(ProceedingJoinPoint point) {
         ResultBean<?> result = null;
         try {
-            result = (ResultBean<?>) point.proceed();
+            String validateMessage = i18nComponent.getValidateMessage(point.getArgs());
+            if (StringUtils.isEmpty(validateMessage)) {
+                result = (ResultBean<?>) point.proceed();
+            } else {
+                return ResultBean.fail(validateMessage);
+            }
         } catch (Throwable ex) {
             LOG.error("统一结果拦截器拦截异常", ex);
             return ResultBean.fail(ex.getMessage());
@@ -47,7 +57,12 @@ public class ExceptionHandlerAspect {
     public Object pageAround(ProceedingJoinPoint point) {
         PageResultBean<?> result = null;
         try {
-            result = (PageResultBean<?>) point.proceed();
+            String validateMessage = i18nComponent.getValidateMessage(point.getArgs());
+            if (StringUtils.isEmpty(validateMessage)) {
+                result = (PageResultBean<?>) point.proceed();
+            } else {
+                return ResultBean.fail(validateMessage);
+            }
         } catch (Throwable ex) {
             LOG.error("统一结果拦截器拦截异常", ex);
             return PageResultBean.fail(ex.getMessage());

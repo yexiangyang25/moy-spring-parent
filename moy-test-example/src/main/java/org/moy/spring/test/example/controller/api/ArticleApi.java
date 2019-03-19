@@ -6,7 +6,6 @@ import org.moy.spring.test.example.beans.RequestBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.dto.ArticleDTO;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +30,7 @@ public interface ArticleApi {
      * @return
      */
     @RequestMapping(value = "/article/list", method = {RequestMethod.POST})
-    PageResultBean<List<ArticleDTO>> list(@RequestBody @Validated RequestBean<ArticleQueryDTO> requestBean);
+    PageResultBean<List<ArticleDTO>> list(@RequestBody RequestBean<ArticleQueryDTO> requestBean);
 
 
     /**
@@ -41,7 +40,7 @@ public interface ArticleApi {
      * @return
      */
     @RequestMapping(value = "/article/detail", method = {RequestMethod.POST})
-    ResultBean<ArticleDTO> detail(@RequestBody @Validated RequestBean<String> requestBean);
+    ResultBean<ArticleDTO> detail(@RequestBody RequestBean<String> requestBean);
 
     /**
      * 创建
@@ -51,7 +50,7 @@ public interface ArticleApi {
      */
     @RequiresAuthentication
     @RequestMapping(value = "/article/create", method = {RequestMethod.POST})
-    ResultBean<String> create(@RequestBody @Validated RequestBean<ArticleDTO> requestBean);
+    ResultBean<String> create(@RequestBody RequestBean<ArticleDTO> requestBean);
 
     /**
      * 更新
@@ -61,5 +60,5 @@ public interface ArticleApi {
      */
     @RequiresAuthentication
     @RequestMapping(value = "/article/update", method = {RequestMethod.POST})
-    ResultBean<String> update(@RequestBody @Validated RequestBean<ArticleDTO> requestBean);
+    ResultBean<String> update(@RequestBody RequestBean<ArticleDTO> requestBean);
 }

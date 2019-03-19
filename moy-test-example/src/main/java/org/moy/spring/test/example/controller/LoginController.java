@@ -7,7 +7,6 @@ import org.moy.spring.test.example.common.BaseController;
 import org.moy.spring.test.example.controller.api.LoginApi;
 import org.moy.spring.test.example.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,13 +25,13 @@ public class LoginController extends BaseController implements LoginApi {
     private LoginAdapterService loginAdapterService;
 
     @Override
-    public ResultBean<String> login(@RequestBody @Validated RequestBean<LoginDTO> requestBean) {
+    public ResultBean<String> login(@RequestBody RequestBean<LoginDTO> requestBean) {
         LoginDTO loginDTO = requestBean.getRequest();
         return loginAdapterService.login(loginDTO.getUsername(), loginDTO.getPassword());
     }
 
     @Override
-    public ResultBean<Boolean> logout(@RequestBody @Validated RequestBean<Object> requestBean) {
+    public ResultBean<Boolean> logout(@RequestBody RequestBean<Object> requestBean) {
         return loginAdapterService.logout();
     }
 }

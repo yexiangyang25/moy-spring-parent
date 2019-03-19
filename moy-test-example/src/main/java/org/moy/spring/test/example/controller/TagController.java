@@ -7,7 +7,6 @@ import org.moy.spring.test.example.common.BaseController;
 import org.moy.spring.test.example.controller.api.TagApi;
 import org.moy.spring.test.example.dto.TagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +27,7 @@ public class TagController extends BaseController implements TagApi {
     private TagAdapterService tagAdapterService;
 
     @Override
-    public ResultBean<List<TagDTO>> search(@RequestBody @Validated RequestBean<String> requestBean) {
+    public ResultBean<List<TagDTO>> search(@RequestBody RequestBean<String> requestBean) {
         return  tagAdapterService.search(requestBean.getRequest());
     }
 }

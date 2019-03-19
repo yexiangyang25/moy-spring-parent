@@ -2,9 +2,7 @@ package org.moy.spring.test.example.controller.api;
 
 import org.moy.spring.test.example.beans.RequestBean;
 import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.dto.LoginDTO;
 import org.moy.spring.test.example.dto.TagDTO;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,5 +27,5 @@ public interface TagApi {
      * @return
      */
     @RequestMapping(value = "/tag/search", method = {RequestMethod.GET, RequestMethod.POST})
-    ResultBean<List<TagDTO>> search(@RequestBody @Validated RequestBean<String> requestBean);
+    ResultBean<List<TagDTO>> search(@RequestBody RequestBean<String> requestBean);
 }

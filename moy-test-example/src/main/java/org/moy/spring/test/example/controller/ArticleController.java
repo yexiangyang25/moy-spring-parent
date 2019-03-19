@@ -9,7 +9,6 @@ import org.moy.spring.test.example.controller.api.ArticleApi;
 import org.moy.spring.test.example.dto.ArticleDTO;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,25 +29,25 @@ public class ArticleController extends BaseController implements ArticleApi {
     private ArticleAdapterService articleAdapterService;
 
     @Override
-    public PageResultBean<List<ArticleDTO>> list(@RequestBody @Validated RequestBean<ArticleQueryDTO> requestBean) {
+    public PageResultBean<List<ArticleDTO>> list(@RequestBody RequestBean<ArticleQueryDTO> requestBean) {
         ArticleQueryDTO request = requestBean.getRequest();
         return articleAdapterService.listArticle(request);
     }
 
     @Override
-    public ResultBean<ArticleDTO> detail(@RequestBody @Validated RequestBean<String> requestBean) {
+    public ResultBean<ArticleDTO> detail(@RequestBody RequestBean<String> requestBean) {
         String request = requestBean.getRequest();
         return articleAdapterService.getDetailByCode(request);
     }
 
     @Override
-    public ResultBean<String> create(@RequestBody @Validated RequestBean<ArticleDTO> requestBean) {
+    public ResultBean<String> create(@RequestBody RequestBean<ArticleDTO> requestBean) {
         ArticleDTO request = requestBean.getRequest();
         return articleAdapterService.create(request);
     }
 
     @Override
-    public ResultBean<String> update(@RequestBody @Validated RequestBean<ArticleDTO> requestBean) {
+    public ResultBean<String> update(@RequestBody RequestBean<ArticleDTO> requestBean) {
         return ResultBean.success();
     }
 }
