@@ -64,7 +64,7 @@ public class ExceptionHandlerAspect {
                 return ResultBean.fail(validateMessage);
             }
         } catch (Throwable ex) {
-            LOG.error("统一结果拦截器拦截异常", ex);
+            LOG.error("分页统一结果拦截器拦截异常", ex);
             return PageResultBean.fail(ex.getMessage());
         }
         return result;

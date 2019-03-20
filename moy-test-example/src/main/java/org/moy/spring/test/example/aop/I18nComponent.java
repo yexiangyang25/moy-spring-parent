@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -39,17 +40,20 @@ public class I18nComponent {
     private MessageInterpolator messageInterpolator;
 
     /**
-     * 获取当前请求国际化语言
+     * 自定义获取当前请求国际化语言
      *
      * @return
      */
-    public Locale getCurrentRequestLocale() {
+    public Locale getCurrentServletRequestRequestLocale() {
         try {
-            ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = requestAttributes.getRequest();
-            String lang = request.getParameter("lang");
-            if (StringUtils.isNotEmpty(lang)) {
-                return new Locale(lang);
+            RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+            if (requestAttributes instanceof ServletRequestAttributes) {
+                ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+                HttpServletRequest request = servletRequestAttributes.getRequest();
+                String lang = request.getParameter("lang");
+                if (StringUtils.isNotEmpty(lang)) {
+                    return new Locale(lang);
+                }
             }
         } catch (Exception e) {
             LOG.error("get current request locale exception", e);
@@ -64,7 +68,7 @@ public class I18nComponent {
      * @return
      */
     public String getValidateMessage(Object... objects) {
-        return getValidateMessage(getCurrentRequestLocale(), objects);
+        return getValidateMessage(getCurrentServletRequestRequestLocale(), objects);
     }
 
     /**
