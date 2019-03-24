@@ -1,7 +1,9 @@
 package org.moy.spring.test.example.controller.api;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.moy.spring.test.example.beans.RequestBean;
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.dto.CountTagDTO;
 import org.moy.spring.test.example.dto.TagDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,4 +30,34 @@ public interface TagApi {
      */
     @RequestMapping(value = "/tag/search", method = {RequestMethod.GET, RequestMethod.POST})
     ResultBean<List<TagDTO>> search(@RequestBody RequestBean<String> requestBean);
+
+    /**
+     * 新增
+     *
+     * @param requestBean
+     * @return
+     */
+    @RequiresAuthentication
+    @RequestMapping(value = "/tag/add", method = {RequestMethod.POST})
+    ResultBean<Integer> add(@RequestBody RequestBean<String> requestBean);
+
+
+    /**
+     * 删除
+     *
+     * @param requestBean
+     * @return
+     */
+    @RequiresAuthentication
+    @RequestMapping(value = "/tag/delete", method = {RequestMethod.POST})
+    ResultBean<Integer> delete(@RequestBody RequestBean<String> requestBean);
+
+    /**
+     * 总计标签数
+     *
+     * @param requestBean
+     * @return
+     */
+    @RequestMapping(value = "/tag/countTag", method = {RequestMethod.POST})
+    ResultBean<List<TagDTO>> countTag(@RequestBody RequestBean<String> requestBean);
 }

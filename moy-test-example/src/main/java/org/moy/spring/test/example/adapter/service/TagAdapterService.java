@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.adapter.service;
 
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.dto.CountTagDTO;
 import org.moy.spring.test.example.dto.TagDTO;
 
 import java.util.List;
@@ -18,8 +19,32 @@ public interface TagAdapterService {
 
     /**
      * 查询
+     *
      * @param query
      * @return
      */
     ResultBean<List<TagDTO>> search(String query);
+
+    /**
+     * 新增
+     *
+     * @param name
+     * @return
+     */
+    ResultBean<Integer> add(String name);
+
+    /**
+     * 删除
+     *
+     * @param name
+     * @return
+     */
+    ResultBean<Integer> delete(String name);
+
+    /**
+     * 总计标签数
+     *
+     * @return
+     */
+    ResultBean<List<TagDTO>> countTag();
 }

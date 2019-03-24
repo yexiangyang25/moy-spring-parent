@@ -63,7 +63,7 @@
 
     <select id="query" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        code,name
         FROM
         <include refid="TableName"/>
         <where>

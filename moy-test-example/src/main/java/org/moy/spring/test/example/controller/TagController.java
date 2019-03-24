@@ -5,6 +5,7 @@ import org.moy.spring.test.example.beans.RequestBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseController;
 import org.moy.spring.test.example.controller.api.TagApi;
+import org.moy.spring.test.example.dto.CountTagDTO;
 import org.moy.spring.test.example.dto.TagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,21 @@ public class TagController extends BaseController implements TagApi {
 
     @Override
     public ResultBean<List<TagDTO>> search(@RequestBody RequestBean<String> requestBean) {
-        return  tagAdapterService.search(requestBean.getRequest());
+        return tagAdapterService.search(requestBean.getRequest());
+    }
+
+    @Override
+    public ResultBean<Integer> add(@RequestBody RequestBean<String> requestBean) {
+        return tagAdapterService.add(requestBean.getRequest());
+    }
+
+    @Override
+    public ResultBean<Integer> delete(@RequestBody RequestBean<String> requestBean) {
+        return tagAdapterService.delete(requestBean.getRequest());
+    }
+
+    @Override
+    public ResultBean<List<TagDTO>> countTag(@RequestBody RequestBean<String> requestBean) {
+        return tagAdapterService.countTag();
     }
 }

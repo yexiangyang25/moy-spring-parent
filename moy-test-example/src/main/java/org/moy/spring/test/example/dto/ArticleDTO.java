@@ -4,6 +4,7 @@ import org.moy.spring.test.example.common.JsonUtil;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Description: [博客文章 实体]</p>
@@ -25,6 +26,7 @@ public class ArticleDTO implements Serializable {
     private Date displayTime;
     private Boolean commentDisabled;
     private Integer importance;
+    private List<String> tags;
 
     public Long getId() {
         return id;
@@ -96,6 +98,14 @@ public class ArticleDTO implements Serializable {
 
     public void setImportance(Integer importance) {
         this.importance = importance;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     @Override

@@ -12,20 +12,10 @@ import java.io.Serializable;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public class TagDTO implements Serializable {
+public class CountTagDTO implements Serializable {
 
-    private Long id;
     private String code;
-    private String name;
-    private Integer percentage;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Integer count;
 
     public String getCode() {
         return code;
@@ -35,20 +25,12 @@ public class TagDTO implements Serializable {
         this.code = code;
     }
 
-    public String getName() {
-        return name;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(Integer percentage) {
-        this.percentage = percentage;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     @Override

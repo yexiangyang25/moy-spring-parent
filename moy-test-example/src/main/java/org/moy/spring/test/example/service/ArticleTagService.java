@@ -2,6 +2,9 @@ package org.moy.spring.test.example.service;
 
 import org.moy.spring.test.example.common.BaseTemplateService;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
+import org.moy.spring.test.example.dto.CountTagDTO;
+
+import java.util.List;
 
 /**
  * <p>Description: [博客标签 接口]</p>
@@ -12,4 +15,11 @@ import org.moy.spring.test.example.domain.ArticleTagEntity;
  * Copyright (c) 2018 墨阳
  */
 public interface ArticleTagService extends BaseTemplateService<ArticleTagEntity, Long> {
+
+
+    /**
+     * 总计标签数
+     * @return
+     */
+    List<CountTagDTO> countTag();
 }

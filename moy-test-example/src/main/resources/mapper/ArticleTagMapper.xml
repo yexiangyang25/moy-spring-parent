@@ -7,6 +7,11 @@
         <result column="article_code" property="articleCode" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="countTagMap" type="org.moy.spring.test.example.dto.CountTagDTO">
+        <result column="tag_code" property="code" jdbcType="VARCHAR"/>
+        <result column="count" property="count" />
+    </resultMap>
+
     <sql id="TableName">t_article_tag</sql>
 
     <sql id="Base_Column_List">
@@ -52,4 +57,15 @@
         </where>
     </select>
 
+    <select id="count" resultType="Long">
+        SELECT COUNT(1) FROM
+        <include refid="TableName"/>
+    </select>
+
+    <select id="countTag" resultMap="countTagMap">
+        SELECT tag_code,count(1) as count
+        FROM
+        <include refid="TableName"/>
+        group by tag_code
+    </select>
 </mapper>

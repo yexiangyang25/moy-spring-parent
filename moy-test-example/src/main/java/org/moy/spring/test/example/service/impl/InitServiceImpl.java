@@ -1,7 +1,6 @@
 package org.moy.spring.test.example.service.impl;
 
 
-import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseEntityUtil;
 import org.moy.spring.test.example.domain.PasswordEntity;
 import org.moy.spring.test.example.domain.UserEntity;
@@ -32,7 +31,7 @@ public class InitServiceImpl implements InitService {
     private UserService userService;
 
     private final String ADMIN_ACCOUNT = "admin";
-    private final String ADMIN_ACCOUNT_PASSWORD = "1111111";
+    private final String ADMIN_ACCOUNT_PASSWORD = "admin123";
 
     @Override
     public Boolean insertInitAdmin() {

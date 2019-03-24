@@ -5,17 +5,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.moy.spring.test.example.adapter.service.ArticleAdapterService;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseEntityUtil;
-import org.moy.spring.test.example.common.BaseService;
-import org.moy.spring.test.example.common.BeanHelper;
-import org.moy.spring.test.example.common.UuidUtil;
+import org.moy.spring.test.example.common.*;
 import org.moy.spring.test.example.domain.ArticleEntity;
+import org.moy.spring.test.example.domain.ArticleTagEntity;
 import org.moy.spring.test.example.dto.ArticleDTO;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
+import org.moy.spring.test.example.repository.ArticleTagRepository;
 import org.moy.spring.test.example.service.ArticleService;
+import org.moy.spring.test.example.service.ArticleTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,8 @@ import java.util.List;
 public class ArticleAdapterServiceImpl extends BaseService implements ArticleAdapterService {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ArticleTagService articleTagService;
 
     @Override
     public PageResultBean<List<ArticleDTO>> listArticle(ArticleQueryDTO queryDTO) {
@@ -58,7 +61,23 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
         ArticleEntity queryParam = new ArticleEntity();
         queryParam.setCode(request);
         ArticleEntity entity = articleService.getByCondition(queryParam);
+
+        List<String> arrayList = getTags(request);
+
         ArticleDTO dto = BeanHelper.copyProperties(entity, ArticleDTO.class);
+        dto.setTags(arrayList);
         return ResultBean.success(dto);
+    }
+
+    private List<String> getTags(String articleCode) {
+        ArticleTagEntity tagEntity = new ArticleTagEntity();
+        tagEntity.setArticleCode(articleCode);
+        List<ArticleTagEntity> list = articleTagService.query(tagEntity);
+
+        List<String> arrayList = new ArrayList<>(list.size());
+        for (ArticleTagEntity each : list) {
+            arrayList.add(each.getTagCode());
+        }
+        return arrayList;
     }
 }

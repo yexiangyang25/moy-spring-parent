@@ -104,7 +104,7 @@
 
     <select id="queryByKeywordAndTag" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        id, code, title,content_short,image_uri,display_time,comment_disabled,importance
         FROM
         <include refid="TableName"/>
         <where>

@@ -4,12 +4,17 @@ import org.moy.spring.test.example.adapter.service.TagAdapterService;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseService;
 import org.moy.spring.test.example.common.BeanHelper;
+import org.moy.spring.test.example.common.NullUtil;
+import org.moy.spring.test.example.common.UuidUtil;
 import org.moy.spring.test.example.domain.TagEntity;
+import org.moy.spring.test.example.dto.CountTagDTO;
 import org.moy.spring.test.example.dto.TagDTO;
+import org.moy.spring.test.example.service.ArticleTagService;
 import org.moy.spring.test.example.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +31,8 @@ public class TagAdapterServiceImpl extends BaseService implements TagAdapterServ
 
     @Autowired
     private TagService tagService;
+    @Autowired
+    private ArticleTagService articleTagService;
 
     @Override
     public ResultBean<List<TagDTO>> search(String query) {
@@ -34,5 +41,41 @@ public class TagAdapterServiceImpl extends BaseService implements TagAdapterServ
         List<TagEntity> entityList = tagService.query(entity);
         List<TagDTO> dtoList = BeanHelper.copyList(entityList, TagDTO.class);
         return ResultBean.success(dtoList);
+    }
+
+    @Override
+    public ResultBean<Integer> add(String name) {
+        TagEntity entity = new TagEntity();
+        entity.setCode(name);
+        entity.setName(name);
+        return ResultBean.success(tagService.insert(entity));
+    }
+
+    @Override
+    public ResultBean<Integer> delete(String name) {
+        TagEntity entity = new TagEntity();
+        entity.setName(name);
+        return ResultBean.success(tagService.deleteByCondition(entity));
+    }
+
+    @Override
+    public ResultBean<List<TagDTO>> countTag() {
+        List<CountTagDTO> dtoList = articleTagService.countTag();
+        Long count = articleTagService.count();
+        return ResultBean.success(buildListDTO(dtoList, count));
+    }
+
+    private List<TagDTO> buildListDTO(List<CountTagDTO> dtoList, Long count) {
+        if (NullUtil.collectionIsNotEmpty(dtoList)) {
+            List<TagDTO> list = new ArrayList<>(dtoList.size());
+            for (CountTagDTO each : dtoList) {
+                TagDTO dto = new TagDTO();
+                dto.setCode(each.getCode());
+                dto.setPercentage((int) (each.getCount() / count) * 100);
+                list.add(dto);
+            }
+            return list;
+        }
+        return null;
     }
 }

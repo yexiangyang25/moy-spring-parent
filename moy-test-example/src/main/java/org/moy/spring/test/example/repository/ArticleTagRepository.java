@@ -2,6 +2,9 @@ package org.moy.spring.test.example.repository;
 
 import org.moy.spring.test.example.common.BaseRepository;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
+import org.moy.spring.test.example.dto.CountTagDTO;
+
+import java.util.List;
 
 
 /**
@@ -14,4 +17,11 @@ import org.moy.spring.test.example.domain.ArticleTagEntity;
  */
 public interface ArticleTagRepository extends BaseRepository<ArticleTagEntity, Long> {
 
+
+    /**
+     * 总计标签数
+     *
+     * @return
+     */
+    List<CountTagDTO> countTag();
 }
