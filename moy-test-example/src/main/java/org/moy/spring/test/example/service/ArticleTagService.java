@@ -1,6 +1,8 @@
 package org.moy.spring.test.example.service;
 
+import io.swagger.models.auth.In;
 import org.moy.spring.test.example.common.BaseTemplateService;
+import org.moy.spring.test.example.domain.ArticleEntity;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
 import org.moy.spring.test.example.dto.CountTagDTO;
 
@@ -22,4 +24,12 @@ public interface ArticleTagService extends BaseTemplateService<ArticleTagEntity,
      * @return
      */
     List<CountTagDTO> countTag();
+
+    /**
+     * 保存文章与标签关系
+     * @param articleCode
+     * @param tags
+     * @return
+     */
+    Integer saveTags(String articleCode, List<String> tags);
 }

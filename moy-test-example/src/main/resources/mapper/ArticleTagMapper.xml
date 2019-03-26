@@ -36,10 +36,36 @@
         )
     </insert>
 
+    <insert id="addAll">
+        INSERT INTO<include refid="TableName"/>(
+        <include refid="Base_Column_List"/>
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.tagCode},
+            #{item.articleCode})
+        </foreach>
+    </insert>
+
     <delete id="delete">
         DELETE FROM
         <include refid="TableName"/>
         WHERE id= #{id}
+    </delete>
+
+    <delete id="deleteByCondition">
+        DELETE FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.tagCode != null">
+                AND tag_code = #{entity.tagCode}
+            </if>
+            <if test="entity.articleCode != null">
+                AND article_code = #{entity.articleCode}
+            </if>
+        </where>
     </delete>
 
     <select id="query" resultMap="BaseResultMap">

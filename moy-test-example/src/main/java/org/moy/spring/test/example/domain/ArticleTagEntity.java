@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @version 1.0
  * Copyright (c) 2019 丰益（上海）信息技术有限公司
  */
-public class ArticleTagEntity extends BaseEntity implements Serializable {
+public class ArticleTagEntity implements Serializable {
     private static final long serialVersionUID = 8935574563104607950L;
 
     private Long id;

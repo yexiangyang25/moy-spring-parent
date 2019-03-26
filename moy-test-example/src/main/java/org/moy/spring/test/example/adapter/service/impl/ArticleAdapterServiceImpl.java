@@ -46,12 +46,12 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
         ArticleEntity entity = BeanHelper.copyProperties(dto, ArticleEntity.class);
         if (StringUtils.isNotEmpty(entity.getCode())) {
             BaseEntityUtil.setUpdateNeedValue(entity);
-            articleService.update(entity);
+            articleService.updateAndSaveTags(entity , dto.getTags());
             return ResultBean.success(entity.getCode());
         } else {
             entity.setCode(UuidUtil.newUuid());
             BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
-            articleService.insert(entity);
+            articleService.insertAndSaveTags(entity , dto.getTags());
             return ResultBean.success(entity.getCode());
         }
     }

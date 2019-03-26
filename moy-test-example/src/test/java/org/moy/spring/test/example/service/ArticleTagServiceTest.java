@@ -45,7 +45,6 @@ public class ArticleTagServiceTest extends BaseTest {
         entity.setId(TEST_ID);
         entity.setArticleCode(uid);
         entity.setTagCode(uid);
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         LOG.info(entity.toString());
         Integer result = service.insert(entity);
         assertTrue(result == 1);

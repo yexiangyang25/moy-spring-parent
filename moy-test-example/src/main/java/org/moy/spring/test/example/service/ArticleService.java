@@ -24,4 +24,22 @@ public interface ArticleService extends BaseTemplateService<ArticleEntity, Long>
      * @return
      */
     List<ArticleEntity> queryByKeywordAndTag(String keyword, String tag);
+
+
+    /**
+     * 保存文章和标签
+     * @param entity
+     * @param tags
+     * @return
+     */
+    Integer insertAndSaveTags(ArticleEntity entity , List<String> tags);
+
+
+    /**
+     * 更新文章和标签
+     * @param entity
+     * @param tags
+     * @return
+     */
+    Integer updateAndSaveTags(ArticleEntity entity , List<String> tags);
 }

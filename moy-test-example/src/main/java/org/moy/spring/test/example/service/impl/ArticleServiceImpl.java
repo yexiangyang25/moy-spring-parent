@@ -4,7 +4,10 @@ import org.moy.spring.test.example.common.BaseTemplateServiceImpl;
 import org.moy.spring.test.example.domain.ArticleEntity;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.moy.spring.test.example.repository.ArticleRepository;
+import org.moy.spring.test.example.repository.TagRepository;
 import org.moy.spring.test.example.service.ArticleService;
+import org.moy.spring.test.example.service.ArticleTagService;
+import org.moy.spring.test.example.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +28,23 @@ public class ArticleServiceImpl extends BaseTemplateServiceImpl<ArticleRepositor
 
     @Resource
     private ArticleRepository articleRepository;
+    @Resource
+    private ArticleTagService articleTagService;
 
     @Override
     public List<ArticleEntity> queryByKeywordAndTag(String keyword, String tag) {
-        return articleRepository.queryByKeywordAndTag(keyword , tag);
+        return articleRepository.queryByKeywordAndTag(keyword, tag);
+    }
+
+    @Override
+    public Integer insertAndSaveTags(ArticleEntity entity, List<String> tags) {
+        articleTagService.saveTags(entity.getCode(), tags);
+        return insert(entity);
+    }
+
+    @Override
+    public Integer updateAndSaveTags(ArticleEntity entity, List<String> tags) {
+        articleTagService.saveTags(entity.getCode(), tags);
+        return update(entity);
     }
 }

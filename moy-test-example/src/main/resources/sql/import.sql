@@ -116,7 +116,7 @@ CREATE TABLE `t_tag` (
 DROP TABLE IF EXISTS `t_article_tag`;
 CREATE TABLE `t_article_tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `tag_code` varchar(32)  COMMENT '编码',
-  `article_code` varchar(32) UNIQUE COMMENT '名称' ,
+  `tag_code` varchar(32)  COMMENT '标签编码',
+  `article_code` varchar(32)  COMMENT '文章编码' ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

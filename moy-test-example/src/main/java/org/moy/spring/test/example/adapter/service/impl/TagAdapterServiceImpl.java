@@ -2,10 +2,7 @@ package org.moy.spring.test.example.adapter.service.impl;
 
 import org.moy.spring.test.example.adapter.service.TagAdapterService;
 import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseService;
-import org.moy.spring.test.example.common.BeanHelper;
-import org.moy.spring.test.example.common.NullUtil;
-import org.moy.spring.test.example.common.UuidUtil;
+import org.moy.spring.test.example.common.*;
 import org.moy.spring.test.example.domain.TagEntity;
 import org.moy.spring.test.example.dto.CountTagDTO;
 import org.moy.spring.test.example.dto.TagDTO;
@@ -48,6 +45,7 @@ public class TagAdapterServiceImpl extends BaseService implements TagAdapterServ
         TagEntity entity = new TagEntity();
         entity.setCode(name);
         entity.setName(name);
+        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         return ResultBean.success(tagService.insert(entity));
     }
 
