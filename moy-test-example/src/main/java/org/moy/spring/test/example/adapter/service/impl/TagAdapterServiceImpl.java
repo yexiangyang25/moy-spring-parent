@@ -69,7 +69,8 @@ public class TagAdapterServiceImpl extends BaseService implements TagAdapterServ
             for (CountTagDTO each : dtoList) {
                 TagDTO dto = new TagDTO();
                 dto.setCode(each.getCode());
-                dto.setPercentage((int) (each.getCount() / count) * 100);
+                double percentage = BigDecimalUtil.multiply(100, BigDecimalUtil.divide(each.getCount(), count));
+                dto.setPercentage((int) percentage);
                 list.add(dto);
             }
             return list;
