@@ -35,13 +35,22 @@ public class AopHelper {
      * @return
      */
     public static <T extends Annotation> T getAnnotationOfMethod(JoinPoint joinPoint, Class<T> clazz) {
+        T annotation = null;
         Signature signature = joinPoint.getSignature();
         if (signature instanceof MethodSignature) {
             MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
             Method method = methodSignature.getMethod();
-            return MethodUtils.getAnnotation(method, clazz, true, false);
+            try {
+                Method subMethod = joinPoint.getTarget().getClass().getMethod(method.getName(), method.getParameterTypes());
+                annotation = MethodUtils.getAnnotation(subMethod, clazz, true, false);
+            } catch (NoSuchMethodException e) {
+                // do nothing
+            }
+            if (null == annotation) {
+                annotation = MethodUtils.getAnnotation(method, clazz, true, false);
+            }
         }
-        return null;
+        return annotation;
     }
 
     /**
@@ -53,9 +62,18 @@ public class AopHelper {
     public static Map<String, Object> getParameterPairOfMethod(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         if (signature instanceof MethodSignature) {
+            String[] parameterNames = null;
             MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
             Method method = methodSignature.getMethod();
-            String[] parameterNames = getParameterNamesOfMethod(method);
+            try {
+                Method subMethod = joinPoint.getTarget().getClass().getMethod(method.getName(), method.getParameterTypes());
+                parameterNames = getParameterNamesOfMethod(subMethod);
+            } catch (NoSuchMethodException e) {
+                // do nothing
+            }
+            if (null == parameterNames) {
+                parameterNames = getParameterNamesOfMethod(method);
+            }
             Object[] args = joinPoint.getArgs();
             if (null != parameterNames && null != args
                     && parameterNames.length == args.length) {
