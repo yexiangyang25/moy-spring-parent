@@ -86,7 +86,7 @@ CREATE TABLE `t_article` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code` varchar(32)  COMMENT '编码',
   `title` varchar(50) UNIQUE COMMENT '文章题目' ,
-  `content` nvarchar(2500)  COMMENT '文章内容',
+  `content` LONGTEXT  COMMENT '文章内容',
   `content_short` varchar(50)  COMMENT '文章摘要',
   `image_uri` varchar(50)  COMMENT '文章内容',
   `display_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '发布时间',
