@@ -10,6 +10,7 @@ import org.moy.spring.test.example.service.PasswordService;
 import org.moy.spring.test.example.service.UserRoleService;
 import org.moy.spring.test.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,8 +31,10 @@ public class InitServiceImpl implements InitService {
     @Autowired
     private UserService userService;
 
-    private final String ADMIN_ACCOUNT = "admin";
-    private final String ADMIN_ACCOUNT_PASSWORD = "admin123";
+    @Value("${admin.account}")
+    private String ADMIN_ACCOUNT;
+    @Value("${admin.account.password}")
+    private String ADMIN_ACCOUNT_PASSWORD;
 
     @Override
     public Boolean insertInitAdmin() {

@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.moy.spring.test.example.adapter.service.ArticleAdapterService;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.cache.BlogCacheComponent;
 import org.moy.spring.test.example.common.*;
 import org.moy.spring.test.example.domain.ArticleEntity;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
@@ -33,6 +34,8 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     private ArticleService articleService;
     @Autowired
     private ArticleTagService articleTagService;
+    @Autowired
+    private BlogCacheComponent blogCacheComponent;
 
     @Override
     public PageResultBean<List<ArticleDTO>> listArticle(ArticleQueryDTO queryDTO) {
@@ -47,6 +50,7 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
         if (StringUtils.isNotEmpty(entity.getCode())) {
             BaseEntityUtil.setUpdateNeedValue(entity);
             articleService.updateAndSaveTags(entity , dto.getTags());
+            blogCacheComponent.deleteBlogCache(entity.getCode());
             return ResultBean.success(entity.getCode());
         } else {
             entity.setCode(UuidUtil.newUuid());
@@ -58,14 +62,24 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
 
     @Override
     public ResultBean<ArticleDTO> getDetailByCode(String request) {
-        ArticleEntity queryParam = new ArticleEntity();
-        queryParam.setCode(request);
-        ArticleEntity entity = articleService.getByCondition(queryParam);
+        ArticleDTO dto = null;
+        String blogCache = blogCacheComponent.getBlogCache(request);
+        if (null != blogCache) {
+            dto = JsonUtil.fromJsonString(blogCache, ArticleDTO.class);
+        } else {
+            ArticleEntity queryParam = new ArticleEntity();
+            queryParam.setCode(request);
+            ArticleEntity entity = articleService.getByCondition(queryParam);
 
-        List<String> arrayList = getTags(request);
-
-        ArticleDTO dto = BeanHelper.copyProperties(entity, ArticleDTO.class);
-        dto.setTags(arrayList);
+            dto = BeanHelper.copyProperties(entity, ArticleDTO.class);
+            // 添加标签
+            List<String> arrayList = getTags(request);
+            dto.setTags(arrayList);
+            blogCacheComponent.addBlogCache(request, JsonUtil.toJsonString(dto));
+        }
+        // 浏览数加一
+        Long blogViewCount = blogCacheComponent.addBlogViewCount(request);
+        dto.setImportance(Math.toIntExact(blogViewCount));
         return ResultBean.success(dto);
     }
 

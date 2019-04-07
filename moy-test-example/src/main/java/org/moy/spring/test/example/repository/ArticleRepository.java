@@ -25,4 +25,13 @@ public interface ArticleRepository extends BaseRepository<ArticleEntity, Long> {
      * @return
      */
     List<ArticleEntity> queryByKeywordAndTag(@Param("keyword") String keyword, @Param("tag") String tag);
+
+
+    /**
+     * 更新浏览数
+     * @param entity
+     * @param oldViewCount
+     * @return
+     */
+    Integer updateViewCount(@Param("entity") ArticleEntity entity , @Param("oldViewCount")Integer oldViewCount);
 }

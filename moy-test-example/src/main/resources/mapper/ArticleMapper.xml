@@ -72,6 +72,14 @@
         WHERE code=#{entity.code}
     </update>
 
+    <update id="updateViewCount">
+        UPDATE <include refid="TableName"/>
+        <trim prefix="set" suffixOverrides=",">
+            <if test="true">importance=#{entity.importance},</if>
+        </trim>
+        WHERE code=#{entity.code} and importance=#{oldViewCount}
+    </update>
+
     <delete id="delete">
         DELETE FROM
         <include refid="TableName"/>

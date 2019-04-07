@@ -91,7 +91,7 @@ CREATE TABLE `t_article` (
   `image_uri` varchar(50)  COMMENT '文章内容',
   `display_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '发布时间',
   `comment_disabled` varchar(20)  COMMENT '是否评论',
-  `importance` int(1)  COMMENT '评价',
+  `importance` int(1)  COMMENT '浏览数',
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
   `founder` varchar(50) NOT NULL COMMENT '创建人',
   `operator` varchar(50) NOT NULL COMMENT '操作人',

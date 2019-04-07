@@ -42,4 +42,14 @@ public interface ArticleService extends BaseTemplateService<ArticleEntity, Long>
      * @return
      */
     Integer updateAndSaveTags(ArticleEntity entity , List<String> tags);
+
+
+    /**
+     * 更新浏览数
+     *
+     * @param code
+     * @param viewCount
+     * @return
+     */
+    Integer updateViewCount(String code, Integer viewCount);
 }

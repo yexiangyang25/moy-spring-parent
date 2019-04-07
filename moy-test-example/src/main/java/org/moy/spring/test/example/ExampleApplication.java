@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 /**
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath:/spring/spring-import.xml")
 @MapperScan("org.moy.spring.test.example.repository")
 @EnableAspectJAutoProxy
+@EnableScheduling
 public class ExampleApplication {
 
     public static void main(String[] args) {

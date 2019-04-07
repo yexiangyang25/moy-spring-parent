@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.service.impl;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.moy.spring.test.example.common.BaseTemplateServiceImpl;
 import org.moy.spring.test.example.domain.ArticleEntity;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -46,5 +48,21 @@ public class ArticleServiceImpl extends BaseTemplateServiceImpl<ArticleRepositor
     public Integer updateAndSaveTags(ArticleEntity entity, List<String> tags) {
         articleTagService.saveTags(entity.getCode(), tags);
         return update(entity);
+    }
+
+    @Override
+    public Integer updateViewCount(String code, Integer viewCount) {
+        ArticleEntity queryEntity = new ArticleEntity();
+        queryEntity.setCode(code);
+        ArticleEntity articleEntity = articleRepository.getByCondition(queryEntity);
+        Integer oldViewCount = articleEntity.getImportance();
+        if (Objects.equals(oldViewCount, viewCount)) {
+            return 0;
+        } else {
+            ArticleEntity entity = new ArticleEntity();
+            entity.setCode(code);
+            entity.setImportance(viewCount);
+            return articleRepository.updateViewCount(entity, oldViewCount);
+        }
     }
 }
