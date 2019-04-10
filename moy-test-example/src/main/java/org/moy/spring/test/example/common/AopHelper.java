@@ -43,14 +43,12 @@ public class AopHelper {
             try {
                 Method subMethod = joinPoint.getTarget().getClass().getMethod(method.getName(), method.getParameterTypes());
                 annotation = MethodUtils.getAnnotation(subMethod, clazz, true, false);
+                return null != annotation ? annotation : MethodUtils.getAnnotation(method, clazz, true, false);
             } catch (NoSuchMethodException e) {
                 // do nothing
             }
-            if (null == annotation) {
-                annotation = MethodUtils.getAnnotation(method, clazz, true, false);
-            }
         }
-        return annotation;
+        return null;
     }
 
     /**
@@ -68,11 +66,9 @@ public class AopHelper {
             try {
                 Method subMethod = joinPoint.getTarget().getClass().getMethod(method.getName(), method.getParameterTypes());
                 parameterNames = getParameterNamesOfMethod(subMethod);
+                parameterNames = null != parameterNames ? parameterNames : getParameterNamesOfMethod(method);
             } catch (NoSuchMethodException e) {
                 // do nothing
-            }
-            if (null == parameterNames) {
-                parameterNames = getParameterNamesOfMethod(method);
             }
             Object[] args = joinPoint.getArgs();
             if (null != parameterNames && null != args
