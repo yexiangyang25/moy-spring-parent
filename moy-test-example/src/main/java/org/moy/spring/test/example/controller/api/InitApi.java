@@ -20,6 +20,6 @@ public interface InitApi {
      *
      * @return
      */
-    @RequestMapping(value = "/initAdmin", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/initAdmin", method = {RequestMethod.POST})
     ResultBean<Boolean> initAdmin();
 }

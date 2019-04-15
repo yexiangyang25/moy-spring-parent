@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.swagger2;
 
+import org.moy.spring.test.example.ExampleApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,10 +26,11 @@ public class Swagger2Config {
 
     @Bean
     public Docket createRestApi() {
+        String name = ExampleApplication.class.getPackage().getName();
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.moy.spring.test.example.controller"))
+                .apis(RequestHandlerSelectors.basePackage(name))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -36,8 +38,6 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("MOY REST APIs")
-                .description("http://www.whymoy.com/")
-                .termsOfServiceUrl("http://www.whymoy.com/")
                 .contact(new Contact("墨阳", "http://www.whymoy.com/", "moy25@foxmail.com"))
                 .version("1.0")
                 .build();

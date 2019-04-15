@@ -4,6 +4,7 @@ import org.moy.spring.test.example.beans.ResultBean;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +22,14 @@ public class JwtErrorController implements ErrorController {
 
 
     @ResponseBody
-    @RequestMapping("/error")
+    @RequestMapping(value = "/error", method = {RequestMethod.POST,RequestMethod.GET})
     public ResultBean handleError(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         return ResultBean.fail(statusCode, "SERVER ERROR");
     }
 
     @ResponseBody
-    @RequestMapping(JwtConst.UN_AUTH_URI)
+    @RequestMapping(value = JwtConst.UN_AUTH_URI, method = {RequestMethod.POST,RequestMethod.GET})
     public ResultBean<String> unAuth() {
         return ResultBean.newNotLoginResult();
     }

@@ -1,4 +1,4 @@
-package org.moy.spring.test.example;
+package org.moy.spring.test.example.controller;
 
 import org.moy.spring.test.example.shiro.JwtSecurityUtils;
 import org.springframework.web.bind.annotation.GetMapping;
