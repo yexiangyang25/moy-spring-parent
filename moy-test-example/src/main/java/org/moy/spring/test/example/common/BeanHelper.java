@@ -1,6 +1,5 @@
 package org.moy.spring.test.example.common;
 
-import org.moy.spring.test.example.beans.PageResultBean;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -20,6 +19,9 @@ public class BeanHelper {
     }
 
     public static <T> T copyProperties(Object source, Class<T> clazz) {
+        if (NullUtil.objectIsNull(source)) {
+            return null;
+        }
         T t = ReflectUtil.newInstance(clazz);
         BeanUtils.copyProperties(source, t);
         return t;

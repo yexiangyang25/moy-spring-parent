@@ -86,6 +86,12 @@
         WHERE id= #{id}
     </delete>
 
+    <delete id="deleteByCondition">
+        DELETE FROM
+        <include refid="TableName"/>
+        code = #{entity.code}
+    </delete>
+
     <select id="query" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

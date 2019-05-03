@@ -32,9 +32,9 @@ public class InitServiceImpl implements InitService {
     private UserService userService;
 
     @Value("${admin.account}")
-    private String ADMIN_ACCOUNT;
+    private String adminAccount;
     @Value("${admin.account.password}")
-    private String ADMIN_ACCOUNT_PASSWORD;
+    private String adminAccountPassword;
 
     @Override
     public Boolean insertInitAdmin() {
@@ -46,8 +46,8 @@ public class InitServiceImpl implements InitService {
 
     private void initAdminRole() {
         UserRoleEntity entity = new UserRoleEntity();
-        entity.setRoleCode(ADMIN_ACCOUNT);
-        entity.setUserCode(ADMIN_ACCOUNT);
+        entity.setRoleCode(adminAccount);
+        entity.setUserCode(adminAccount);
         userRoleService.deleteByCondition(entity);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         userRoleService.insert(entity);
@@ -55,8 +55,8 @@ public class InitServiceImpl implements InitService {
 
     private void initAdminPassword() {
         PasswordEntity entity = new PasswordEntity();
-        entity.setCode(ADMIN_ACCOUNT_PASSWORD);
-        entity.setUserCode(ADMIN_ACCOUNT);
+        entity.setCode(adminAccountPassword);
+        entity.setUserCode(adminAccount);
         passwordService.deleteByCondition(entity);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         passwordService.insert(entity);
@@ -64,9 +64,9 @@ public class InitServiceImpl implements InitService {
 
     private void initAdminUser() {
         UserEntity entity = new UserEntity();
-        entity.setCode(ADMIN_ACCOUNT);
+        entity.setCode(adminAccount);
         userService.deleteByCondition(entity);
-        entity.setName(ADMIN_ACCOUNT);
+        entity.setName(adminAccount);
         BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
         userService.insert(entity);
     }
