@@ -1,6 +1,7 @@
 package org.moy.spring.test.example;
 
 import org.moy.spring.config.CorsFilter;
+import org.moy.spring.test.example.common.SpringContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +30,11 @@ public class ExampleApplication {
         SpringApplication.run(ExampleApplication.class, args);
     }
 
+
+    @Bean
+    public SpringContextUtil springContextUtil(){
+        return new SpringContextUtil();
+    }
 
     @Bean
     public CorsFilter corsFilter(){

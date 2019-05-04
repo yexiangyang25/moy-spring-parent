@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.moy.spring.test.example.adapter.service.LoginAdapterService;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseService;
+import org.moy.spring.test.example.common.ExceptionUtil;
 import org.moy.spring.test.example.common.NullUtil;
 import org.moy.spring.test.example.domain.UserEntity;
 import org.moy.spring.test.example.service.PasswordService;
@@ -46,7 +47,7 @@ public class LoginAdapterServiceImpl extends BaseService implements LoginAdapter
                 }
             }
         }
-        return ResultBean.fail();
+        throw ExceptionUtil.newBusinessException("account not exist!");
     }
 
     @Override
