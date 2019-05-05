@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.common.BaseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,10 @@ public class ExceptionHandlerAspect {
             }
         } catch (Throwable ex) {
             LOG.error("统一结果拦截器拦截异常", ex);
+            if (ex instanceof BaseException) {
+                BaseException e = (BaseException) ex;
+                return ResultBean.fail(e.getCode(), e.getMsg());
+            }
             return ResultBean.fail(ex.getMessage());
         }
         return result;
@@ -65,6 +70,10 @@ public class ExceptionHandlerAspect {
             }
         } catch (Throwable ex) {
             LOG.error("分页统一结果拦截器拦截异常", ex);
+            if (ex instanceof BaseException) {
+                BaseException e = (BaseException) ex;
+                return ResultBean.fail(e.getCode(), e.getMsg());
+            }
             return PageResultBean.fail(ex.getMessage());
         }
         return result;

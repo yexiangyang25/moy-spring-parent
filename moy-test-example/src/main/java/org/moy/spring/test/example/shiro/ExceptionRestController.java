@@ -4,6 +4,7 @@ package org.moy.spring.test.example.shiro;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.test.example.common.BaseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,12 @@ public class ExceptionRestController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     public ResultBean globalException(HttpServletRequest request, Throwable ex) {
-        LOG.warn("unknownException: {}", ex.getMessage());
-        return ResultBean.fail(String.format("unknownException : %s", ex.getMessage()));
+        LOG.error("unknownException", ex);
+        if (ex instanceof BaseException) {
+            BaseException e = (BaseException) ex;
+            return ResultBean.fail(e.getCode(), e.getMsg());
+        }
+        String message = "系统开小差了，请稍候再试";
+        return ResultBean.fail(message);
     }
 }
