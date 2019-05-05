@@ -89,7 +89,7 @@
     <delete id="deleteByCondition">
         DELETE FROM
         <include refid="TableName"/>
-        code = #{entity.code}
+        WHERE code = #{entity.code}
     </delete>
 
     <select id="query" resultMap="BaseResultMap">
