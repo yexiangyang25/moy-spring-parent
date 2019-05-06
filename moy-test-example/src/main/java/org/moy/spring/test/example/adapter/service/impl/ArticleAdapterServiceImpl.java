@@ -48,13 +48,21 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
     public ResultBean<String> create(ArticleDTO dto) {
         ArticleEntity entity = BeanHelper.copyProperties(dto, ArticleEntity.class);
         if (StringUtils.isNotEmpty(entity.getCode())) {
-            BaseEntityUtil.setUpdateNeedValue(entity);
-            articleService.insertAndSaveTags(entity , dto.getTags());
-            blogCacheComponent.deleteBlogCache(entity.getCode());
+            ArticleEntity queryParam = new ArticleEntity();
+            queryParam.setCode(entity.getCode());
+            ArticleEntity queryArticle = articleService.getByCondition(queryParam);
+            if (NullUtil.objectIsNull(queryArticle)) {
+                BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+                articleService.insertAndSaveTags(entity, dto.getTags());
+            } else {
+                BaseEntityUtil.setUpdateNeedValue(entity);
+                articleService.updateAndSaveTags(entity, dto.getTags());
+                blogCacheComponent.deleteBlogCache(entity.getCode());
+            }
         } else {
             entity.setCode(UuidUtil.newUuid());
             BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
-            articleService.insertAndSaveTags(entity , dto.getTags());
+            articleService.insertAndSaveTags(entity, dto.getTags());
         }
         return ResultBean.success(entity.getCode());
     }
