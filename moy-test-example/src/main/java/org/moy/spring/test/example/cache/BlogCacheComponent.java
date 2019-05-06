@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Description: [博客缓存实现]</p>
@@ -30,7 +29,7 @@ public class BlogCacheComponent {
      */
     public void addBlogCache(String key, String value) {
         ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
-        valueOperations.set(BlogConst.BLOG_CACHE_KEY_PREFIX + key, value, 15, TimeUnit.DAYS);
+        valueOperations.set(BlogConst.BLOG_CACHE_KEY_PREFIX + key, value);
     }
 
     /**
