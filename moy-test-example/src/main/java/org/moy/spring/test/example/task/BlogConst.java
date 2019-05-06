@@ -14,7 +14,7 @@ public interface BlogConst {
     /**
      * 博客缓存
      */
-    String BLOG_CACHE_KEY_PREFIX = "cache_blog_code";
+    String BLOG_CACHE_KEY_PREFIX = "cache_blog_code_";
 
 
     /**
