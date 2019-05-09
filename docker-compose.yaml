@@ -1,0 +1,53 @@
+version: '3'
+services:
+  mysql:
+    container_name: prod-mysql
+    image: mysql:5.7
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_DATABASE: spring-boot
+      MYSQL_ROOT_PASSWORD: A&*ODy9b&Pw10cDP
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "2345:3306"
+    volumes:
+      - /etc/hosts:/etc/hosts
+    restart: always
+
+  test-example:
+    container_name: prod-test-example
+    build: ./moy-test-example
+    volumes:
+      - /etc/hosts:/etc/hosts
+    ports:
+      - "3456:8443"
+    depends_on:
+      - mysql
+      - redis
+      - file-server
+
+  file-server:
+    container_name: prod-file-server
+    build: ./moy-file-server
+    volumes:
+      - /etc/hosts:/etc/hosts
+    ports:
+      - "4567:1443"
+
+  nginx:
+    container_name: prod-file-nginx
+    image: nginx:1.14
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - /etc/hosts:/etc/hosts
+
+  redis:
+    container_name: prod-redis
+    image: redis:4.0.8
+    restart: always
+    ports:
+      - 5678:6379
+    volumes:
+      - /etc/hosts:/etc/hosts
