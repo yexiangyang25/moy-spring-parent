@@ -11,7 +11,7 @@ services:
     ports:
       - "2345:3306"
     volumes:
-      - /etc/hosts:/etc/hosts
+      - /data/mysql-data:/var/lib/mysql
     restart: always
 
   test-example:
@@ -24,7 +24,6 @@ services:
     depends_on:
       - mysql
       - redis
-      - file-server
     links:
       - mysql
       - redis
@@ -34,7 +33,6 @@ services:
   redis:
     container_name: prod-redis
     image: redis:4.0.8
-    restart: always
     ports:
       - 5678:6379
     restart: always

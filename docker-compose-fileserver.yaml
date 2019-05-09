@@ -4,7 +4,7 @@ services:
     container_name: prod-file-server
     build: ./moy-file-server
     volumes:
-      - moy-images:/opt/nginx
+      - /data/moy-images:/opt/nginx
     ports:
       - "4567:1443"
 
@@ -15,4 +15,4 @@ services:
     ports:
       - 80:80
     volumes:
-      - moy-images:/usr/share/nginx/html
+      - /data/moy-images:/usr/share/nginx/html
