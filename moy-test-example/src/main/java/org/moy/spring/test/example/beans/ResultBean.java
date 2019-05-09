@@ -58,6 +58,10 @@ public class ResultBean<T> implements Serializable {
         return new ResultBean<>(false, 302, "本次登录失效，请重新登录", null);
     }
 
+    public static <E> ResultBean<E> newFirendResult() {
+        String message = "系统开小差了，请稍候再试";
+        return ResultBean.fail(message);
+    }
 
     public static <E> ResultBean<E> fail() {
         return fail(FAIL_MESSAGE);

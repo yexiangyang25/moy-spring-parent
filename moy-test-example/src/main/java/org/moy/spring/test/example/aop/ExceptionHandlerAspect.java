@@ -44,12 +44,13 @@ public class ExceptionHandlerAspect {
                 return ResultBean.fail(validateMessage);
             }
         } catch (Throwable ex) {
-            LOG.error("统一结果拦截器拦截异常", ex);
+            LOG.error("分页统一拦截器拦截业务异常", ex);
             if (ex instanceof BaseException) {
                 BaseException e = (BaseException) ex;
                 return ResultBean.fail(e.getCode(), e.getMsg());
+            } else {
+                return ResultBean.newFirendResult();
             }
-            return ResultBean.fail(ex.getMessage());
         }
         return result;
     }
@@ -69,12 +70,13 @@ public class ExceptionHandlerAspect {
                 return ResultBean.fail(validateMessage);
             }
         } catch (Throwable ex) {
-            LOG.error("分页统一结果拦截器拦截异常", ex);
+            LOG.error("分页统一拦截器拦截业务异常", ex);
             if (ex instanceof BaseException) {
                 BaseException e = (BaseException) ex;
                 return ResultBean.fail(e.getCode(), e.getMsg());
+            } else {
+                return ResultBean.newFirendResult();
             }
-            return PageResultBean.fail(ex.getMessage());
         }
         return result;
     }

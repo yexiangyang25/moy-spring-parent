@@ -16,9 +16,7 @@ services:
 
   test-example:
     container_name: prod-test-example
-    build: ./moy-test-example
-    volumes:
-      - /etc/hosts:/etc/hosts
+    build: ./
     ports:
       - "3456:8443"
     depends_on:
@@ -36,3 +34,6 @@ services:
     ports:
       - 5678:6379
     restart: always
+    volumes:
+      - /data/redis-data:/data
+    command: redis-server --appendonly yes --requirepass "233"

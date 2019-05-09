@@ -64,11 +64,6 @@ public class ExceptionRestController {
     @ResponseStatus(HttpStatus.OK)
     public ResultBean globalException(HttpServletRequest request, Throwable ex) {
         LOG.error("unknownException", ex);
-        if (ex instanceof BaseException) {
-            BaseException e = (BaseException) ex;
-            return ResultBean.fail(e.getCode(), e.getMsg());
-        }
-        String message = "系统开小差了，请稍候再试";
-        return ResultBean.fail(message);
+        return ResultBean.newFirendResult();
     }
 }
