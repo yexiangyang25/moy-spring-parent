@@ -25,23 +25,11 @@ services:
       - mysql
       - redis
       - file-server
-
-  file-server:
-    container_name: prod-file-server
-    build: ./moy-file-server
-    volumes:
-      - /etc/hosts:/etc/hosts
-    ports:
-      - "4567:1443"
-
-  nginx:
-    container_name: prod-file-nginx
-    image: nginx:1.14
+    links:
+      - mysql
+      - redis
+    command: --spring.profiles.active=peer
     restart: always
-    ports:
-      - 80:80
-    volumes:
-      - /etc/hosts:/etc/hosts
 
   redis:
     container_name: prod-redis
@@ -49,5 +37,4 @@ services:
     restart: always
     ports:
       - 5678:6379
-    volumes:
-      - /etc/hosts:/etc/hosts
+    restart: always

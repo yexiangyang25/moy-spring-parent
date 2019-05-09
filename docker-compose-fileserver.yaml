@@ -1,0 +1,18 @@
+version: '3'
+services:
+  file-server:
+    container_name: prod-file-server
+    build: ./moy-file-server
+    volumes:
+      - moy-images:/opt/nginx
+    ports:
+      - "4567:1443"
+
+  nginx:
+    container_name: prod-file-nginx
+    image: nginx:1.14
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - moy-images:/usr/share/nginx/html
