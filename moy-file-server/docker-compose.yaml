@@ -1,0 +1,19 @@
+version: '3'
+services:
+  file-server:
+    container_name: prod-file-server
+    build: ./
+    volumes:
+      - /data/moy-images:/opt/upload
+    ports:
+      - "1443:1443"
+    command: --spring.profiles.active=peer
+
+  nginx:
+    container_name: prod-file-nginx
+    image: nginx:1.14
+    restart: always
+    ports:
+      - 233:80
+    volumes:
+      - /data/moy-images:/usr/share/nginx/html

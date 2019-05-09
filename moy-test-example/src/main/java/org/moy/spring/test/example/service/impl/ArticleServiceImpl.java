@@ -40,7 +40,6 @@ public class ArticleServiceImpl extends BaseTemplateServiceImpl<ArticleRepositor
 
     @Override
     public Integer insertAndSaveTags(ArticleEntity entity, List<String> tags) {
-        deleteByCondition(entity);
         articleTagService.saveTags(entity.getCode(), tags);
         return insert(entity);
     }
