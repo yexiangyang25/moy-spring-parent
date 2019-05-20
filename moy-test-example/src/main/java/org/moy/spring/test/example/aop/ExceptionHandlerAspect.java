@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseException;
+import org.moy.spring.test.example.common.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,20 @@ public class ExceptionHandlerAspect {
 
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("execution (public org.moy.spring.test.example.beans.ResultBean org.moy.spring.test.example.controller.*.*(..))")
+    @Pointcut("execution (public org.moy.spring.test.example.beans.ResultBean org.moy.spring.test.example.controller.*.*(org.moy.spring.test.example.beans.RequestBean))")
     private void aspectMethod() {
     }
 
+    @Pointcut("execution (public org.moy.spring.test.example.beans.PageResultBean org.moy.spring.test.example.controller.*.*(org.moy.spring.test.example.beans.RequestBean))")
+    private void aspectPageMethod() {
+    }
+
+
     @Around(value = "aspectMethod()")
     public Object around(ProceedingJoinPoint point) {
+        long startTime = System.currentTimeMillis();
+        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs(), startTime);
+
         ResultBean<?> result = null;
         try {
             String validateMessage = i18nComponent.getValidateMessage(point.getArgs());
@@ -52,15 +61,16 @@ public class ExceptionHandlerAspect {
                 return ResultBean.newFirendResult();
             }
         }
-        return result;
-    }
 
-    @Pointcut("execution (public org.moy.spring.test.example.beans.PageResultBean org.moy.spring.test.example.controller.*.*(..))")
-    private void aspectPageMethod() {
+        ApiLogRecord.buildCallAfter(logRecord , startTime , result);
+        return result;
     }
 
     @Around(value = "aspectPageMethod()")
     public Object pageAround(ProceedingJoinPoint point) {
+        long startTime = System.currentTimeMillis();
+        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs(), startTime);
+
         PageResultBean<?> result = null;
         try {
             String validateMessage = i18nComponent.getValidateMessage(point.getArgs());
@@ -78,6 +88,8 @@ public class ExceptionHandlerAspect {
                 return ResultBean.newFirendResult();
             }
         }
+
+        ApiLogRecord.buildCallAfter(logRecord , startTime , result);
         return result;
     }
 }
