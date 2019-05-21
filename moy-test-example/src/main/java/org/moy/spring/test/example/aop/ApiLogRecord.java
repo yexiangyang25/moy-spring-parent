@@ -18,17 +18,18 @@ public class ApiLogRecord implements Serializable {
     private Object[] args;
     private Object result;
 
-    public static ApiLogRecord buildCallBefore(Object[] args, Long startTime) {
-        ApiLogRecord apiLogRecord = ApiLogRecord.newDefaultValue();
+    public static ApiLogRecord buildCallBefore(Object[] args) {
+        long startTime = System.currentTimeMillis();
+        ApiLogRecord apiLogRecord = newDefaultValue();
         apiLogRecord.setArgs(args);
         apiLogRecord.setSubmitTime(startTime);
         return apiLogRecord;
     }
 
-    public static void buildCallAfter(ApiLogRecord apiLogRecord, Long startTime, Object result) {
+    public static void buildCallAfter(ApiLogRecord apiLogRecord, Object result) {
         apiLogRecord.setResult(result);
         long endTime = System.currentTimeMillis();
-        apiLogRecord.setExecTime(endTime - startTime);
+        apiLogRecord.setExecTime(endTime - apiLogRecord.getSubmitTime());
         // 收集日志
         LogCollect.collect(JsonUtil.toJsonString(apiLogRecord));
     }

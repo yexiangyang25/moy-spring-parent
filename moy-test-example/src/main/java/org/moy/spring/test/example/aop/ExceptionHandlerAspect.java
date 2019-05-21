@@ -41,8 +41,7 @@ public class ExceptionHandlerAspect {
 
     @Around(value = "aspectMethod()")
     public Object around(ProceedingJoinPoint point) {
-        long startTime = System.currentTimeMillis();
-        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs(), startTime);
+        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs());
 
         ResultBean<?> result = null;
         try {
@@ -50,26 +49,25 @@ public class ExceptionHandlerAspect {
             if (StringUtils.isEmpty(validateMessage)) {
                 result = (ResultBean<?>) point.proceed();
             } else {
-                return ResultBean.fail(validateMessage);
+                result = ResultBean.fail(validateMessage);
             }
         } catch (Throwable ex) {
             LOG.error("分页统一拦截器拦截业务异常", ex);
             if (ex instanceof BaseException) {
                 BaseException e = (BaseException) ex;
-                return ResultBean.fail(e.getCode(), e.getMsg());
+                result = ResultBean.fail(e.getCode(), e.getMsg());
             } else {
-                return ResultBean.newFirendResult();
+                result = ResultBean.newFriendResult();
             }
         }
 
-        ApiLogRecord.buildCallAfter(logRecord , startTime , result);
+        ApiLogRecord.buildCallAfter(logRecord , result);
         return result;
     }
 
     @Around(value = "aspectPageMethod()")
     public Object pageAround(ProceedingJoinPoint point) {
-        long startTime = System.currentTimeMillis();
-        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs(), startTime);
+        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs());
 
         PageResultBean<?> result = null;
         try {
@@ -77,19 +75,19 @@ public class ExceptionHandlerAspect {
             if (StringUtils.isEmpty(validateMessage)) {
                 result = (PageResultBean<?>) point.proceed();
             } else {
-                return ResultBean.fail(validateMessage);
+                result = PageResultBean.fail(validateMessage);
             }
         } catch (Throwable ex) {
             LOG.error("分页统一拦截器拦截业务异常", ex);
             if (ex instanceof BaseException) {
                 BaseException e = (BaseException) ex;
-                return ResultBean.fail(e.getCode(), e.getMsg());
+                result = PageResultBean.fail(e.getCode(), e.getMsg());
             } else {
-                return ResultBean.newFirendResult();
+                result = PageResultBean.newFriendPageResult();
             }
         }
 
-        ApiLogRecord.buildCallAfter(logRecord , startTime , result);
+        ApiLogRecord.buildCallAfter(logRecord , result);
         return result;
     }
 }
