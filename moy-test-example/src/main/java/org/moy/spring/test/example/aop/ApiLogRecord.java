@@ -1,5 +1,7 @@
 package org.moy.spring.test.example.aop;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.Signature;
 import org.moy.spring.test.example.common.JsonUtil;
 
 import java.io.Serializable;
@@ -13,15 +15,24 @@ import java.io.Serializable;
  * Copyright (c) 2018 墨阳
  */
 public class ApiLogRecord implements Serializable {
+    private static final long serialVersionUID = -8545283884267261438L;
     private Long submitTime;
+    private String serverName;
     private Long execTime;
     private Object[] args;
     private Object result;
 
-    public static ApiLogRecord buildCallBefore(Object[] args) {
+    public static ApiLogRecord buildCallBefore(JoinPoint joinPoint) {
         long startTime = System.currentTimeMillis();
         ApiLogRecord apiLogRecord = newDefaultValue();
-        apiLogRecord.setArgs(args);
+        apiLogRecord.setArgs(joinPoint.getArgs());
+        Signature signature = joinPoint.getSignature();
+        String simpleName = signature.getDeclaringTypeName();
+        String packageSplitter = ".";
+        if (simpleName.contains(packageSplitter)) {
+            simpleName = simpleName.substring(simpleName.lastIndexOf(packageSplitter) + packageSplitter.length());
+        }
+        apiLogRecord.setServerName(simpleName + packageSplitter + signature.getName());
         apiLogRecord.setSubmitTime(startTime);
         return apiLogRecord;
     }
@@ -36,6 +47,14 @@ public class ApiLogRecord implements Serializable {
 
     private static ApiLogRecord newDefaultValue() {
         return new ApiLogRecord();
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
     }
 
     public Object[] getArgs() {

@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseException;
-import org.moy.spring.test.example.common.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class ExceptionHandlerAspect {
 
     @Around(value = "aspectMethod()")
     public Object around(ProceedingJoinPoint point) {
-        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs());
+        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point);
 
         ResultBean<?> result = null;
         try {
@@ -67,7 +66,7 @@ public class ExceptionHandlerAspect {
 
     @Around(value = "aspectPageMethod()")
     public Object pageAround(ProceedingJoinPoint point) {
-        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point.getArgs());
+        ApiLogRecord logRecord = ApiLogRecord.buildCallBefore(point);
 
         PageResultBean<?> result = null;
         try {
