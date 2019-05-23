@@ -64,6 +64,6 @@ public class ExceptionRestController {
     @ResponseStatus(HttpStatus.OK)
     public ResultBean globalException(HttpServletRequest request, Throwable ex) {
         LOG.error("unknownException", ex);
-        return ResultBean.newFirendResult();
+        return ResultBean.newFriendResult();
     }
 }

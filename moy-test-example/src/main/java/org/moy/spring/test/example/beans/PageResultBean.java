@@ -80,6 +80,11 @@ public class PageResultBean<T> extends ResultBean<T> implements Serializable {
         return fail(FAIL_MESSAGE);
     }
 
+    public static <E> PageResultBean<E> newFriendPageResult() {
+        String message = "系统开小差了，请稍候再试";
+        return PageResultBean.fail(message);
+    }
+
     public static <E> PageResultBean<E> fail(String message) {
         return fail(FAIL_CODE, message);
     }

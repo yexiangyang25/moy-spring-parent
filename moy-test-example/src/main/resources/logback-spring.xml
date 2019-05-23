@@ -1,0 +1,25 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <springProperty scope="context" name="project.log.path" source="project.log.path"/>
+    <springProperty scope="context" name="project.log.filename" source="project.log.filename"/>
+
+    <appender name="ELK_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <file>${project.log.path}/${project.log.filename}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${project.log.path}/backup/${project.log.filename}.%d{yyyy-MM-dd}.%i.gz
+            </fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.moy.spring.test.example.aop.LogCollect" level="info" additivity="false">
+        <!--<appender-ref ref="ELK_FILE"/>-->
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</configuration>
