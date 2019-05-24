@@ -19,7 +19,6 @@
     </appender>
 
     <logger name="org.moy.spring.test.example.aop.LogCollect" level="info" additivity="false">
-        <!--<appender-ref ref="ELK_FILE"/>-->
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ELK_FILE"/>
     </logger>
 </configuration>

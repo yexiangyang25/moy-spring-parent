@@ -1,0 +1,7 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <logger name="org.moy.spring.test.example.aop.LogCollect" level="info" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</configuration>
