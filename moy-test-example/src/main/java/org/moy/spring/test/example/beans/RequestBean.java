@@ -1,5 +1,7 @@
 package org.moy.spring.test.example.beans;
 
+import org.moy.spring.test.example.aop.MessageKeyConsts;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,9 +18,9 @@ import java.io.Serializable;
 public class RequestBean<T> implements Serializable {
     private static final long serialVersionUID = -7973290052750261134L;
 
-    @NotBlank(message = "{message.request.source}")
+    @NotBlank(message = MessageKeyConsts.MESSAGE_REQUEST_SOURCE)
     private String source;
-    @NotNull(message = "{message.request.request}")
+    @NotNull(message = MessageKeyConsts.MESSAGE_REQUEST_REQUEST)
     @Valid
     private T request;
 

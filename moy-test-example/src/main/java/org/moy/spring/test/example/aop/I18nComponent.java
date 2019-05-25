@@ -17,7 +17,10 @@ import javax.validation.ConstraintViolation;
 import javax.validation.MessageInterpolator;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.lang.annotation.Annotation;
 import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
@@ -35,9 +38,6 @@ public class I18nComponent {
 
     @Autowired
     private Validator validator;
-
-    @Autowired
-    private MessageInterpolator messageInterpolator;
 
     /**
      * 自定义获取当前请求国际化语言
@@ -87,6 +87,8 @@ public class I18nComponent {
                     if (null != set && !set.isEmpty()) {
                         boolean isFirst = true;
                         for (ConstraintViolation each : set) {
+                            Map<String,Object> attributes = each.getConstraintDescriptor().getAttributes();
+
                             String messageTemplate = each.getMessageTemplate();
                             if (StringUtils.isNotEmpty(messageTemplate)) {
                                 if (!isFirst) {
@@ -94,7 +96,8 @@ public class I18nComponent {
                                 } else {
                                     isFirst = false;
                                 }
-                                builder.append(messageInterpolator.interpolate(messageTemplate, null, locale));
+                                String message = i18nMessage(messageTemplate, locale);
+                                builder.append(message);
                             }
                         }
                     }
@@ -105,21 +108,22 @@ public class I18nComponent {
         return builder.toString();
     }
 
-    @Bean
-    public MessageInterpolator messageInterpolator() {
-        return new ResourceBundleMessageInterpolator(
-                new PlatformResourceBundleLocator("ValidationMessages")
-        );
+    private String i18nMessage(String messageKey, Locale locale) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("ValidationMessages", locale);
+        if (resourceBundle.containsKey(messageKey)) {
+            return resourceBundle.getString(messageKey);
+        } else {
+            LOG.warn("can not find messageKey : {} , Locale: {}", messageKey, locale);
+        }
+        return null;
     }
 
     @Bean
     public Validator validator() {
         Validator validator = Validation.byDefaultProvider()
                 .configure()
-                .messageInterpolator(messageInterpolator())
                 .buildValidatorFactory()
                 .getValidator();
-
         return validator;
     }
 }

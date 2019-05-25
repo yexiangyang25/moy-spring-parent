@@ -1,6 +1,7 @@
 package org.moy.spring.test.example.dto;
 
 import org.hibernate.validator.constraints.Length;
+import org.moy.spring.test.example.aop.MessageKeyConsts;
 import org.moy.spring.test.example.common.JsonUtil;
 
 import javax.validation.constraints.Max;
@@ -20,10 +21,10 @@ import java.util.Date;
 public class ArticleQueryDTO implements Serializable {
 
     private static final long serialVersionUID = -7975720552455136426L;
-    @NotNull(message = "{message.request.page}")
+    @NotNull(message = MessageKeyConsts.MESSAGE_REQUEST_PAGE)
     private Integer page;
-    @NotNull(message = "{message.request.limit}")
-    @Max(15)
+    @NotNull(message = MessageKeyConsts.MESSAGE_REQUEST_LIMIT)
+    @Max(value = 15 , message = MessageKeyConsts.MESSAGE_MAX)
     private Integer limit;
     private String keyword;
     private String tag;
