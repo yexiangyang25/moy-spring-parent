@@ -1,8 +1,7 @@
 package org.moy.spring.test.example.aop;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
-import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
+import org.moy.spring.test.example.common.NullUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
-import javax.validation.MessageInterpolator;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.lang.annotation.Annotation;
+import javax.validation.metadata.ConstraintDescriptor;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -84,22 +82,8 @@ public class I18nComponent {
             for (Object object : objects) {
                 if (null != object) {
                     Set<ConstraintViolation<Object>> set = validator.validate(object);
-                    if (null != set && !set.isEmpty()) {
-                        boolean isFirst = true;
-                        for (ConstraintViolation each : set) {
-                            Map<String,Object> attributes = each.getConstraintDescriptor().getAttributes();
-
-                            String messageTemplate = each.getMessageTemplate();
-                            if (StringUtils.isNotEmpty(messageTemplate)) {
-                                if (!isFirst) {
-                                    builder.append(";");
-                                } else {
-                                    isFirst = false;
-                                }
-                                String message = i18nMessage(messageTemplate, locale);
-                                builder.append(message);
-                            }
-                        }
+                    if (NullUtil.collectionIsNotEmpty(set)) {
+                        buildMessage(locale, builder, set);
                     }
                 }
             }
@@ -108,14 +92,42 @@ public class I18nComponent {
         return builder.toString();
     }
 
+    private void buildMessage(Locale locale, StringBuilder builder, Set<ConstraintViolation<Object>> set) {
+        boolean isFirst = true;
+        for (ConstraintViolation each : set) {
+            String messageTemplate = each.getMessageTemplate();
+            if (StringUtils.isNotEmpty(messageTemplate)) {
+                if (!isFirst) {
+                    builder.append(";");
+                } else {
+                    isFirst = false;
+                }
+                String message = i18nMessage(messageTemplate, locale);
+                ConstraintDescriptor<?> constraintDescriptor = each.getConstraintDescriptor();
+                Map<String, Object> attributes = constraintDescriptor.getAttributes();
+                Set<Map.Entry<String, Object>> entrySet = attributes.entrySet();
+                if (NullUtil.collectionIsNotEmpty(entrySet)
+                        && message.contains("{") && message.contains("}")) {
+                    for (Map.Entry<String, Object> entry : entrySet) {
+                        String formatKey = String.format("{%s}", entry.getKey());
+                        if (message.contains(formatKey)) {
+                            message = message.replace(formatKey, String.valueOf(entry.getValue()));
+                        }
+                    }
+                }
+                builder.append(message);
+            }
+        }
+    }
+
     private String i18nMessage(String messageKey, Locale locale) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("ValidationMessages", locale);
         if (resourceBundle.containsKey(messageKey)) {
             return resourceBundle.getString(messageKey);
         } else {
-            LOG.warn("can not find messageKey : {} , Locale: {}", messageKey, locale);
+            LOG.error("can not find messageKey : {} , Locale: {}", messageKey, locale);
         }
-        return null;
+        return "";
     }
 
     @Bean

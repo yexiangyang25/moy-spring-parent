@@ -26,8 +26,8 @@ public class HelloController {
 
     @GetMapping("/info")
     public String info(String key) {
-        System.out.println(key);
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>(10);
+        // 7/12/2017
         map.put("date", "6/12/2017");
         map.put("mr", key);
         map.put("mrs", key);
