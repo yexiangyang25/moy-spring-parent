@@ -11,6 +11,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -43,12 +44,28 @@ public class I18nComponent {
      * @return
      */
     public Locale getCurrentServletRequestRequestLocale() {
+        String language = "language";
         try {
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
             if (requestAttributes instanceof ServletRequestAttributes) {
                 ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
                 HttpServletRequest request = servletRequestAttributes.getRequest();
-                String lang = request.getParameter("lang");
+                // from request head
+                String languageHeader = request.getHeader(language);
+                if (StringUtils.isNotEmpty(languageHeader)) {
+                    return new Locale(languageHeader);
+                }
+                // from request Cookie
+                Cookie[] cookies = request.getCookies();
+                if (null != cookies) {
+                    for (Cookie cookie : cookies) {
+                        if (language.equalsIgnoreCase(cookie.getName())) {
+                            return new Locale(cookie.getValue());
+                        }
+                    }
+                }
+                // from request parameter
+                String lang = request.getParameter(language);
                 if (StringUtils.isNotEmpty(lang)) {
                     return new Locale(lang);
                 }
