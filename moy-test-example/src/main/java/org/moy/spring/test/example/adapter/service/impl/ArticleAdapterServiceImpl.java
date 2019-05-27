@@ -22,11 +22,11 @@ import java.util.List;
 
 /**
  * <p>Description: [博客文章 适配接口实现]</p>
- * Created on 2019/1/31
+ * Created on 2019/1/29
  *
- * @author <a href="mailto: yexiangyang@cn.wilmar-intl.com">叶向阳</a>
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
- * Copyright (c) 2019 丰益（上海）信息技术有限公司
+ * Copyright (c) 2019 墨阳
  */
 @Service
 public class ArticleAdapterServiceImpl extends BaseService implements ArticleAdapterService {
