@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.dto;
 
+import org.moy.spring.test.example.aop.MessageKeyConstants;
 import org.moy.spring.test.example.common.JsonUtil;
 
 import javax.validation.constraints.NotBlank;
@@ -16,9 +17,9 @@ import java.io.Serializable;
 public class LoginDTO implements Serializable {
 
     private static final long serialVersionUID = -4405902263828345467L;
-    @NotBlank(message = "{message.login.username}")
+    @NotBlank(message = MessageKeyConstants.MESSAGE_LOGIN_USERNAME)
     private String username;
-    @NotBlank(message = "{message.login.password}")
+    @NotBlank(message = MessageKeyConstants.MESSAGE_LOGIN_PASSWORD)
     private String password;
 
     public String getUsername() {

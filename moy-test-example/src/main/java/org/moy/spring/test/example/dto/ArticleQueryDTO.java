@@ -1,29 +1,27 @@
 package org.moy.spring.test.example.dto;
 
-import org.hibernate.validator.constraints.Length;
+import org.moy.spring.test.example.aop.MessageKeyConstants;
 import org.moy.spring.test.example.common.JsonUtil;
 
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>Description: [博客文章查询 实体]</p>
  * Created on 2019/1/31
  *
- * @author <a href="mailto: yexiangyang@cn.wilmar-intl.com">叶向阳</a>
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
- * Copyright (c) 2019 丰益（上海）信息技术有限公司
+ * Copyright (c) 2019 墨阳
  */
 public class ArticleQueryDTO implements Serializable {
 
     private static final long serialVersionUID = -7975720552455136426L;
-    @NotNull(message = "{message.request.page}")
+    @NotNull(message = MessageKeyConstants.MESSAGE_ARTICLE_PAGE)
     private Integer page;
-    @NotNull(message = "{message.request.limit}")
-    @Max(15)
+    @NotNull(message = MessageKeyConstants.MESSAGE_ARTICLE_LIMIT)
+    @Max(value = 15 , message = MessageKeyConstants.MESSAGE_ARTICLE_MAX)
     private Integer limit;
     private String keyword;
     private String tag;

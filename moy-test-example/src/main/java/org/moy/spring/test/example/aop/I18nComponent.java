@@ -1,8 +1,7 @@
 package org.moy.spring.test.example.aop;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
-import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
+import org.moy.spring.test.example.common.NullUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +11,15 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
-import javax.validation.MessageInterpolator;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.metadata.ConstraintDescriptor;
 import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
@@ -36,21 +38,34 @@ public class I18nComponent {
     @Autowired
     private Validator validator;
 
-    @Autowired
-    private MessageInterpolator messageInterpolator;
-
     /**
      * 自定义获取当前请求国际化语言
      *
      * @return
      */
     public Locale getCurrentServletRequestRequestLocale() {
+        String language = "language";
         try {
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
             if (requestAttributes instanceof ServletRequestAttributes) {
                 ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
                 HttpServletRequest request = servletRequestAttributes.getRequest();
-                String lang = request.getParameter("lang");
+                // from request head
+                String languageHeader = request.getHeader(language);
+                if (StringUtils.isNotEmpty(languageHeader)) {
+                    return new Locale(languageHeader);
+                }
+                // from request Cookie
+                Cookie[] cookies = request.getCookies();
+                if (null != cookies) {
+                    for (Cookie cookie : cookies) {
+                        if (language.equalsIgnoreCase(cookie.getName())) {
+                            return new Locale(cookie.getValue());
+                        }
+                    }
+                }
+                // from request parameter
+                String lang = request.getParameter(language);
                 if (StringUtils.isNotEmpty(lang)) {
                     return new Locale(lang);
                 }
@@ -84,19 +99,8 @@ public class I18nComponent {
             for (Object object : objects) {
                 if (null != object) {
                     Set<ConstraintViolation<Object>> set = validator.validate(object);
-                    if (null != set && !set.isEmpty()) {
-                        boolean isFirst = true;
-                        for (ConstraintViolation each : set) {
-                            String messageTemplate = each.getMessageTemplate();
-                            if (StringUtils.isNotEmpty(messageTemplate)) {
-                                if (!isFirst) {
-                                    builder.append(";");
-                                } else {
-                                    isFirst = false;
-                                }
-                                builder.append(messageInterpolator.interpolate(messageTemplate, null, locale));
-                            }
-                        }
+                    if (NullUtil.collectionIsNotEmpty(set)) {
+                        buildMessage(locale, builder, set);
                     }
                 }
             }
@@ -105,21 +109,50 @@ public class I18nComponent {
         return builder.toString();
     }
 
-    @Bean
-    public MessageInterpolator messageInterpolator() {
-        return new ResourceBundleMessageInterpolator(
-                new PlatformResourceBundleLocator("ValidationMessages")
-        );
+    private void buildMessage(Locale locale, StringBuilder builder, Set<ConstraintViolation<Object>> set) {
+        boolean isFirst = true;
+        for (ConstraintViolation each : set) {
+            String messageTemplate = each.getMessageTemplate();
+            if (StringUtils.isNotEmpty(messageTemplate)) {
+                if (!isFirst) {
+                    builder.append(";");
+                } else {
+                    isFirst = false;
+                }
+                String message = i18nMessage(messageTemplate, locale);
+                ConstraintDescriptor<?> constraintDescriptor = each.getConstraintDescriptor();
+                Map<String, Object> attributes = constraintDescriptor.getAttributes();
+                Set<Map.Entry<String, Object>> entrySet = attributes.entrySet();
+                if (NullUtil.collectionIsNotEmpty(entrySet)
+                        && message.contains("{") && message.contains("}")) {
+                    for (Map.Entry<String, Object> entry : entrySet) {
+                        String formatKey = String.format("{%s}", entry.getKey());
+                        if (message.contains(formatKey)) {
+                            message = message.replace(formatKey, String.valueOf(entry.getValue()));
+                        }
+                    }
+                }
+                builder.append(message);
+            }
+        }
+    }
+
+    private String i18nMessage(String messageKey, Locale locale) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("ValidationMessages", locale);
+        if (resourceBundle.containsKey(messageKey)) {
+            return resourceBundle.getString(messageKey);
+        } else {
+            LOG.error("can not find messageKey : {} , Locale: {}", messageKey, locale);
+        }
+        return "";
     }
 
     @Bean
     public Validator validator() {
         Validator validator = Validation.byDefaultProvider()
                 .configure()
-                .messageInterpolator(messageInterpolator())
                 .buildValidatorFactory()
                 .getValidator();
-
         return validator;
     }
 }

@@ -1,17 +1,16 @@
 package org.moy.spring.test.example.domain;
 
-import org.moy.spring.test.example.common.BaseEntity;
 import org.moy.spring.test.example.common.JsonUtil;
 
 import java.io.Serializable;
 
 /**
- * <p>Description: [博客标签 关系实体]</p>
+ * <p>Description: [博客标签 实体]</p>
  * Created on 2019/1/29
  *
- * @author <a href="mailto: yexiangyang@cn.wilmar-intl.com">叶向阳</a>
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
- * Copyright (c) 2019 丰益（上海）信息技术有限公司
+ * Copyright (c) 2018 墨阳
  */
 public class ArticleTagEntity implements Serializable {
     private static final long serialVersionUID = 8935574563104607950L;
