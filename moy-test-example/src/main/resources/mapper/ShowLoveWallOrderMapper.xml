@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.moy.spring.test.example.repository.ShowLoveWallOrderRepository">
+    <resultMap id="BaseResultMap" type="org.moy.spring.test.example.domain.ShowLoveWallOrderEntity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="VARCHAR"/>
+        <result column="mr" property="mr"/>
+        <result column="mrs" property="mrs"/>
+        <result column="title" property="title"/>
+        <result column="signature" property="signature"/>
+        <!--公共属性-->
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="founder" property="founder" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP"/>
+        <result column="version" property="operateTime" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="TableName">t_show_love_wall_order</sql>
+
+    <sql id="Base_Column_List">
+        id, code, title,date,mr,mrs,signature,
+        create_time,founder,operator,operate_time,version
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+    </select>
+
+    <insert id="insert" parameterType="org.moy.spring.test.example.domain.ArticleEntity">
+        INSERT INTO<include refid="TableName"/>(
+        <include refid="Base_Column_List"/>
+        )
+        VALUES (
+        #{entity.id},
+        #{entity.code},
+        #{entity.title},
+        #{entity.date},
+        #{entity.mr},
+        #{entity.mrs},
+        #{entity.signature},
+        #{entity.createTime},
+        #{entity.founder},
+        #{entity.operator},
+        #{entity.operateTime},
+        #{entity.version}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE <include refid="TableName"/>
+        <trim prefix="set" suffixOverrides=",">
+            <if test="true">title=#{entity.title},</if>
+            <if test="true">date=#{entity.date},</if>
+            <if test="true">mr=#{entity.mr},</if>
+            <if test="true">mrs=#{entity.mrs},</if>
+            <if test="true">title=#{entity.title},</if>
+            <if test="true">signature=#{entity.signature},</if>
+            <if test="true">operator=#{entity.operator},</if>
+            <if test="true">operate_time=#{entity.operateTime},</if>
+            <if test="true">version=#{entity.version},</if>
+        </trim>
+        WHERE code=#{entity.code}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM
+        <include refid="TableName"/>
+        WHERE id= #{id}
+    </delete>
+
+    <delete id="deleteByCondition">
+        DELETE FROM
+        <include refid="TableName"/>
+        WHERE code = #{entity.code}
+    </delete>
+
+    <select id="query" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.code != null">
+                AND code = #{entity.code}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByCondition" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="TableName"/>
+        <where>
+            <if test="entity.code != null">
+                AND code = #{entity.code}
+            </if>
+        </where>
+    </select>
+
+</mapper>

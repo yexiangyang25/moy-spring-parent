@@ -120,3 +120,20 @@ CREATE TABLE `t_article_tag` (
   `article_code` varchar(32)  COMMENT '文章编码' ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 恋爱墙订单
+DROP TABLE IF EXISTS `t_show_love_wall_order`;
+CREATE TABLE `t_show_love_wall_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code` varchar(32)  UNIQUE COMMENT '编码',
+  `title` varchar(50)  COMMENT '标题' ,
+  `date` varchar(50)  COMMENT '相遇日期',
+  `mr` varchar(50)  COMMENT '先生名',
+  `mrs` varchar(50)  COMMENT '女士名',
+  `signature` varchar(20)  COMMENT '签名',
+  `create_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
+  `founder` varchar(50) NOT NULL COMMENT '创建人',
+  `operator` varchar(50) NOT NULL COMMENT '操作人',
+  `operate_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '操作时间',
+  `version` bigint(20) COMMENT '版本号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
