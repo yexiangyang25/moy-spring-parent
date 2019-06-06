@@ -24,9 +24,12 @@ public class Sender {
     private AmqpTemplate amqpTemplate;
 
     public void send() {
-        String context = "hello " + new Date();
+        String context = String.format("%s - %s : %s ! ",
+                Thread.currentThread().getName(),
+                Thread.currentThread().getId(),
+                System.currentTimeMillis());
         LOG.info("Sender : " + context);
-        this.amqpTemplate.convertAndSend("hello", context);
+        this.amqpTemplate.convertAndSend(RabbitmqConstants.MOY_QUEUE, context);
     }
 
 }

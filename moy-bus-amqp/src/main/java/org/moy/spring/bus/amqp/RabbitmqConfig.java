@@ -1,5 +1,8 @@
 package org.moy.spring.bus.amqp;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +19,23 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitmqConfig {
 
     @Bean
-    public Queue helloQueue(){
-        return new Queue("hello");
+    public Queue helloQueue() {
+        return new Queue(RabbitmqConstants.MOY_QUEUE);
     }
+
+    @Bean
+    public Queue moyQueue() {
+        return new Queue(RabbitmqConstants.MOY_FANOUT_EXCHANGE_QUEUE);
+    }
+
+    @Bean
+    public FanoutExchange fanoutExchange() {
+        return new FanoutExchange(RabbitmqConstants.MOY_FANOUT_EXCHANGE);
+    }
+
+    @Bean
+    public Binding bindingExchangeB(Queue moyQueue, FanoutExchange fanoutExchange) {
+        return BindingBuilder.bind(moyQueue).to(fanoutExchange);
+    }
+
 }
