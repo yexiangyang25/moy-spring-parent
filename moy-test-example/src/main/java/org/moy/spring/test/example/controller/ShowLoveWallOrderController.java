@@ -48,6 +48,7 @@ public class ShowLoveWallOrderController extends BaseController implements ShowL
 
     @Override
     public ResultBean<String> update(@RequestBody RequestBean<ShowLoveWallOrderDTO> requestBean) {
-        return ResultBean.success();
+        ShowLoveWallOrderDTO request = requestBean.getRequest();
+        return showLoveWallOrderAdapterService.create(request);
     }
 }

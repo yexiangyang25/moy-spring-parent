@@ -47,10 +47,15 @@ public class ShowLoveWallOrderAdapterServiceImpl extends BaseService implements 
     @Override
     public ResultBean<String> create(ShowLoveWallOrderDTO request) {
         ShowLoveWallOrderEntity entity = BeanHelper.copyProperties(request, ShowLoveWallOrderEntity.class);
-        String uuid = UuidUtil.newUuid();
-        entity.setCode(uuid);
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
-        Integer insert = showLoveWallOrderService.insert(entity);
-        return ResultBean.success(uuid);
+        if (NullUtil.charSequenceIsEmpty(entity.getCode())) {
+            String uuid = UuidUtil.newUuid();
+            entity.setCode(uuid);
+            BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+            showLoveWallOrderService.insert(entity);
+        } else {
+            BaseEntityUtil.setUpdateNeedValue(entity);
+            showLoveWallOrderService.update(entity);
+        }
+        return ResultBean.success(entity.getCode());
     }
 }

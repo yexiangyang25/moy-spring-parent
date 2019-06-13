@@ -1,11 +1,14 @@
 package org.moy.spring.test.example.controller;
 
+import org.moy.spring.test.example.adapter.service.ShowLoveWallOrderAdapterService;
+import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.JsonUtil;
+import org.moy.spring.test.example.dto.ShowLoveWallOrderDTO;
 import org.moy.spring.test.example.shiro.JwtSecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 
 /**
  * <p>Description: [欢迎 接口]</p>
@@ -17,6 +20,8 @@ import java.util.HashMap;
  */
 @RestController
 public class HelloController {
+    @Autowired
+    private ShowLoveWallOrderAdapterService showLoveWallOrderAdapterService;
 
     @GetMapping("/")
     public String hi() {
@@ -25,14 +30,9 @@ public class HelloController {
 
 
     @GetMapping("/info")
-    public String info(String key) {
-        HashMap<String, Object> map = new HashMap<>(10);
-        // 7/12/2017
-        map.put("date", "6/12/2017");
-        map.put("mr", key);
-        map.put("mrs", key);
-        map.put("title", key);
-        map.put("signature", key);
-        return JsonUtil.toJsonString(map);
+    public String info(String key){
+        ResultBean<ShowLoveWallOrderDTO> detail = showLoveWallOrderAdapterService.getDetailByCode(key);
+        ShowLoveWallOrderDTO data = detail.getData();
+        return JsonUtil.toJsonString(data);
     }
 }
