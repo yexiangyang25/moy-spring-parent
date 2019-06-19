@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.common;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public abstract class BaseEntity{
+public abstract class BaseEntity implements Serializable {
 
     /**
      * 创建时间

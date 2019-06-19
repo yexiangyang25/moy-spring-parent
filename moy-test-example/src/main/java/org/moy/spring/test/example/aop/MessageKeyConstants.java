@@ -10,14 +10,16 @@ package org.moy.spring.test.example.aop;
  */
 public interface MessageKeyConstants {
 
-    String MESSAGE_LOGIN_USERNAME = "message.login.username";
-    String MESSAGE_LOGIN_PASSWORD = "message.login.password";
+    String MESSAGE_LOGIN_USERNAME = "message_login_username";
+    String MESSAGE_LOGIN_PASSWORD = "message_login_password";
 
-    String MESSAGE_ARTICLE_PAGE = "message.article.page";
-    String MESSAGE_ARTICLE_LIMIT = "message.article.limit";
-    String MESSAGE_ARTICLE_MAX = "message.article.max";
+    String MESSAGE_ARTICLE_PAGE = "message_article_page";
+    String MESSAGE_ARTICLE_LIMIT = "message_article_limit";
+    String MESSAGE_ARTICLE_MAX = "message_article_max";
 
-    String MESSAGE_REQUEST_SOURCE = "message.request.source";
-    String MESSAGE_REQUEST_REQUEST = "message.request.request";
+    String MESSAGE_COMMON_QUERY_MAX = "message_common_query_max";
+
+    String MESSAGE_REQUEST_SOURCE = "message_request_source";
+    String MESSAGE_REQUEST_REQUEST = "message_request_request";
 
 }

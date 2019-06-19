@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.domain;
+package org.moy.spring.test.example.dto;
 
 
 import org.moy.spring.test.example.common.BaseEntity;
@@ -12,24 +12,15 @@ import org.moy.spring.test.example.common.JsonUtil;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public class ShowLoveWallOrderEntity extends BaseEntity {
+public class ShowLoveWallOrderDTO extends BaseEntity {
 
     private static final long serialVersionUID = -786944598088224755L;
-    private Long id;
     private String code;
     private String date;
     private String mr;
     private String mrs;
     private String title;
     private String signature;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
