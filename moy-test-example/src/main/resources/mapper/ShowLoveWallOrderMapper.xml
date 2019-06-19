@@ -89,6 +89,9 @@
             <if test="entity.code != null">
                 AND code = #{entity.code}
             </if>
+            <if test="entity.title != null">
+                AND title like concat(#{entity.title} , '%' )
+            </if>
         </where>
     </select>
 

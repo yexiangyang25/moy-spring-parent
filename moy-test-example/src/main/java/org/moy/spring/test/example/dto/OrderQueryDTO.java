@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.dto;
 
+import org.hibernate.validator.constraints.Length;
 import org.moy.spring.test.example.aop.MessageKeyConstants;
 import org.moy.spring.test.example.common.JsonUtil;
 
@@ -23,7 +24,8 @@ public class OrderQueryDTO implements Serializable {
     @NotNull(message = MessageKeyConstants.MESSAGE_ARTICLE_LIMIT)
     @Max(value = 15 , message = MessageKeyConstants.MESSAGE_ARTICLE_MAX)
     private Integer limit;
-
+    @Length(max = 50 , message = MessageKeyConstants.MESSAGE_COMMON_QUERY_MAX)
+    private String title;
 
     public Integer getPage() {
         return page;
@@ -41,6 +43,13 @@ public class OrderQueryDTO implements Serializable {
         this.limit = limit;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @Override
     public String toString() {

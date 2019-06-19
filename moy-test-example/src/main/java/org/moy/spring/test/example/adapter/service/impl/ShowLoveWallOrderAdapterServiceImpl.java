@@ -32,7 +32,9 @@ public class ShowLoveWallOrderAdapterServiceImpl extends BaseService implements 
     @Override
     public PageResultBean<List<ShowLoveWallOrderDTO>> list(OrderQueryDTO request) {
         PageHelper.startPage(request.getPage(), request.getLimit());
-        List<ShowLoveWallOrderEntity> entityList = showLoveWallOrderService.findAll();
+        ShowLoveWallOrderEntity entity = new ShowLoveWallOrderEntity();
+        entity.setTitle(request.getTitle());
+        List<ShowLoveWallOrderEntity> entityList = showLoveWallOrderService.query(entity);
         return PageResultBean.copyPageListToCustomPageResult(entityList, ShowLoveWallOrderDTO.class);
     }
 
