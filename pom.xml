@@ -17,6 +17,7 @@
         <module>moy-config-client</module>
         <module>moy-bus-amqp</module>
         <module>moy-file-server</module>
+        <module>moy-test-elasticsearch</module>
     </modules>
     <packaging>pom</packaging>
 
