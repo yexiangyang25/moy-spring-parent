@@ -5,12 +5,12 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * <p>Description: [类功能描述]</p>
- * Created on 2019/6/25
+ * <p>Description: [自定义 校验结果]</p>
+ * Created on 2019/06/27
  *
- * @author <a href="mailto: yexiangyang@cn.wilmar-intl.com">叶向阳</a>
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
- * Copyright (c) 2019 丰益（上海）信息技术有限公司
+ * Copyright (c) 2019 墨阳
  */
 public class ValidatorResult<T> implements Serializable {
 
