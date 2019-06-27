@@ -31,8 +31,9 @@ public class Receiver {
     public void process(String hello, Channel channel, Message message) throws IOException {
         LOG.info("正在处理消息: [" + hello + " ],处理时间: " + System.currentTimeMillis());
         try {
-            int nextInt = new Random().nextInt(2);
-            if (nextInt % 2 == 0) {
+            int two = 2;
+            int nextInt = new Random().nextInt(two);
+            if (nextInt % two == 0) {
                 throw new IOException();
             }
             LOG.info("receiver success");

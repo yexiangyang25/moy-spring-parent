@@ -1,4 +1,4 @@
-package org.moy.spring.test.example.aop;
+package org.moy.spring.test.example.validator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.moy.spring.test.example.common.NullUtil;
@@ -33,8 +33,9 @@ import java.util.Set;
 @Component
 public class I18nComponent {
 
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
-
+    private static final Logger LOG = LoggerFactory.getLogger(I18nComponent.class);
+    private static final String CLASS_PATH_BASE_NAME = "ValidationMessages";
+    private static final String REQUEST_LOCALE_LANGUAGE_KEY = "language";
     @Autowired
     private Validator validator;
 
@@ -43,15 +44,14 @@ public class I18nComponent {
      *
      * @return
      */
-    public Locale getCurrentServletRequestRequestLocale() {
-        String language = "language";
+    private Locale getCurrentServletRequestRequestLocale() {
         try {
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
             if (requestAttributes instanceof ServletRequestAttributes) {
                 ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
                 HttpServletRequest request = servletRequestAttributes.getRequest();
                 // from request head
-                String languageHeader = request.getHeader(language);
+                String languageHeader = request.getHeader(REQUEST_LOCALE_LANGUAGE_KEY);
                 if (StringUtils.isNotEmpty(languageHeader)) {
                     return new Locale(languageHeader);
                 }
@@ -59,13 +59,13 @@ public class I18nComponent {
                 Cookie[] cookies = request.getCookies();
                 if (null != cookies) {
                     for (Cookie cookie : cookies) {
-                        if (language.equalsIgnoreCase(cookie.getName())) {
+                        if (REQUEST_LOCALE_LANGUAGE_KEY.equalsIgnoreCase(cookie.getName())) {
                             return new Locale(cookie.getValue());
                         }
                     }
                 }
                 // from request parameter
-                String lang = request.getParameter(language);
+                String lang = request.getParameter(REQUEST_LOCALE_LANGUAGE_KEY);
                 if (StringUtils.isNotEmpty(lang)) {
                     return new Locale(lang);
                 }
@@ -76,55 +76,70 @@ public class I18nComponent {
         return Locale.CHINA;
     }
 
+
     /**
      * 获取当前请求国际化校验信息
      *
-     * @param objects
-     * @return
+     * @param obj    被校验对象
+     * @param groups 多个校验组
+     * @param <T>    校验数据对象类型
+     * @return 返回校验结果
      */
-    public String getValidateMessage(Object... objects) {
-        return getValidateMessage(getCurrentServletRequestRequestLocale(), objects);
+    public <T> ValidatorResult<T> getValidateResult(T obj, Class<?>... groups) {
+        // 获取当前请求国际化校验信息
+        return getValidateResult(getCurrentServletRequestRequestLocale(), obj, groups);
     }
 
     /**
-     * 获取国际化校验信息
+     * 校验数据对象
      *
-     * @param locale
-     * @param objects
-     * @return
+     * @param locale 国际化
+     * @param obj    被校验对象
+     * @param groups 多个校验组
+     * @param <T>    校验数据对象类型
+     * @return 返回校验结果
      */
-    public String getValidateMessage(Locale locale, Object... objects) {
-        StringBuilder builder = new StringBuilder();
-        if (null != objects) {
-            for (Object object : objects) {
-                if (null != object) {
-                    Set<ConstraintViolation<Object>> set = validator.validate(object);
-                    if (NullUtil.collectionIsNotEmpty(set)) {
-                        buildMessage(locale, builder, set);
-                    }
-                }
+    public <T> ValidatorResult<T> getValidateResult(Locale locale, T obj, Class<?>... groups) {
+        if (null != obj) {
+            Set<ConstraintViolation<T>> set = validator.validate(obj, groups);
+            if (NullUtil.collectionIsNotEmpty(set)) {
+                String message = buildMessage(locale, set);
+                return new ValidatorResult<>(false, message, set);
             }
+        } else {
+            LOG.warn("validate object is null!");
         }
+        return new ValidatorResult<>(true, null, null);
+    }
 
+    private static <T> String buildMessage(Locale locale, Set<ConstraintViolation<T>> set) {
+        StringBuilder builder = new StringBuilder();
+        boolean isFirst = true;
+        for (ConstraintViolation each : set) {
+            if (!isFirst) {
+                builder.append(";");
+            } else {
+                isFirst = false;
+            }
+            String message = (null == locale) ? each.getMessage() : buildLocaleMessage(locale, each);
+            builder.append(message);
+        }
         return builder.toString();
     }
 
-    private void buildMessage(Locale locale, StringBuilder builder, Set<ConstraintViolation<Object>> set) {
-        boolean isFirst = true;
-        for (ConstraintViolation each : set) {
-            String messageTemplate = each.getMessageTemplate();
-            if (StringUtils.isNotEmpty(messageTemplate)) {
-                if (!isFirst) {
-                    builder.append(";");
-                } else {
-                    isFirst = false;
-                }
-                String message = i18nMessage(messageTemplate, locale);
+    private static String buildLocaleMessage(Locale locale, ConstraintViolation each) {
+        String message = "";
+        String leftPlaceholder = "{";
+        String rightPlaceholder = "}";
+        String messageTemplate = each.getMessageTemplate();
+        if (StringUtils.isNotEmpty(messageTemplate)) {
+            message = i18nMessage(messageTemplate, locale);
+            // 消息值包含{}占位符 则替换成元数据
+            if (message.contains(leftPlaceholder) && message.contains(rightPlaceholder)) {
                 ConstraintDescriptor<?> constraintDescriptor = each.getConstraintDescriptor();
                 Map<String, Object> attributes = constraintDescriptor.getAttributes();
                 Set<Map.Entry<String, Object>> entrySet = attributes.entrySet();
-                if (NullUtil.collectionIsNotEmpty(entrySet)
-                        && message.contains("{") && message.contains("}")) {
+                if (NullUtil.collectionIsNotEmpty(entrySet)) {
                     for (Map.Entry<String, Object> entry : entrySet) {
                         String formatKey = String.format("{%s}", entry.getKey());
                         if (message.contains(formatKey)) {
@@ -132,19 +147,19 @@ public class I18nComponent {
                         }
                     }
                 }
-                builder.append(message);
             }
         }
+        return message;
     }
 
-    private String i18nMessage(String messageKey, Locale locale) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("ValidationMessages", locale);
+    private static String i18nMessage(String messageKey, Locale locale) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(CLASS_PATH_BASE_NAME, locale);
         if (resourceBundle.containsKey(messageKey)) {
             return resourceBundle.getString(messageKey);
         } else {
             LOG.error("can not find messageKey : {} , Locale: {}", messageKey, locale);
         }
-        return "";
+        return messageKey;
     }
 
     @Bean

@@ -1,6 +1,5 @@
 package org.moy.spring.test.example.aop;
 
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,6 +7,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.moy.spring.test.example.beans.PageResultBean;
 import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.common.BaseException;
+import org.moy.spring.test.example.common.ExceptionUtil;
+import org.moy.spring.test.example.validator.I18nComponent;
+import org.moy.spring.test.example.validator.ValidatorResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +46,8 @@ public class ExceptionHandlerAspect {
 
         ResultBean<?> result = null;
         try {
-            String validateMessage = i18nComponent.getValidateMessage(point.getArgs());
-            if (StringUtils.isEmpty(validateMessage)) {
-                result = (ResultBean<?>) point.proceed();
-            } else {
-                result = ResultBean.fail(validateMessage);
-            }
+            validatorRequest(point);
+            result = (ResultBean<?>) point.proceed();
         } catch (Throwable ex) {
             LOG.error("分页统一拦截器拦截业务异常", ex);
             if (ex instanceof BaseException) {
@@ -60,7 +58,7 @@ public class ExceptionHandlerAspect {
             }
         }
 
-        ApiLogRecord.buildCallAfter(logRecord , result);
+        ApiLogRecord.buildCallAfter(logRecord, result);
         return result;
     }
 
@@ -70,12 +68,8 @@ public class ExceptionHandlerAspect {
 
         PageResultBean<?> result = null;
         try {
-            String validateMessage = i18nComponent.getValidateMessage(point.getArgs());
-            if (StringUtils.isEmpty(validateMessage)) {
-                result = (PageResultBean<?>) point.proceed();
-            } else {
-                result = PageResultBean.fail(validateMessage);
-            }
+            validatorRequest(point);
+            result = (PageResultBean<?>) point.proceed();
         } catch (Throwable ex) {
             LOG.error("分页统一拦截器拦截业务异常", ex);
             if (ex instanceof BaseException) {
@@ -86,7 +80,19 @@ public class ExceptionHandlerAspect {
             }
         }
 
-        ApiLogRecord.buildCallAfter(logRecord , result);
+        ApiLogRecord.buildCallAfter(logRecord, result);
         return result;
+    }
+
+    private void validatorRequest(ProceedingJoinPoint point) {
+        Object[] args = point.getArgs();
+        if (null != args) {
+            for (Object o : args) {
+                ValidatorResult<Object> validateResult = i18nComponent.getValidateResult(o);
+                if (validateResult.validatorIsNotOk()) {
+                    ExceptionUtil.newBusinessException(validateResult.getErrorMessage());
+                }
+            }
+        }
     }
 }
