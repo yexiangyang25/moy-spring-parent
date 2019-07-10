@@ -1,0 +1,30 @@
+version: '3.0'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins1
+    volumes:
+      - jenkins-data:/var/jenkins_home
+    ports:
+      - 6060:8080
+    networks:
+      - devnet
+
+  nexus3:
+    image: sonatype/nexus3
+    container_name: nexus3
+    volumes:
+      - nexus-data:/nexus-data
+    ports:
+      - 6081:8081
+    networks:
+      - devnet
+
+volumes:
+  jenkins-data:
+    driver: local
+  nexus-data:
+    driver: local
+    
+networks:
+  devnet:
