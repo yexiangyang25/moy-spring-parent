@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,10 +25,17 @@ public class JwtCacheRedisManager implements JwtCacheManager {
     private StringRedisTemplate stringRedisTemplate;
 
     @Override
-    public void saveToken(String token) {
+    public String saveToken(String uniqueCredential, Map<String, String> extraInfoMap) {
+        return saveToken(uniqueCredential, JwtHelper.JWT_EXPIRE_TIME, extraInfoMap);
+    }
+
+    @Override
+    public String saveToken(String uniqueCredential, long expireTime, Map<String, String> extraInfoMap) {
+        String token = JwtHelper.createToken(uniqueCredential, expireTime, extraInfoMap);
         String tokenRedisKey = getTokenRedisKey(token);
         ValueOperations<String, String> opsForValue = stringRedisTemplate.opsForValue();
-        opsForValue.set(tokenRedisKey, token, JwtConst.JWT_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+        opsForValue.set(tokenRedisKey, token, JwtHelper.JWT_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+        return token;
     }
 
     @Override
@@ -40,7 +48,7 @@ public class JwtCacheRedisManager implements JwtCacheManager {
     }
 
     private String getTokenRedisKey(String token) {
-        return JwtConst.JWT_CACHE_KEY_PREFIX + JwtUtil.getUserCode(token);
+        return JwtConst.JWT_CACHE_KEY_PREFIX + JwtHelper.getUniqueCredentialInfo(token);
     }
 
     @Override

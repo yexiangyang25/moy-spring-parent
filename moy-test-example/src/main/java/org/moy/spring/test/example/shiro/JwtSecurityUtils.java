@@ -13,6 +13,7 @@ import org.apache.shiro.SecurityUtils;
  */
 public class JwtSecurityUtils {
 
+    public static final String USERNAME = "username";
     /**
      * 获取当前用户名称
      *
@@ -22,7 +23,7 @@ public class JwtSecurityUtils {
         String username = JwtConst.JWT_NU_AUTH_USER;
         Object principal = getCurrentPrincipal();
         if (null != principal) {
-            username = JwtUtil.getUsername(principal.toString());
+            username = JwtHelper.getClaimInfoByKey(principal.toString() ,USERNAME);
         }
         return username;
     }
@@ -49,7 +50,7 @@ public class JwtSecurityUtils {
         String username = JwtConst.JWT_NU_AUTH_USER;
         Object principal = getCurrentPrincipal();
         if (null != principal) {
-            username = JwtUtil.getUserCode(principal.toString());
+            username = JwtHelper.getUniqueCredentialInfo(principal.toString());
         }
         return username;
     }

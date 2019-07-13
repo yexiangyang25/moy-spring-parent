@@ -68,10 +68,8 @@ public class JwtShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
-        // 解密获得username，用于和数据库进行对比
-        String username = JwtUtil.getUsername(token);
-        String userCode = JwtUtil.getUserCode(token);
-        if (username == null || JwtUtil.verifyIsNotOk(token, username, userCode)) {
+
+        if (JwtHelper.verifyIsNotOk(token)) {
             throw new AuthenticationException("token invalid");
         }
         jwtCacheManager.verifyToken(token);

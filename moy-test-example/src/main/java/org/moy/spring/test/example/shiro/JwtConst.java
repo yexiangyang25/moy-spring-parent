@@ -26,27 +26,6 @@ public interface JwtConst {
      */
     String UN_AUTH_URI = "/unAuth";
 
-
-    /**
-     * 认证加密携带名称信息
-     */
-    String JWT_CLAIM_USERNAME = "username";
-
-    /**
-     * 认证加密携带编码信息
-     */
-    String JWT_CLAIM_USER_CODE = "userCode";
-
-    /**
-     * 过期时间,毫秒单位
-     */
-    long JWT_EXPIRE_TIME = 12 * 60 * 60 * 1000;
-
-    /**
-     * 认证加密的SECRET
-     */
-    String JWT_SECRET = "JWT_SECRET";
-
     /**
      * 默认无权限用户名称
      */
