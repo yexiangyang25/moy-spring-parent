@@ -2,18 +2,13 @@ package org.moy.spring.test.example.service;
 
 import com.github.pagehelper.PageHelper;
 import org.junit.Test;
+import org.moy.jwt.shiro.JwtSecurityUtils;
 import org.moy.spring.test.example.BaseTest;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.common.BaseEntityUtil;
-import org.moy.spring.test.example.common.JsonUtil;
-import org.moy.spring.test.example.common.UuidUtil;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.UserEntity;
-import org.moy.spring.test.example.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -48,7 +43,7 @@ public class UserServiceTest extends BaseTest {
         entity.setId(TEST_ID);
         entity.setCode(uid);
         entity.setName(uid);
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+        BaseEntityUtil.setCreateAndUpdateNeedValue(entity,JwtSecurityUtils.getCurrentUserName());
         entity.setStatus(1);
         entity.setTelephone("132");
         LOG.info(entity.toString());

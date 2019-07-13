@@ -1,8 +1,7 @@
 package org.moy.spring.test.example.controller;
 
 import org.moy.spring.test.example.adapter.service.InitAdapterService;
-import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseController;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.controller.api.InitApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;

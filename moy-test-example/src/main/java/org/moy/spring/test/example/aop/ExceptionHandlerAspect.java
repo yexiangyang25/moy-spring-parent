@@ -4,10 +4,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseException;
-import org.moy.spring.test.example.common.ExceptionUtil;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.validator.I18nComponent;
 import org.moy.spring.test.example.validator.ValidatorResult;
 import org.slf4j.Logger;
@@ -31,11 +28,11 @@ public class ExceptionHandlerAspect {
 
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("execution (public org.moy.spring.test.example.beans.ResultBean org.moy.spring.test.example.controller.*.*(org.moy.spring.test.example.beans.RequestBean))")
+    @Pointcut("execution (public org.moy.spring.common.ResultBean org.moy.spring.test.example.controller.*.*(org.moy.spring.common.RequestBean))")
     private void aspectMethod() {
     }
 
-    @Pointcut("execution (public org.moy.spring.test.example.beans.PageResultBean org.moy.spring.test.example.controller.*.*(org.moy.spring.test.example.beans.RequestBean))")
+    @Pointcut("execution (public org.moy.spring.common.PageResultBean org.moy.spring.test.example.controller.*.*(org.moy.spring.common.RequestBean))")
     private void aspectPageMethod() {
     }
 

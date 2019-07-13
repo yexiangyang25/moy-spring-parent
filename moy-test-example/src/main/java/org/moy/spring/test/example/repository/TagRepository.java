@@ -1,7 +1,6 @@
 package org.moy.spring.test.example.repository;
 
-import org.moy.spring.test.example.common.BaseRepository;
-import org.moy.spring.test.example.domain.ArticleTagEntity;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.TagEntity;
 
 

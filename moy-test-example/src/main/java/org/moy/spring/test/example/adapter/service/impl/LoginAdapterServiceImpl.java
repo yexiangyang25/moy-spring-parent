@@ -2,16 +2,14 @@ package org.moy.spring.test.example.adapter.service.impl;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.moy.jwt.shiro.JwtCacheManager;
+import org.moy.jwt.shiro.JwtSecurityUtils;
 import org.moy.spring.test.example.adapter.service.LoginAdapterService;
-import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseService;
-import org.moy.spring.test.example.common.ExceptionUtil;
-import org.moy.spring.test.example.common.NullUtil;
+import org.moy.spring.common.*;
+
 import org.moy.spring.test.example.domain.UserEntity;
 import org.moy.spring.test.example.service.PasswordService;
 import org.moy.spring.test.example.service.UserService;
-import org.moy.spring.test.example.shiro.JwtCacheManager;
-import org.moy.spring.test.example.shiro.JwtSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

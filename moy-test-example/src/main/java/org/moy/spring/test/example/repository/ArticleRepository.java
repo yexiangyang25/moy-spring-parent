@@ -1,7 +1,7 @@
 package org.moy.spring.test.example.repository;
 
 import org.apache.ibatis.annotations.Param;
-import org.moy.spring.test.example.common.BaseRepository;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ArticleEntity;
 
 import java.util.List;

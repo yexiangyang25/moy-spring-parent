@@ -1,7 +1,7 @@
 package org.moy.spring.test.example.adapter.service.impl;
 
 import org.moy.spring.test.example.adapter.service.InitAdapterService;
-import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.service.InitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

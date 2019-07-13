@@ -2,7 +2,7 @@ package org.moy.spring.test.example.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
-import org.moy.spring.test.example.common.JsonUtil;
+import org.moy.spring.common.JsonUtil;
 
 import java.io.Serializable;
 

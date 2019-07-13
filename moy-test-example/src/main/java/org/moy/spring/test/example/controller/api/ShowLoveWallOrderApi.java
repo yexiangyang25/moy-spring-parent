@@ -1,9 +1,7 @@
 package org.moy.spring.test.example.controller.api;
 
+import org.moy.spring.common.*;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.RequestBean;
-import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.dto.OrderQueryDTO;
 import org.moy.spring.test.example.dto.ShowLoveWallOrderDTO;
 import org.springframework.web.bind.annotation.RequestBody;

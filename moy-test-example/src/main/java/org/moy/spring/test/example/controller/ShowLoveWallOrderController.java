@@ -1,10 +1,7 @@
 package org.moy.spring.test.example.controller;
 
 import org.moy.spring.test.example.adapter.service.ShowLoveWallOrderAdapterService;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.RequestBean;
-import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseController;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.controller.api.ShowLoveWallOrderApi;
 import org.moy.spring.test.example.dto.OrderQueryDTO;
 import org.moy.spring.test.example.dto.ShowLoveWallOrderDTO;

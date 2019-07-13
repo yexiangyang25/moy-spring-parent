@@ -1,14 +1,11 @@
 package org.moy.spring.test.example.task;
 
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.moy.spring.test.example.cache.BlogCacheComponent;
-import org.moy.spring.test.example.common.NullUtil;
+import org.moy.spring.common.NullUtil;
 import org.moy.spring.test.example.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

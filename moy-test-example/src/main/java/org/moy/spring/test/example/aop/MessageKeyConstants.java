@@ -1,5 +1,7 @@
 package org.moy.spring.test.example.aop;
 
+import org.moy.spring.message.BaseMessageKeyConstants;
+
 /**
  * <p>Description: [国际化 key]</p>
  * Created on 2019/5/24
@@ -8,7 +10,7 @@ package org.moy.spring.test.example.aop;
  * @version 1.0
  * Copyright (c) 2018 墨阳
  */
-public interface MessageKeyConstants {
+public interface MessageKeyConstants  extends BaseMessageKeyConstants {
 
     String MESSAGE_LOGIN_USERNAME = "message_login_username";
     String MESSAGE_LOGIN_PASSWORD = "message_login_password";
@@ -18,8 +20,5 @@ public interface MessageKeyConstants {
     String MESSAGE_ARTICLE_MAX = "message_article_max";
 
     String MESSAGE_COMMON_QUERY_MAX = "message_common_query_max";
-
-    String MESSAGE_REQUEST_SOURCE = "message_request_source";
-    String MESSAGE_REQUEST_REQUEST = "message_request_request";
 
 }

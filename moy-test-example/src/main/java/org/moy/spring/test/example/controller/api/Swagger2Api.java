@@ -1,10 +1,8 @@
 package org.moy.spring.test.example.controller.api;
 
 import io.swagger.annotations.*;
-import org.moy.spring.test.example.domain.UserEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
 
 /**
  * <p>Description: [Swagger2 测试]</p>

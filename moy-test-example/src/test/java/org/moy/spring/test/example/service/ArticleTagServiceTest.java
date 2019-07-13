@@ -3,10 +3,7 @@ package org.moy.spring.test.example.service;
 import com.github.pagehelper.PageHelper;
 import org.junit.Test;
 import org.moy.spring.test.example.BaseTest;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.common.BaseEntityUtil;
-import org.moy.spring.test.example.common.JsonUtil;
-import org.moy.spring.test.example.common.UuidUtil;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 

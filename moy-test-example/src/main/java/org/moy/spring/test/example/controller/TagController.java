@@ -1,11 +1,8 @@
 package org.moy.spring.test.example.controller;
 
 import org.moy.spring.test.example.adapter.service.TagAdapterService;
-import org.moy.spring.test.example.beans.RequestBean;
-import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseController;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.controller.api.TagApi;
-import org.moy.spring.test.example.dto.CountTagDTO;
 import org.moy.spring.test.example.dto.TagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

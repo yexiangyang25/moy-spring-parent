@@ -1,6 +1,6 @@
 package org.moy.spring.test.example.controller;
 
-import org.moy.spring.test.example.common.BaseController;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.controller.api.Swagger2Api;
 import org.springframework.web.bind.annotation.RestController;
 

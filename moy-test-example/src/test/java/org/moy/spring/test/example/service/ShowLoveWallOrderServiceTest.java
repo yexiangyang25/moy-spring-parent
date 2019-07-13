@@ -2,11 +2,9 @@ package org.moy.spring.test.example.service;
 
 import com.github.pagehelper.PageHelper;
 import org.junit.Test;
+import org.moy.jwt.shiro.JwtSecurityUtils;
 import org.moy.spring.test.example.BaseTest;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.common.BaseEntityUtil;
-import org.moy.spring.test.example.common.JsonUtil;
-import org.moy.spring.test.example.common.UuidUtil;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ShowLoveWallOrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,7 +42,7 @@ public class ShowLoveWallOrderServiceTest extends BaseTest {
         String uid =  UuidUtil.newUuid();
         entity.setId(TEST_ID);
         entity.setCode(uid);
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+        BaseEntityUtil.setCreateAndUpdateNeedValue(entity,JwtSecurityUtils.getCurrentUserName());
         LOG.info(entity.toString());
         Integer result = service.insert(entity);
         assertTrue(result == 1);

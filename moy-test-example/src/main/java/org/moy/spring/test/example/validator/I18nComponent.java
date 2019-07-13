@@ -1,7 +1,7 @@
 package org.moy.spring.test.example.validator;
 
 import org.apache.commons.lang3.StringUtils;
-import org.moy.spring.test.example.common.NullUtil;
+import org.moy.spring.common.NullUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

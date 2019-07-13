@@ -1,13 +1,8 @@
 package org.moy.spring.test.example.shiro;
 
-import org.moy.spring.test.example.beans.ResultBean;
-import org.springframework.boot.web.servlet.error.ErrorController;
+import org.moy.jwt.shiro.AbstractJwtErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>Description: [自定义 401 404 500 页面]</p>
@@ -18,24 +13,5 @@ import javax.servlet.http.HttpServletRequest;
  * Copyright (c) 2018 墨阳
  */
 @Controller
-public class JwtErrorController implements ErrorController {
-
-
-    @ResponseBody
-    @RequestMapping(value = "/error", method = {RequestMethod.POST,RequestMethod.GET})
-    public ResultBean handleError(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        return ResultBean.fail(statusCode, "SERVER ERROR");
-    }
-
-    @ResponseBody
-    @RequestMapping(value = JwtConst.UN_AUTH_URI, method = {RequestMethod.POST,RequestMethod.GET})
-    public ResultBean<String> unAuth() {
-        return ResultBean.newNotLoginResult();
-    }
-
-    @Override
-    public String getErrorPath() {
-        return "/error";
-    }
+public class JwtErrorController extends AbstractJwtErrorController {
 }

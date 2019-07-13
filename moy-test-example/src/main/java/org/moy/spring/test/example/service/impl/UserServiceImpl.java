@@ -1,7 +1,6 @@
 package org.moy.spring.test.example.service.impl;
 
-import org.moy.spring.test.example.common.BaseTemplateServiceImpl;
-import org.moy.spring.test.example.common.NullUtil;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.UserEntity;
 import org.moy.spring.test.example.repository.UserRepository;
 import org.moy.spring.test.example.service.UserService;

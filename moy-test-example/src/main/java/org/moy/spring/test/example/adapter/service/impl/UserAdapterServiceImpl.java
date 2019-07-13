@@ -2,8 +2,7 @@ package org.moy.spring.test.example.adapter.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import org.moy.spring.test.example.adapter.service.UserAdapterService;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.common.BaseService;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.UserEntity;
 import org.moy.spring.test.example.dto.UserDTO;
 import org.moy.spring.test.example.service.UserService;
