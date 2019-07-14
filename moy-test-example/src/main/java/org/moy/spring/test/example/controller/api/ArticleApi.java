@@ -1,9 +1,7 @@
 package org.moy.spring.test.example.controller.api;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.RequestBean;
-import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.dto.ArticleDTO;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.springframework.web.bind.annotation.RequestBody;

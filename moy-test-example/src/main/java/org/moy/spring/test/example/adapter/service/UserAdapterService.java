@@ -1,6 +1,6 @@
 package org.moy.spring.test.example.adapter.service;
 
-import org.moy.spring.test.example.beans.PageResultBean;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.dto.UserDTO;
 
 import java.util.List;

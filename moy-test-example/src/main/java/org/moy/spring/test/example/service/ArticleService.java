@@ -1,8 +1,7 @@
 package org.moy.spring.test.example.service;
 
-import org.moy.spring.test.example.common.BaseTemplateService;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ArticleEntity;
-import org.moy.spring.test.example.dto.ArticleQueryDTO;
 
 import java.util.List;
 

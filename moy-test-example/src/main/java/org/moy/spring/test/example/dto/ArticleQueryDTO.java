@@ -1,7 +1,7 @@
 package org.moy.spring.test.example.dto;
 
 import org.moy.spring.test.example.aop.MessageKeyConstants;
-import org.moy.spring.test.example.common.JsonUtil;
+import org.moy.spring.common.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;

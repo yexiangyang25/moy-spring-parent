@@ -1,7 +1,6 @@
 package org.moy.spring.test.example.adapter.service;
 
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.dto.ArticleDTO;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
 

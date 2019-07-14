@@ -1,7 +1,7 @@
 package org.moy.spring.test.example.adapter.service.impl;
 
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.adapter.service.PasswordAdapterService;
-import org.moy.spring.test.example.common.BaseService;
 import org.moy.spring.test.example.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

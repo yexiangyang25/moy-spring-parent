@@ -1,17 +1,15 @@
 package org.moy.spring.test.example.adapter.service.impl;
 
+import org.moy.jwt.shiro.JwtSecurityUtils;
+import org.moy.spring.common.*;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.moy.spring.test.example.adapter.service.ArticleAdapterService;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.ResultBean;
 import org.moy.spring.test.example.cache.BlogCacheComponent;
-import org.moy.spring.test.example.common.*;
 import org.moy.spring.test.example.domain.ArticleEntity;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
 import org.moy.spring.test.example.dto.ArticleDTO;
 import org.moy.spring.test.example.dto.ArticleQueryDTO;
-import org.moy.spring.test.example.repository.ArticleTagRepository;
 import org.moy.spring.test.example.service.ArticleService;
 import org.moy.spring.test.example.service.ArticleTagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,16 +50,16 @@ public class ArticleAdapterServiceImpl extends BaseService implements ArticleAda
             queryParam.setCode(entity.getCode());
             ArticleEntity queryArticle = articleService.getByCondition(queryParam);
             if (NullUtil.objectIsNull(queryArticle)) {
-                BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+                BaseEntityUtil.setCreateAndUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
                 articleService.insertAndSaveTags(entity, dto.getTags());
             } else {
-                BaseEntityUtil.setUpdateNeedValue(entity);
+                BaseEntityUtil.setUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
                 articleService.updateAndSaveTags(entity, dto.getTags());
                 blogCacheComponent.deleteBlogCache(entity.getCode());
             }
         } else {
             entity.setCode(UuidUtil.newUuid());
-            BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+            BaseEntityUtil.setCreateAndUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
             articleService.insertAndSaveTags(entity, dto.getTags());
         }
         return ResultBean.success(entity.getCode());

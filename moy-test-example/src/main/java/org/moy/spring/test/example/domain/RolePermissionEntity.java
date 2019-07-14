@@ -1,8 +1,8 @@
 package org.moy.spring.test.example.domain;
 
 
-import org.moy.spring.test.example.common.BaseEntity;
-import org.moy.spring.test.example.common.JsonUtil;
+import org.moy.spring.common.*;
+
 
 import java.io.Serializable;
 

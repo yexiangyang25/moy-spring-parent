@@ -1,8 +1,7 @@
 package org.moy.spring.test.example.controller.api;
 
 
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.ResultBean;
+import org.moy.spring.common.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 

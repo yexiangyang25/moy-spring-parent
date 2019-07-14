@@ -1,6 +1,6 @@
 package org.moy.spring.test.example.service.impl;
 
-import org.moy.spring.test.example.common.BaseTemplateServiceImpl;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.PermissionEntity;
 import org.moy.spring.test.example.repository.PermissionRepository;
 import org.moy.spring.test.example.service.PermissionService;

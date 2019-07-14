@@ -1,15 +1,10 @@
 package org.moy.spring.test.example.service.impl;
 
-import org.apache.commons.lang3.ObjectUtils;
-import org.moy.spring.test.example.common.BaseTemplateServiceImpl;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ArticleEntity;
-import org.moy.spring.test.example.dto.ArticleQueryDTO;
 import org.moy.spring.test.example.repository.ArticleRepository;
-import org.moy.spring.test.example.repository.TagRepository;
 import org.moy.spring.test.example.service.ArticleService;
 import org.moy.spring.test.example.service.ArticleTagService;
-import org.moy.spring.test.example.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,11 +1,9 @@
 package org.moy.spring.test.example.adapter.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.moy.jwt.shiro.JwtSecurityUtils;
 import org.moy.spring.test.example.adapter.service.ShowLoveWallOrderAdapterService;
-import org.moy.spring.test.example.beans.PageResultBean;
-import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.*;
-
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ShowLoveWallOrderEntity;
 import org.moy.spring.test.example.dto.OrderQueryDTO;
 import org.moy.spring.test.example.dto.ShowLoveWallOrderDTO;
@@ -52,10 +50,10 @@ public class ShowLoveWallOrderAdapterServiceImpl extends BaseService implements 
         if (NullUtil.charSequenceIsEmpty(entity.getCode())) {
             String uuid = UuidUtil.newUuid();
             entity.setCode(uuid);
-            BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+            BaseEntityUtil.setCreateAndUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
             showLoveWallOrderService.insert(entity);
         } else {
-            BaseEntityUtil.setUpdateNeedValue(entity);
+            BaseEntityUtil.setUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
             showLoveWallOrderService.update(entity);
         }
         return ResultBean.success(entity.getCode());

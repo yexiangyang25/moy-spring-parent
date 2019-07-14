@@ -1,14 +1,9 @@
 package org.moy.spring.test.example.service.impl;
 
-import org.moy.spring.test.example.common.BaseEntityUtil;
-import org.moy.spring.test.example.common.BaseTemplateServiceImpl;
-import org.moy.spring.test.example.common.NullUtil;
-import org.moy.spring.test.example.domain.ArticleEntity;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
 import org.moy.spring.test.example.dto.CountTagDTO;
-import org.moy.spring.test.example.repository.ArticleRepository;
 import org.moy.spring.test.example.repository.ArticleTagRepository;
-import org.moy.spring.test.example.service.ArticleService;
 import org.moy.spring.test.example.service.ArticleTagService;
 import org.springframework.stereotype.Service;
 

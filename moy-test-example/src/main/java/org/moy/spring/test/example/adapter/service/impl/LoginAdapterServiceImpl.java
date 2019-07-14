@@ -2,19 +2,18 @@ package org.moy.spring.test.example.adapter.service.impl;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.moy.jwt.shiro.JwtCacheManager;
+import org.moy.jwt.shiro.JwtSecurityUtils;
 import org.moy.spring.test.example.adapter.service.LoginAdapterService;
-import org.moy.spring.test.example.beans.ResultBean;
-import org.moy.spring.test.example.common.BaseService;
-import org.moy.spring.test.example.common.ExceptionUtil;
-import org.moy.spring.test.example.common.NullUtil;
+import org.moy.spring.common.*;
+
 import org.moy.spring.test.example.domain.UserEntity;
 import org.moy.spring.test.example.service.PasswordService;
 import org.moy.spring.test.example.service.UserService;
-import org.moy.spring.test.example.shiro.JwtCacheManager;
-import org.moy.spring.test.example.shiro.JwtSecurityUtils;
-import org.moy.spring.test.example.shiro.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 
 /**
@@ -33,7 +32,7 @@ public class LoginAdapterServiceImpl extends BaseService implements LoginAdapter
     @Autowired
     private PasswordService passwordService;
     @Autowired
-    JwtCacheManager jwtCacheManager;
+    private JwtCacheManager jwtCacheManager;
 
     @Override
     public ResultBean<String> login(String username, String password) {
@@ -41,9 +40,10 @@ public class LoginAdapterServiceImpl extends BaseService implements LoginAdapter
             UserEntity userEntity = userService.queryByUsername(username);
             if (NullUtil.objectIsNotNull(userEntity)) {
                 if (passwordService.checkUserCodeAndPasswordIsOk(userEntity.getCode(), password)) {
-                    String sign = JwtUtil.sign(username, userEntity.getCode());
-                    jwtCacheManager.saveToken(sign);
-                    return ResultBean.success(sign);
+                    HashMap<String, String> hashMap = new HashMap<>(2);
+                    hashMap.put(JwtSecurityUtils.USERNAME, userEntity.getName());
+                    String token = jwtCacheManager.saveToken(userEntity.getCode(), hashMap);
+                    return ResultBean.success(token);
                 }
             }
         }

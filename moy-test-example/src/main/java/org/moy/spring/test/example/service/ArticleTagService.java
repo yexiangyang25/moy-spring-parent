@@ -1,8 +1,6 @@
 package org.moy.spring.test.example.service;
 
-import io.swagger.models.auth.In;
-import org.moy.spring.test.example.common.BaseTemplateService;
-import org.moy.spring.test.example.domain.ArticleEntity;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.ArticleTagEntity;
 import org.moy.spring.test.example.dto.CountTagDTO;
 

@@ -1,6 +1,6 @@
 package org.moy.spring.test.example.dto;
 
-import org.moy.spring.test.example.common.JsonUtil;
+import org.moy.spring.common.*;
 
 import java.io.Serializable;
 

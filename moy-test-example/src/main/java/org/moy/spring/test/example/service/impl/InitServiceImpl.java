@@ -1,7 +1,8 @@
 package org.moy.spring.test.example.service.impl;
 
 
-import org.moy.spring.test.example.common.BaseEntityUtil;
+import org.moy.jwt.shiro.JwtSecurityUtils;
+import org.moy.spring.common.*;
 import org.moy.spring.test.example.domain.PasswordEntity;
 import org.moy.spring.test.example.domain.UserEntity;
 import org.moy.spring.test.example.domain.UserRoleEntity;
@@ -49,7 +50,7 @@ public class InitServiceImpl implements InitService {
         entity.setRoleCode(adminAccount);
         entity.setUserCode(adminAccount);
         userRoleService.deleteByCondition(entity);
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+        BaseEntityUtil.setCreateAndUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
         userRoleService.insert(entity);
     }
 
@@ -58,7 +59,7 @@ public class InitServiceImpl implements InitService {
         entity.setCode(adminAccountPassword);
         entity.setUserCode(adminAccount);
         passwordService.deleteByCondition(entity);
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+        BaseEntityUtil.setCreateAndUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
         passwordService.insert(entity);
     }
 
@@ -67,7 +68,7 @@ public class InitServiceImpl implements InitService {
         entity.setCode(adminAccount);
         userService.deleteByCondition(entity);
         entity.setName(adminAccount);
-        BaseEntityUtil.setCreateAndUpdateNeedValue(entity);
+        BaseEntityUtil.setCreateAndUpdateNeedValue(entity, JwtSecurityUtils.getCurrentUserName());
         userService.insert(entity);
     }
 }

@@ -17,6 +17,8 @@
         <module>moy-config-client</module>
         <module>moy-bus-amqp</module>
         <module>moy-file-server</module>
+        <module>moy-test-elasticsearch</module>
+        <module>moy-Jwt-shiro</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -47,6 +49,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.moy.spring</groupId>
+                <artifactId>moy-Jwt-shiro</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.moy.spring</groupId>
                 <artifactId>moy-common-sdk</artifactId>

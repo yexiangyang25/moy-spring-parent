@@ -1,7 +1,7 @@
 package org.moy.spring.test.example;
 
 import org.junit.runner.RunWith;
-import org.moy.spring.test.example.common.BaseLog;
+import org.moy.spring.common.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
