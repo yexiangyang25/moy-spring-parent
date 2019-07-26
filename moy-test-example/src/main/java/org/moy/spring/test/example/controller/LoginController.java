@@ -21,10 +21,13 @@ public class LoginController extends BaseController implements LoginApi {
 
     @Autowired
     private LoginAdapterService loginAdapterService;
+    @Autowired
+    private CaptchaComponent captchaComponent;
 
     @Override
     public ResultBean<String> login(@RequestBody RequestBean<LoginDTO> requestBean) {
         LoginDTO loginDTO = requestBean.getRequest();
+        captchaComponent.checkCaptchaIsError(loginDTO.getUid() , loginDTO.getImageCode());
         return loginAdapterService.login(loginDTO.getUsername(), loginDTO.getPassword());
     }
 

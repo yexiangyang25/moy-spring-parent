@@ -21,6 +21,8 @@ public class LoginDTO implements Serializable {
     private String username;
     @NotBlank(message = MessageKeyConstants.MESSAGE_LOGIN_PASSWORD)
     private String password;
+    private String uid;
+    private String imageCode;
 
     public String getUsername() {
         return username;
@@ -36,6 +38,22 @@ public class LoginDTO implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getImageCode() {
+        return imageCode;
+    }
+
+    public void setImageCode(String imageCode) {
+        this.imageCode = imageCode;
     }
 
     @Override

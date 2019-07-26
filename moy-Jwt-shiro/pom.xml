@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>moy-Jwt-shiro</artifactId>
+    <artifactId>moy-jwt-shiro</artifactId>
     <version>${project.version}</version>
 
     <dependencies>
