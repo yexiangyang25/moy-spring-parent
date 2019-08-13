@@ -1,5 +1,6 @@
 package org.moy.spring.test.example.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.moy.jwt.shiro.JwtSecurityUtils;
 import org.moy.spring.test.example.adapter.service.ShowLoveWallOrderAdapterService;
 import org.moy.spring.common.*;
@@ -29,9 +30,12 @@ public class HelloController {
 
 
     @GetMapping("/info")
-    public String info(String key){
-        ResultBean<ShowLoveWallOrderDTO> detail = showLoveWallOrderAdapterService.getDetailByCode(key);
-        ShowLoveWallOrderDTO data = detail.getData();
-        return JsonUtil.toJsonString(data);
+    public String info(String key) {
+        if (StringUtils.isNotEmpty(key)) {
+            ResultBean<ShowLoveWallOrderDTO> detail = showLoveWallOrderAdapterService.getDetailByCode(key);
+            ShowLoveWallOrderDTO data = detail.getData();
+            return JsonUtil.toJsonString(data);
+        }
+        return null;
     }
 }

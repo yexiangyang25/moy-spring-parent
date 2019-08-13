@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,8 +26,9 @@ public abstract class AbstractJwtErrorController implements ErrorController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = JwtConst.ERROR_URI, method = {RequestMethod.POST, RequestMethod.GET})
     public ResultBean handleError(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        return ResultBean.fail(statusCode, "SERVER ERROR");
+        Integer statusCode = (Integer) request.getAttribute(WebUtils.ERROR_STATUS_CODE_ATTRIBUTE);
+        Object errorMessage = request.getAttribute(WebUtils.ERROR_MESSAGE_ATTRIBUTE);
+        return ResultBean.fail(statusCode, errorMessage.toString());
     }
 
     @ResponseBody
