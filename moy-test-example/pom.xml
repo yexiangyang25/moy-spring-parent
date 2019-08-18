@@ -19,7 +19,8 @@
         </dependency>
         <dependency>
             <groupId>org.moy.spring</groupId>
-            <artifactId>moy-jwt-shiro</artifactId>
+            <artifactId>moy-shiro-jwt</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.moy.spring</groupId>

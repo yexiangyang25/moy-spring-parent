@@ -18,11 +18,11 @@
         <module>moy-bus-amqp</module>
         <module>moy-file-server</module>
         <module>moy-test-elasticsearch</module>
-        <module>moy-jwt-shiro</module>
         <module>moy-common-spring</module>
         <module>moy-dubbo-spring-provider</module>
         <module>moy-dubbo-spring-consumer</module>
         <module>moy-dubbo-spring-api</module>
+        <module>moy-shiro-jwt</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -67,6 +67,12 @@
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
                 <version>${spring.dubbo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.github.axet</groupId>
@@ -85,7 +91,7 @@
             </dependency>
             <dependency>
                 <groupId>org.moy.spring</groupId>
-                <artifactId>moy-jwt-shiro</artifactId>
+                <artifactId>moy-shiro-jwt</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
