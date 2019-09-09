@@ -52,10 +52,16 @@
         <kaptcha.version>0.0.9</kaptcha.version>
         <spring.dubbo.version>0.2.0</spring.dubbo.version>
         <fastjson.version>1.2.59</fastjson.version>
+        <redisson.version>3.11.2</redisson.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
             <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
