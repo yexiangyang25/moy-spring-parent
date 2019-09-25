@@ -68,6 +68,7 @@ public class ExceptionHandlerAspect {
             validatorRequest(point);
             result = (PageResultBean<?>) point.proceed();
         } catch (Throwable ex) {
+            logRecord.setExceptionStackTraceString(ExceptionUtil.getStackTraceString(ex));
             LOG.error("分页统一拦截器拦截业务异常", ex);
             if (ex instanceof BaseException) {
                 BaseException e = (BaseException) ex;

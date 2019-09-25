@@ -47,7 +47,8 @@ public class LoginAdapterServiceImpl extends BaseService implements LoginAdapter
                 }
             }
         }
-        throw ExceptionUtil.newBusinessException("account not exist!");
+        ExceptionUtil.newBusinessException("account not exist!");
+        return null;
     }
 
     @Override

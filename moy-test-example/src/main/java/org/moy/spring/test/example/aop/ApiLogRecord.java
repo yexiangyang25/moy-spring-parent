@@ -21,6 +21,7 @@ public class ApiLogRecord implements Serializable {
     private Long execTime;
     private Object[] args;
     private Object result;
+    private String exceptionStackTraceString;
 
     public static ApiLogRecord buildCallBefore(JoinPoint joinPoint) {
         long startTime = System.currentTimeMillis();
@@ -43,6 +44,14 @@ public class ApiLogRecord implements Serializable {
         apiLogRecord.setExecTime(endTime - apiLogRecord.getSubmitTime());
         // 收集日志
         LogCollect.collect(JsonUtil.toJsonString(apiLogRecord));
+    }
+
+    public String getExceptionStackTraceString() {
+        return exceptionStackTraceString;
+    }
+
+    public void setExceptionStackTraceString(String exceptionStackTraceString) {
+        this.exceptionStackTraceString = exceptionStackTraceString;
     }
 
     private static ApiLogRecord newDefaultValue() {

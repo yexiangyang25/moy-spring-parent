@@ -6,12 +6,12 @@ import org.redisson.api.*;
 import org.redisson.config.Config;
 
 /**
- * <p>Description: [类功能描述]</p>
- * Created on 2019/8/21
+ * <p>Description: [测试]</p>
+ * Created on 2019/05/04
  *
- * @author <a href="mailto: yexiangyang@cn.wilmar-intl.com">叶向阳</a>
+ * @author <a href="mailto: moy25@foxmail.com">叶向阳</a>
  * @version 1.0
- * Copyright (c) 2019 丰益（上海）信息技术有限公司
+ * Copyright (c) 2018 墨阳
  */
 public class RedissonConfigTest {
 
