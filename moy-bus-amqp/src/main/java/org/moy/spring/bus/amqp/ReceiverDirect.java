@@ -21,16 +21,16 @@ import java.io.IOException;
  * Copyright (c) 2018 墨阳
  */
 @Component
-public class Receiver {
+public class ReceiverDirect {
 
-    private static Logger LOG = LoggerFactory.getLogger(Receiver.class);
+    private static Logger LOG = LoggerFactory.getLogger(ReceiverDirect.class);
 
-    @RabbitListener(queues = RabbitmqConstants.MOY_QUEUE)
+    @RabbitListener(queues = RabbitmqConstants.MOY_DIRECT_EXCHANGE_QUEUE)
     @RabbitHandler
     public void process(String context, Channel channel, Message message) throws IOException {
         boolean basicNack = true;
         try {
-            LOG.info("正在处理消息: [" + context + " ],处理时间: " + System.currentTimeMillis());
+            LOG.info("Direct 正在处理消息: [" + context + " ],处理时间: " + System.currentTimeMillis());
             // 处理成功 确认消息
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
             basicNack = false;

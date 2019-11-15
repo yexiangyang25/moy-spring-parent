@@ -4,7 +4,6 @@ package org.moy.spring.bus.amqp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
  * Copyright (c) 2018 墨阳
  */
 @SpringBootApplication
-@EnableDiscoveryClient
 @RestController
 public class AmqpApplication {
 
     @Autowired
-    private  Sender sender;
+    private Sender sender;
 
     public static void main(String[] args) {
         SpringApplication.run(AmqpApplication.class, args);
     }
 
     @GetMapping("/")
-    public void send(){
+    public void send() {
         sender.send();
+    }
+
+    @GetMapping("/direct")
+    public void sendDirect() {
+        sender.sendDirect();
+    }
+
+    @GetMapping("/fanout")
+    public void sendFanout() {
+        sender.sendFanout();
     }
 }
