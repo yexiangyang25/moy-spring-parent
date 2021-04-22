@@ -41,7 +41,7 @@
         <pagehelper.boot.version>1.2.7</pagehelper.boot.version>
         <druid.boot.version>1.1.10</druid.boot.version>
         <!-- 应用权限 相关属性 -->
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.0</shiro.version>
         <jwt.version>3.4.0</jwt.version>
         <codec.version>1.11</codec.version>
         <!-- 工具类 相关属性 -->
